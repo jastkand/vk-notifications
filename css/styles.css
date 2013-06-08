@@ -1,0 +1,27 @@
+.btn {
+    font-size: 11px;
+    margin: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    outline: none;
+    padding: 4px 14px;
+    font-family: tahoma, arial, verdana, Lucida Sans, sans-serif;
+    vertical-align: top;
+    overflow: visible;
+    line-height: 13px;
+    border: 1px solid #5980A9;
+    border-top-color: #789ABF;
+    color: #FFF;
+    text-shadow: 0 1px 0 #45688E;
+    background: #6181a6 url(http://st0.vk.me/images/button_vk.png) repeat-x 0 -16px;
+}
+
+#authBtn {
+    display: none;
+}
+
+.popup #wrap {
+    width: 300px;
+    height: 200px;
+    padding: 10px 20px;
+}

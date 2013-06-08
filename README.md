@@ -1,4 +1,4 @@
-vk-notifications
-================
+Оповещения VK
+=============
 
-Adds notifications about new post in groups.
+Реализация функции оповещения о новых сообщениях из групп социальной сети VK
