@@ -1,5 +1,19 @@
 body {
-  font-family: Helvetica, Arial, sans-serif; }
+  font-size: 75%;
+  font-family: tahoma, arial, verdana, sans-serif, Lucida Sans; }
+
+.popup {
+  width: 450px; }
+  .popup header {
+    background: #E1E7ED;
+    color: #45688E;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+    font-weight: bold; }
+
+.actions {
+  padding: 8px 12px 12px; }
 
 .btn {
   font-size: 11px;
@@ -16,27 +30,20 @@ body {
   border-top-color: #789ABF;
   color: #FFF;
   text-shadow: 0 1px 0 #45688E;
-  background: #6181a6 url(http://st0.vk.me/images/button_vk.png) repeat-x 0 -16px; }
+  border-radius: 2px;
+  background: #6181a6;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7a9bbd), color-stop(100%, #50769e));
+  background: -webkit-linear-gradient(top, #7a9bbd 0%, #50769e 100%);
+  background: linear-gradient(to bottom, #7a9bbd 0%, #50769e 100%); }
 
 #authBtn {
   display: none; }
 
-.popup #wrap {
-  width: 300px;
-  height: 200px;
-  padding: 10px 20px; }
-
-#list {
-  padding: 0;
-  list-style: none none;
-  margin: 0 -20px;
-  width: 100%; }
-  #list li {
+#notifications {
+  padding: 0; }
+  #notifications .item {
     background: #fff;
-    padding: 5px 10px;
-    border-bottom: 1px solid #666; }
-    #list li:hover {
-      background: #eee;
-      border-bottom: 1px solid #444; }
-    #list li:last-child {
-      border: none; }
+    padding: 8px 12px;
+    border-top: 1px solid #DAE2E8; }
+    #notifications .item:hover {
+      background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5); }

@@ -1,3 +1,7 @@
+replaceURLWithHTMLLinks = (text) ->
+  exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
+  text.replace exp, "<a href='$1'>$1</a>"
+
 $ ->
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     if items.vkaccess_token.length is undefined
@@ -9,7 +13,12 @@ $ ->
     API.getWall '-52955676', items.vkaccess_token, (data) ->
       for item, i in data.response
         continue if i is 0
-        $('#list').append $('<li />').html(item.text)
+        $('#notifications').append $('<div />', {class: 'item'}).html(replaceURLWithHTMLLinks item.text)
+
+
+  $('a').click (e) ->
+    chrome.tabs.create {url: $(this).attr('href'), selected: true}
+    e.preventDefault()
 
 
   $('#authBtn').click (e) ->
