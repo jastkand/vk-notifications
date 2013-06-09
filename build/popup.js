@@ -25,7 +25,7 @@
         return;
       }
       console.log(items.vkaccess_token);
-      return API.getWall('-52955676', items.vkaccess_token, function(data) {
+      return API.wallGet('-52955676', items.vkaccess_token, function(data) {
         var i, item, _i, _len, _ref, _results;
         _ref = data.response;
         _results = [];
