@@ -1,5 +1,6 @@
 body {
   font-size: 75%;
+  line-height: 130%;
   font-family: tahoma, arial, verdana, sans-serif, Lucida Sans; }
 
 .popup {
@@ -10,10 +11,29 @@ body {
     height: 30px;
     line-height: 30px;
     padding: 0 12px;
-    font-weight: bold; }
+    font-weight: bold;
+    box-shadow: 0px 1px 2px #999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; }
+  .popup #wrapper {
+    padding-top: 30px; }
+
+#notifications {
+  padding: 0; }
+  #notifications .item {
+    background: #fff;
+    padding: 8px 12px;
+    border-top: 1px solid #DAE2E8; }
+    #notifications .item:hover {
+      background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5); }
 
 .actions {
-  padding: 8px 12px 12px; }
+  padding: 12px; }
+
+#authBtn {
+  display: none; }
 
 .btn {
   font-size: 11px;
@@ -35,15 +55,3 @@ body {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7a9bbd), color-stop(100%, #50769e));
   background: -webkit-linear-gradient(top, #7a9bbd 0%, #50769e 100%);
   background: linear-gradient(to bottom, #7a9bbd 0%, #50769e 100%); }
-
-#authBtn {
-  display: none; }
-
-#notifications {
-  padding: 0; }
-  #notifications .item {
-    background: #fff;
-    padding: 8px 12px;
-    border-top: 1px solid #DAE2E8; }
-    #notifications .item:hover {
-      background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5); }
