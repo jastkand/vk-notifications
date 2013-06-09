@@ -8,6 +8,14 @@
     return text.replace(exp, "<a href='$1'>$1</a>");
   };
 
+  $(document).on('click', 'a', function(e) {
+    chrome.tabs.create({
+      url: $(this).attr('href'),
+      selected: true
+    });
+    return e.preventDefault();
+  });
+
   $(function() {
     chrome.storage.local.get({
       'vkaccess_token': {}
@@ -32,13 +40,6 @@
         }
         return _results;
       });
-    });
-    $('a').click(function(e) {
-      chrome.tabs.create({
-        url: $(this).attr('href'),
-        selected: true
-      });
-      return e.preventDefault();
     });
     $('#authBtn').click(function(e) {
       chrome.runtime.sendMessage({
