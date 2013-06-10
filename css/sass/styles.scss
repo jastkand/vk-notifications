@@ -4,6 +4,29 @@ body {
   font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
 }
 
+a {
+  color: #2B587A;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.loader {
+  background: url(../assets/loader.gif) 50% 50% no-repeat transparent;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.datestamp {
+  padding-top: 2px;
+  font-size: 10px;
+  color: #999;
+  display: block;
+}
+
 .popup {
   width: 450px;
 
@@ -23,6 +46,36 @@ body {
 
   #wrapper {
     padding-top: 30px;
+  }
+}
+
+.options {
+  padding: 20px 40px;
+
+  header {
+    font-size: 120%;
+    font-weight: bold;
+    color: #45688E;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #C0CAD5;
+  }
+
+  .option-items {
+    .item {
+      padding-bottom: 20px;
+
+      input[name=pageUrl] {
+        width: 250px;
+        border: 1px solid #C0CAD5;
+        background: #FFF;
+        color: #000;
+        margin: 0px;
+        padding: 4px;
+        outline: 0;
+        vertical-align: top;
+      }
+    }
   }
 }
 
@@ -59,7 +112,7 @@ body {
   font-family: tahoma, arial, verdana, Lucida Sans, sans-serif;
   vertical-align: top;
   overflow: visible;
-  line-height: 13px;
+  line-height: 14px;
   border: 1px solid #5980A9;
   border-top-color: #789ABF;
   color: #FFF;
@@ -69,4 +122,18 @@ body {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7a9bbd), color-stop(100%,#50769e));
   background: -webkit-linear-gradient(top, #7a9bbd 0%,#50769e 100%);
   background: linear-gradient(to bottom, #7a9bbd 0%,#50769e 100%);
+
+  &:hover {
+    background: #668aae;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#789abf), color-stop(100%,#5980a9));
+    background: -webkit-linear-gradient(top, #789abf 0%,#5980a9 100%);
+    background: linear-gradient(to bottom, #789abf 0%,#5980a9 100%);
+  }
+
+  &:active {
+    background: #5e80a5;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5e80a5), color-stop(100%,#5e80a5));
+    background: -webkit-linear-gradient(top, #5e80a5 0%,#5e80a5 100%);
+    background: linear-gradient(to bottom, #5e80a5 0%,#5e80a5 100%);
+  }
 }
