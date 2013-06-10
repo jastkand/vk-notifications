@@ -1,8 +1,3 @@
-replaceURLWithHTMLLinks = (text) ->
-  exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
-  text.replace exp, "<a href='$1'>$1</a>"
-
-
 $(document).on 'click', 'a', (e) ->
   chrome.tabs.create {url: $(this).attr('href'), selected: true}
 
@@ -15,8 +10,6 @@ $ ->
       $('#authBtn').show()
       return
 
-    console.log items.vkaccess_token
-
     API.wallGet '-52955676', items.vkaccess_token, (data) ->
       for item, i in data.response
         continue if i is 0
@@ -26,8 +19,7 @@ $ ->
 
 
   $('#authBtn').click (e) ->
-    chrome.runtime.sendMessage {action: "vk_notification_auth"}, (response) ->
-      console.log(response.content)
+    chrome.runtime.sendMessage {action: "vk_notification_auth"}
 
     e.preventDefault()
 
