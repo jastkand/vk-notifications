@@ -20,7 +20,9 @@ $ ->
     API.wallGet '-52955676', items.vkaccess_token, (data) ->
       for item, i in data.response
         continue if i is 0
-        $('#notifications').append $('<div />', {class: 'item'}).html(replaceURLWithHTMLLinks item.text)
+        $('<div />', {class: 'item'}).html(replaceURLWithHTMLLinks item.text).append(
+          $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate'))
+        ).appendTo $('#notifications')
 
 
   $('#authBtn').click (e) ->

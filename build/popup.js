@@ -34,9 +34,11 @@
           if (i === 0) {
             continue;
           }
-          _results.push($('#notifications').append($('<div />', {
+          _results.push($('<div />', {
             "class": 'item'
-          }).html(replaceURLWithHTMLLinks(item.text))));
+          }).html(replaceURLWithHTMLLinks(item.text)).append($('<span />', {
+            "class": 'datestamp'
+          }).html(dateFormat(item.date * 1000, 'longDate'))).appendTo($('#notifications')));
         }
         return _results;
       });
