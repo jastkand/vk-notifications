@@ -9,5 +9,23 @@ var API = {
                 }
             }
         });
+    },
+    call: function(method, options, callback) {
+        var optionsString, requestUrl;
+        if (options && typeof options === "object") {
+            optionsString = JSON.stringify(options);
+        }
+        else {
+            optionsString = options;
+        }
+        requestUrl = "https://api.vk.com/method/" + method.toString() + "?" + optionsString;
+        $.ajax({
+            url: requestUrl,
+            success: function(data) {
+                if (callback && typeof callback === "function") {
+                    callback(data);
+                }
+            }
+        });
     }
 };
