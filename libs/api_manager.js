@@ -13,7 +13,7 @@ var API = {
     call: function(method, options, callback) {
         var optionsString, requestUrl;
         if (options && typeof options === "object") {
-            optionsString = JSON.stringify(options);
+            optionsString = serialize(options);
         }
         else {
             optionsString = options;
