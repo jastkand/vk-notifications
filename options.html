@@ -6,19 +6,25 @@
     <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/styles.css"/>
     <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/api_manager.js"></script>
+    <script type="text/javascript" src="libs/helpers.js"></script>
     <script type="text/javascript" src="build/options.js"></script>
 </head>
 <body class="options">
     <header>Оповещения VK</header>
     <div id="wrapper">
+        <div class="authActions">
+            <button class="btn" id="authBtn">Авторизоваться</button>
+        </div>
         <div class="option-items">
             <div class="item">
-                <input type="text" name="pageUrl" data-row="0" placeholder="Ссылка на группу"/>
-                <button class="btn" name="removeGroupItem">Удалить</button>
-                <div class="loader"></div>
+                <input type="text" name="pageUrl" data-row="0" placeholder="Ссылка на группу" value="http://vk.com/gdgomsk_news"/><!--
+                --><button class="btn" name="saveGroupItem">Сохранить</button><!--
+                --><div class="loader"></div><!--
+                --><span class="status"></span>
             </div>
         </div>
-        <button class="btn" name="addGroupItem">Добавить</button>
+        <button class="btn" id="addGroupItem">Добавить</button>
     </div>
 </body>
 </html>

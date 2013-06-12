@@ -13,7 +13,8 @@ a {
   background: url(../assets/loader.gif) 50% 50% no-repeat transparent;
   display: inline-block;
   width: 24px;
-  height: 24px; }
+  height: 24px;
+  margin-bottom: -3px; }
 
 .datestamp {
   padding-top: 2px;
@@ -37,6 +38,8 @@ a {
     width: 100%; }
   .popup #wrapper {
     padding-top: 30px; }
+  .popup #authBtn {
+    display: none; }
 
 .options {
   padding: 20px 40px; }
@@ -47,8 +50,10 @@ a {
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #C0CAD5; }
+  .options .authActions {
+    display: none; }
   .options .option-items .item {
-    padding-bottom: 20px; }
+    padding-bottom: 15px; }
     .options .option-items .item input[name=pageUrl] {
       width: 250px;
       border: 1px solid #C0CAD5;
@@ -57,7 +62,23 @@ a {
       margin: 0px;
       padding: 4px;
       outline: 0;
-      vertical-align: top; }
+      vertical-align: top;
+      margin-right: 4px; }
+    .options .option-items .item .loader {
+      display: none; }
+      .options .option-items .item .loader.visible {
+        display: inline-block; }
+    .options .option-items .item .status {
+      display: none;
+      vertical-align: top;
+      vertical-align: top;
+      line-height: 24px;
+      padding-left: 10px;
+      color: #999; }
+      .options .option-items .item .status.visible {
+        display: inline-block; }
+    .options .option-items .item * {
+      margin-right: 4px; }
 
 #notifications {
   padding: 0; }
@@ -70,9 +91,6 @@ a {
 
 .actions {
   padding: 12px; }
-
-#authBtn {
-  display: none; }
 
 .btn {
   font-size: 11px;
