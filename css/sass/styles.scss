@@ -73,6 +73,21 @@ a {
   .option-items {
     .item {
       padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #C0CAD5;
+
+      img {
+        padding-right: 4px;
+        float: left;
+      }
+
+      a.header {
+        color: #45688E;
+        font-size: 12px;
+        font-weight: bold;
+        display: block;
+        padding-bottom: 9px;
+      }
 
       input[name=pageUrl] {
         width: 250px;
@@ -128,6 +143,9 @@ a {
   }
 }
 
+.right {
+  float: right;
+}
 
 .actions {
   padding: 12px;

@@ -11,19 +11,15 @@
     <script type="text/javascript" src="build/options.js"></script>
 </head>
 <body class="options">
-    <header>Оповещения VK</header>
+    <header>
+        Оповещения VK
+        <button class="btn right" id="cleanGroupItems">Очистить список групп</button>
+    </header>
     <div id="wrapper">
         <div class="authActions">
             <button class="btn" id="authBtn">Авторизоваться</button>
         </div>
-        <div class="option-items">
-            <div class="item">
-                <input type="text" name="pageUrl" data-row="0" placeholder="Ссылка на группу" value="http://vk.com/gdgomsk_news"/><!--
-                --><button class="btn" name="saveGroupItem">Сохранить</button><!--
-                --><div class="loader"></div><!--
-                --><span class="status"></span>
-            </div>
-        </div>
+        <div class="option-items"></div>
         <button class="btn" id="addGroupItem">Добавить</button>
     </div>
 </body>

@@ -53,7 +53,18 @@ a {
   .options .authActions {
     display: none; }
   .options .option-items .item {
-    padding-bottom: 15px; }
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #C0CAD5; }
+    .options .option-items .item img {
+      padding-right: 4px;
+      float: left; }
+    .options .option-items .item a.header {
+      color: #45688E;
+      font-size: 12px;
+      font-weight: bold;
+      display: block;
+      padding-bottom: 9px; }
     .options .option-items .item input[name=pageUrl] {
       width: 250px;
       border: 1px solid #C0CAD5;
@@ -88,6 +99,9 @@ a {
     border-top: 1px solid #DAE2E8; }
     #notifications .item:hover {
       background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5); }
+
+.right {
+  float: right; }
 
 .actions {
   padding: 12px; }
