@@ -13,7 +13,7 @@
       'vkaccess_token': {}
     }, function(items) {
       if (items.vkaccess_token.length === void 0) {
-        $('#authBtn').show();
+        $('#auth').show();
         return;
       }
       return chrome.runtime.sendMessage({
@@ -40,16 +40,16 @@
         }
       });
     });
-    $('#authBtn').click(function(e) {
+    $('#auth').click(function(e) {
       chrome.runtime.sendMessage({
         action: "vk_notification_auth"
       });
       return e.preventDefault();
     });
-    return $('#signoutBtn').click(function(e) {
+    return $('#signout').click(function(e) {
       chrome.storage.local.remove('vkaccess_token');
       $('#list li').remove();
-      return $('#authBtn').show();
+      return $('#auth').show();
     });
   });
 

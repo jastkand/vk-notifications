@@ -7,7 +7,7 @@ $(document).on 'click', 'a', (e) ->
 $ ->
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     if items.vkaccess_token.length is undefined
-      $('#authBtn').show()
+      $('#auth').show()
       return
 
     chrome.runtime.sendMessage {action: "noification_list", token: items.vkaccess_token}, (response) ->
@@ -20,13 +20,13 @@ $ ->
           ).appendTo $('#notifications')
 
 
-  $('#authBtn').click (e) ->
+  $('#auth').click (e) ->
     chrome.runtime.sendMessage {action: "vk_notification_auth"}
 
     e.preventDefault()
 
 
-  $('#signoutBtn').click (e) ->
+  $('#signout').click (e) ->
     chrome.storage.local.remove 'vkaccess_token'
     $('#list li').remove()
-    $('#authBtn').show()
+    $('#auth').show()
