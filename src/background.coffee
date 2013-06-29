@@ -1,3 +1,27 @@
+# Return a promise
+#
+# @param  {string} url  Request path
+#
+# @return {function} $.ajax function for specified request path
+
+loadByUrl = (url) ->
+  return $.ajax
+    url: url
+    dataType: 'json'
+
+
+# Generate html object from data
+#
+# @param  {string} data  Array of data elements
+
+processData = (data) ->
+  result = _.flatten(
+    _.map data, (requests) ->
+      return _.rest(requests[0].response)
+  )
+  return _.sortBy result, (item) -> return item.date
+
+
 # Display an alert with an error message, description
 #
 # @param  {string} textToShow  Error message text
@@ -67,3 +91,17 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
       chrome.tabs.onUpdated.addListener(listenerHandler(tab.id))
 
     sendResponse({content: "OK"})
+
+  if request.action is "noification_list"
+    chrome.storage.local.get 'group_items': [], (items) ->
+      if items.group_items
+        requestPromisses = []
+        for item in items.group_items
+          requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: "-#{item}", count: 15, access_token: request.token})
+
+        $.when.all(requestPromisses).then (schemas) ->
+          sendResponse({content: 'OK', data: processData(schemas)})
+      else
+        sendResponse({content: 'EMPTY_GROUP_ITEMS'})
+
+  true

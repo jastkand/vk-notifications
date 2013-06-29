@@ -16,22 +16,28 @@
         $('#authBtn').show();
         return;
       }
-      return API.wallGet('-52955676', items.vkaccess_token, function(data) {
-        var i, item, _i, _len, _ref, _results;
-        _ref = data.response;
-        _results = [];
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          item = _ref[i];
-          if (i === 0) {
-            continue;
+      return chrome.runtime.sendMessage({
+        action: "noification_list",
+        token: items.vkaccess_token
+      }, function(response) {
+        var item, _i, _len, _ref, _results;
+        if (response.content === 'EMPTY_GROUP_ITEMS') {
+          return $('#notifications').append($('<p />', {
+            text: 'Список отслеживаемых групп пуст. Добавьте группы в настройках расширения.'
+          }));
+        } else {
+          _ref = response.data;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            item = _ref[_i];
+            _results.push($('<div />', {
+              "class": 'item'
+            }).html(item.text).append($('<span />', {
+              "class": 'datestamp'
+            }).html(dateFormat(item.date * 1000, 'longDate'))).appendTo($('#notifications')));
           }
-          _results.push($('<div />', {
-            "class": 'item'
-          }).html(replaceURLWithHTMLLinks(item.text)).append($('<span />', {
-            "class": 'datestamp'
-          }).html(dateFormat(item.date * 1000, 'longDate'))).appendTo($('#notifications')));
+          return _results;
         }
-        return _results;
       });
     });
     $('#authBtn').click(function(e) {

@@ -10,12 +10,14 @@ $ ->
       $('#authBtn').show()
       return
 
-    API.wallGet '-52955676', items.vkaccess_token, (data) ->
-      for item, i in data.response
-        continue if i is 0
-        $('<div />', {class: 'item'}).html(replaceURLWithHTMLLinks item.text).append(
-          $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate'))
-        ).appendTo $('#notifications')
+    chrome.runtime.sendMessage {action: "noification_list", token: items.vkaccess_token}, (response) ->
+      if response.content is 'EMPTY_GROUP_ITEMS'
+        $('#notifications').append($('<p />', {text: 'Список отслеживаемых групп пуст. Добавьте группы в настройках расширения.'}))
+      else
+        for item in response.data
+          $('<div />', {class: 'item'}).html(item.text).append(
+            $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate'))
+          ).appendTo $('#notifications')
 
 
   $('#authBtn').click (e) ->
