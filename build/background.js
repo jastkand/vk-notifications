@@ -15,7 +15,7 @@
       return _.rest(requests[0].response);
     }));
     return _.sortBy(result, function(item) {
-      return item.date;
+      return -item.date;
     });
   };
 
