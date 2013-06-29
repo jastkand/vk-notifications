@@ -2,8 +2,6 @@ groupItems = []
 
 
 addGroupItemToStroage = (item, fn) ->
-  console.log groupItems
-  console.log item
   if item
     if fn and fn.success and typeof fn.success is "function"
       callback = fn.success
@@ -12,16 +10,12 @@ addGroupItemToStroage = (item, fn) ->
 
     groupItems.push item unless item in groupItems
     chrome.storage.local.set {'group_items': groupItems}, callback
-
-    console.log groupItems
   else
     if fn and fn.error and typeof fn.error is "function"
       fn.error 'item is undefined'
 
 
 removeGroupItemFromStorage = (item, fn) ->
-  console.log item
-
   if item
     if fn and fn.success and typeof fn.success is "function"
       callback = fn.success

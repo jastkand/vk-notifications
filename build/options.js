@@ -7,8 +7,6 @@
 
   addGroupItemToStroage = function(item, fn) {
     var callback;
-    console.log(groupItems);
-    console.log(item);
     if (item) {
       if (fn && fn.success && typeof fn.success === "function") {
         callback = fn.success;
@@ -18,10 +16,9 @@
       if (__indexOf.call(groupItems, item) < 0) {
         groupItems.push(item);
       }
-      chrome.storage.local.set({
+      return chrome.storage.local.set({
         'group_items': groupItems
       }, callback);
-      return console.log(groupItems);
     } else {
       if (fn && fn.error && typeof fn.error === "function") {
         return fn.error('item is undefined');
@@ -31,7 +28,6 @@
 
   removeGroupItemFromStorage = function(item, fn) {
     var callback, itemIndex;
-    console.log(item);
     if (item) {
       if (fn && fn.success && typeof fn.success === "function") {
         callback = fn.success;
