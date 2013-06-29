@@ -36,13 +36,29 @@ a {
     color: #45688E;
     height: 30px;
     line-height: 30px;
-    padding: 0 12px;
+    padding: 0;
     font-weight: bold;
     box-shadow: 0px 1px 2px #999;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+
+    span {
+      padding: 0 12px;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        color: #555;
+      }
+    }
+
+    i {
+      font-size: 16px;
+    }
   }
 
   #wrapper {

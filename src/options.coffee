@@ -1,6 +1,16 @@
 groupItems = []
 
 
+openOptionsPage = ->
+  optionsUrl = chrome.extension.getURL('options.html')
+
+  chrome.tabs.query {url: optionsUrl}, (tabs)->
+    if tabs.length
+      chrome.tabs.update tabs[0].id, {active: true}
+    else
+      chrome.tabs.create {url: optionsUrl}
+
+
 addGroupItemToStroage = (item, fn) ->
   if item
     if fn and fn.success and typeof fn.success is "function"
@@ -81,6 +91,11 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
 
 
 $ ->
+  $('#settings').click (e)->
+    openOptionsPage()
+    e.preventDefault()
+
+
   $('#cleanGroupItems').click (e)->
     chrome.storage.local.remove 'group_items', ->
       $('.item').remove()
