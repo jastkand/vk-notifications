@@ -109,13 +109,13 @@
   });
 
   $(function() {
-    $('#cleanGroupItems').click(function(e) {
+    $('#clean-items').click(function(e) {
       chrome.storage.local.remove('group_items', function() {
         return $('.item').remove();
       });
       return e.preventDefault();
     });
-    $('#addGroupItem').click(function(e) {
+    $('#add-item').click(function(e) {
       var $input;
       $input = $('<input />', {
         type: 'text',
@@ -134,13 +134,13 @@
       $input.focus();
       return e.preventDefault();
     });
-    $('#authBtn').click(function(e) {
+    $('#auth').click(function(e) {
       chrome.runtime.sendMessage({
         action: "vk_notification_auth"
       }, function(response) {
         if (response.content === 'OK') {
-          $('.authActions').hide();
-          return $('.option-items, #addGroupItem').show();
+          $('.auth-actions').hide();
+          return $('.option-items, #add-item').show();
         }
       });
       return e.preventDefault();
@@ -149,8 +149,8 @@
       'vkaccess_token': {}
     }, function(items) {
       if (items.vkaccess_token.length === void 0) {
-        $('.authActions').show();
-        $('.option-items, #addGroupItem').hide();
+        $('.auth-actions').show();
+        $('.option-items, #add-item').hide();
       }
     });
     return chrome.storage.local.get({

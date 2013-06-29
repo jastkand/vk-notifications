@@ -81,14 +81,14 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
 
 
 $ ->
-  $('#cleanGroupItems').click (e)->
+  $('#clean-items').click (e)->
     chrome.storage.local.remove 'group_items', ->
       $('.item').remove()
 
     e.preventDefault()
 
 
-  $('#addGroupItem').click (e)->
+  $('#add-item').click (e)->
     $input = $('<input />', {type: 'text', name: 'pageUrl', placeholder: 'Ссылка на группу'})
     $('<div />', {class: 'item'})
       .append($input)
@@ -100,19 +100,19 @@ $ ->
     e.preventDefault()
 
 
-  $('#authBtn').click (e) ->
+  $('#auth').click (e) ->
     chrome.runtime.sendMessage {action: "vk_notification_auth"}, (response) ->
       if response.content is 'OK'
-        $('.authActions').hide()
-        $('.option-items, #addGroupItem').show()
+        $('.auth-actions').hide()
+        $('.option-items, #add-item').show()
 
     e.preventDefault()
 
 
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     if items.vkaccess_token.length is undefined
-      $('.authActions').show()
-      $('.option-items, #addGroupItem').hide()
+      $('.auth-actions').show()
+      $('.option-items, #add-item').hide()
     return
 
 
