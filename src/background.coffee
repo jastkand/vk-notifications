@@ -19,7 +19,7 @@ processData = (data) ->
     _.map data, (requests) ->
       return _.rest(requests[0].response)
   )
-  return _.sortBy result, (item) -> return item.date
+  return _.sortBy result, (item) -> return -item.date
 
 
 # Display an alert with an error message, description
