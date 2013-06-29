@@ -30,3 +30,9 @@ $ ->
     chrome.storage.local.remove 'vkaccess_token'
     $('#list li').remove()
     $('#auth').show()
+
+
+  $('#settings').click (e) ->
+    e.preventDefault()
+    chrome.runtime.sendMessage {action: "open_options_page"}
+

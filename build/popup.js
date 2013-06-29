@@ -46,10 +46,16 @@
       });
       return e.preventDefault();
     });
-    return $('#signout').click(function(e) {
+    $('#signout').click(function(e) {
       chrome.storage.local.remove('vkaccess_token');
       $('#list li').remove();
       return $('#auth').show();
+    });
+    return $('#settings').click(function(e) {
+      e.preventDefault();
+      return chrome.runtime.sendMessage({
+        action: "open_options_page"
+      });
     });
   });
 

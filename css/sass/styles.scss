@@ -48,16 +48,16 @@ a {
       padding: 0 12px;
     }
 
-    a {
+    #settings {
       text-decoration: none;
 
       &:hover {
         color: #555;
       }
-    }
 
-    i {
-      font-size: 16px;
+      i {
+        font-size: 16px;
+      }
     }
   }
 
@@ -65,7 +65,7 @@ a {
     padding-top: 30px;
   }
 
-  #authBtn {
+  #auth {
     display: none;
   }
 }

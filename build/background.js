@@ -67,7 +67,7 @@
   };
 
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    var vkAuthenticationUrl, vkClientId, vkRequestedScopes;
+    var optionsUrl, vkAuthenticationUrl, vkClientId, vkRequestedScopes;
     if (request.action === "vk_notification_auth") {
       vkClientId = '3696318';
       vkRequestedScopes = 'wall,offline';
@@ -109,6 +109,25 @@
             content: 'EMPTY_GROUP_ITEMS'
           });
         }
+      });
+    }
+    if (request.action === "open_options_page") {
+      optionsUrl = chrome.extension.getURL('options.html');
+      chrome.tabs.query({
+        url: optionsUrl
+      }, function(tabs) {
+        if (tabs.length) {
+          return chrome.tabs.update(tabs[0].id, {
+            active: true
+          });
+        } else {
+          return chrome.tabs.create({
+            url: optionsUrl
+          });
+        }
+      });
+      sendResponse({
+        content: 'OK'
       });
     }
     return true;
