@@ -86,14 +86,14 @@
       chrome.storage.local.get({
         'group_items': []
       }, function(items) {
-        var item, requestPromisses, _i, _len, _ref;
-        if (items.group_items.length !== 0) {
+        var item, key, requestPromisses, _ref;
+        if (!$.isEmptyObject(items.group_items)) {
           requestPromisses = [];
           _ref = items.group_items;
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            item = _ref[_i];
+          for (key in _ref) {
+            item = _ref[key];
             requestPromisses.push(loadByUrl(API.requestUrl('wall.get', {
-              owner_id: "-" + item,
+              owner_id: key,
               count: 15,
               access_token: request.token
             })));
@@ -101,7 +101,8 @@
           return $.when.all(requestPromisses).then(function(schemas) {
             return sendResponse({
               content: 'OK',
-              data: processData(schemas)
+              data: processData(schemas),
+              groups: items.group_items
             });
           });
         } else {

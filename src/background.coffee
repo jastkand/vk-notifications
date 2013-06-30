@@ -94,13 +94,13 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
   if request.action is "noification_list"
     chrome.storage.local.get 'group_items': [], (items) ->
-      if items.group_items.length isnt 0
+      unless $.isEmptyObject(items.group_items)
         requestPromisses = []
-        for item in items.group_items
-          requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: "-#{item}", count: 15, access_token: request.token})
+        for key, item of items.group_items
+          requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 15, access_token: request.token})
 
         $.when.all(requestPromisses).then (schemas) ->
-          sendResponse({content: 'OK', data: processData(schemas)})
+          sendResponse({content: 'OK', data: processData(schemas), groups: items.group_items})
       else
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
 
