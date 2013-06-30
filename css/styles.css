@@ -43,7 +43,8 @@ a {
       .popup header #settings:hover {
         color: #555; }
       .popup header #settings i {
-        font-size: 16px; }
+        font-size: 16px;
+        line-height: 32px; }
   .popup #wrapper {
     padding-top: 30px; }
   .popup #auth {
