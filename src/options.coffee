@@ -81,14 +81,19 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
 
 
 $ ->
-  $('#clean-items').click (e)->
+
+  # Remove all group-items from local storage
+  #
+  $('#clean-items').click (e) ->
     chrome.storage.local.remove 'group_items', ->
       $('.item').remove()
 
     e.preventDefault()
 
 
-  $('#add-item').click (e)->
+  # Add controls for adding a group-item
+  #
+  $('#add-item').click (e) ->
     $input = $('<input />', {type: 'text', name: 'pageUrl', placeholder: 'Ссылка на группу'})
     $('<div />', {class: 'item'})
       .append($input)
@@ -100,6 +105,10 @@ $ ->
     e.preventDefault()
 
 
+  # Auth button click listener
+  #
+  # Sends message to background script to run 'vk_notification_auth' action
+  #
   $('#auth').click (e) ->
     chrome.runtime.sendMessage {action: "vk_notification_auth"}, (response) ->
       if response.content is 'OK'
@@ -109,6 +118,8 @@ $ ->
     e.preventDefault()
 
 
+  # Show auth button if user is not authorized
+  #
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     if items.vkaccess_token.length is undefined
       $('.auth-actions').show()
@@ -116,6 +127,8 @@ $ ->
     return
 
 
+  # Get group-items from local storage
+  #
   chrome.storage.local.get 'group_items': [], (items) ->
     groupItems = items.group_items
 
