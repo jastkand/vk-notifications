@@ -87,7 +87,7 @@
         'group_items': []
       }, function(items) {
         var item, requestPromisses, _i, _len, _ref;
-        if (items.group_items) {
+        if (items.group_items.length !== 0) {
           requestPromisses = [];
           _ref = items.group_items;
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {

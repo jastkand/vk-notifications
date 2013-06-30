@@ -94,7 +94,7 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
   if request.action is "noification_list"
     chrome.storage.local.get 'group_items': [], (items) ->
-      if items.group_items
+      if items.group_items.length isnt 0
         requestPromisses = []
         for item in items.group_items
           requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: "-#{item}", count: 15, access_token: request.token})
