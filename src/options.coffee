@@ -1,6 +1,8 @@
-groupItems = []
+groupItems = {}
 
 
+# Adds group-item to localstorage
+#
 addGroupItemToStroage = (item, fn) ->
   if item
     if fn and fn.success and typeof fn.success is "function"
@@ -8,22 +10,25 @@ addGroupItemToStroage = (item, fn) ->
     else
       callback = ->
 
-    groupItems.push item unless item in groupItems
+    _id = if item.type is "page" then "-#{item.gid}" else "#{item.gid}"
+
+    groupItems[_id] = item
     chrome.storage.local.set {'group_items': groupItems}, callback
   else
     if fn and fn.error and typeof fn.error is "function"
       fn.error 'item is undefined'
 
 
-removeGroupItemFromStorage = (item, fn) ->
-  if item
+# Removes group-item from localstorage
+#
+removeGroupItemFromStorage = (gid, fn) ->
+  if gid
     if fn and fn.success and typeof fn.success is "function"
       callback = fn.success
     else
       callback = ->
 
-    itemIndex = groupItems.indexOf(item)
-    groupItems.splice(itemIndex, 1)
+    delete groupItems[gid]
 
     chrome.storage.local.set {'group_items': groupItems}, callback
   else
@@ -31,13 +36,15 @@ removeGroupItemFromStorage = (item, fn) ->
       fn.error 'item is undefined'
 
 
-drawGroupItem = (owner, response) ->
-  owner
-    .append($('<img />', {src: response.photo}))
-    .append($('<a />', {class: 'header', href: "http://vk.com/#{response.screen_name}", text: response.name}))
-    .append($('<button />', {class: 'btn', name: 'removeGroupItem', text: 'Отписаться', 'data-group': response.gid}))
+drawGroupItem = ($owner, content, _id) ->
+  $owner
+    .append($('<img />', {src: content.photo}))
+    .append($('<a />', {class: 'header', href: "http://vk.com/#{content.screen_name}", text: content.name}))
+    .append($('<button />', {class: 'btn', name: 'removeGroupItem', text: 'Отписаться', 'data-group': _id}))
 
 
+# Event handler to remove group-item from storage
+#
 $(document).on 'click', 'button[name=removeGroupItem]', (e) ->
   $self = $(this)
   removeGroupItemFromStorage $(this).data('group'), success: ->
@@ -80,7 +87,7 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
 
   API.call 'groups.getById', {gid: shortName[1]}, (data) ->
     unless data.error
-      addGroupItemToStroage data.response[0].gid, success: ->
+      addGroupItemToStroage data.response[0], success: ->
         $pageUrl.remove()
         $self.remove()
         drawGroupItem($parent, data.response[0])
@@ -142,13 +149,17 @@ $ ->
 
   # Get group-items from local storage
   #
-  chrome.storage.local.get 'group_items': [], (items) ->
+  chrome.storage.local.get 'group_items': {}, (items) ->
     groupItems = items.group_items
 
-    for item in groupItems
-      API.call 'groups.getById', {gid: item}, (data) ->
-        unless data.error
-          $parent = $('<div />', {class: 'item'})
-          $('.option-items').append($parent)
+    for key, item of groupItems
+      $parent = $('<div />', {class: 'item'})
+      $('.option-items').append($parent)
 
-          drawGroupItem($parent, data.response[0])
+      drawGroupItem($parent, item, key)
+
+#      TODO: make update of information about group on opening options page
+#
+#      API.call 'groups.getById', {gid: key}, (data) ->
+#        unless data.error
+
