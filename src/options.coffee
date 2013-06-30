@@ -45,6 +45,19 @@ $(document).on 'click', 'button[name=removeGroupItem]', (e) ->
   e.preventDefault()
 
 
+# Bind on 'enter' key pressed event listener for pageUrl input field
+#
+# Tries to save information about group to localstorage
+#
+$(document).on 'keypress', 'input[name=pageUrl]', (e) ->
+  if e.which is 13
+    $(this).parent().find('button[name=saveGroupItem]').click()
+
+
+# Live listener of click event
+#
+# Tries to saves information about group to localstorage
+#
 $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
   $self = $(this)
   $parent = $self.parent()

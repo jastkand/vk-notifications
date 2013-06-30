@@ -72,6 +72,12 @@
     return e.preventDefault();
   });
 
+  $(document).on('keypress', 'input[name=pageUrl]', function(e) {
+    if (e.which === 13) {
+      return $(this).parent().find('button[name=saveGroupItem]').click();
+    }
+  });
+
   $(document).on('click', 'button[name=saveGroupItem]', function(e) {
     var $loader, $pageUrl, $parent, $self, $status, shortName, url;
     $self = $(this);
