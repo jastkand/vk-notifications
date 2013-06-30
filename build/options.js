@@ -5,15 +5,15 @@
   groupItems = {};
 
   addGroupItemToStroage = function(item, fn) {
-    var callback, _id;
+    var callback;
     if (item) {
       if (fn && fn.success && typeof fn.success === "function") {
         callback = fn.success;
       } else {
         callback = function() {};
       }
-      _id = item.type === "page" ? "-" + item.gid : "" + item.gid;
-      groupItems[_id] = item;
+      item.gid = "-" + item.gid;
+      groupItems[item.gid] = item;
       return chrome.storage.local.set({
         'group_items': groupItems
       }, callback);
@@ -43,7 +43,7 @@
     }
   };
 
-  drawGroupItem = function($owner, content, _id) {
+  drawGroupItem = function($owner, content) {
     return $owner.append($('<img />', {
       src: content.photo
     })).append($('<a />', {
@@ -54,7 +54,7 @@
       "class": 'btn',
       name: 'removeGroupItem',
       text: 'Отписаться',
-      'data-group': _id
+      'data-group': content.gid
     }));
   };
 
@@ -168,7 +168,7 @@
           "class": 'item'
         });
         $('.option-items').append($parent);
-        _results.push(drawGroupItem($parent, item, key));
+        _results.push(drawGroupItem($parent, item));
       }
       return _results;
     });

@@ -10,9 +10,9 @@ addGroupItemToStroage = (item, fn) ->
     else
       callback = ->
 
-    _id = if item.type is "page" then "-#{item.gid}" else "#{item.gid}"
+    item.gid = "-#{item.gid}"
 
-    groupItems[_id] = item
+    groupItems[item.gid] = item
     chrome.storage.local.set {'group_items': groupItems}, callback
   else
     if fn and fn.error and typeof fn.error is "function"
@@ -36,11 +36,11 @@ removeGroupItemFromStorage = (gid, fn) ->
       fn.error 'item is undefined'
 
 
-drawGroupItem = ($owner, content, _id) ->
+drawGroupItem = ($owner, content) ->
   $owner
     .append($('<img />', {src: content.photo}))
     .append($('<a />', {class: 'header', href: "http://vk.com/#{content.screen_name}", text: content.name}))
-    .append($('<button />', {class: 'btn', name: 'removeGroupItem', text: 'Отписаться', 'data-group': _id}))
+    .append($('<button />', {class: 'btn', name: 'removeGroupItem', text: 'Отписаться', 'data-group': content.gid}))
 
 
 # Event handler to remove group-item from storage
@@ -156,7 +156,7 @@ $ ->
       $parent = $('<div />', {class: 'item'})
       $('.option-items').append($parent)
 
-      drawGroupItem($parent, item, key)
+      drawGroupItem($parent, item)
 
 #      TODO: make update of information about group on opening options page
 #
