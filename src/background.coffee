@@ -1,3 +1,28 @@
+groupPosts = []
+
+postsCount = {}
+
+updatePosts = ->
+  # Get access_token from localstorage
+  chrome.storage.local.get 'vkaccess_token': {}, (items) ->
+    token = items.vkaccess_token
+    if token.length isnt undefined
+      chrome.storage.local.get 'group_items': {}, (items) ->
+        unless $.isEmptyObject(items.group_items)
+          requestPromisses = []
+          for key, item of items.group_items
+            requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 10, access_token: token})
+
+          $.when.all(requestPromisses).then (schemas) ->
+            processPosts schemas, (posts, totalNewPosts) ->
+              groupPosts = posts
+              console.log groupPosts
+              console.log postsCount
+              console.log totalNewPosts
+
+#  if fn and typeof fn is "function"
+#    fn()
+
 # Return a promise
 #
 # @param  {string} url  Request path
@@ -20,6 +45,36 @@ processData = (data) ->
       return _.rest(requests[0].response)
   )
   return _.sortBy result, (item) -> return -item.date
+
+
+processPosts = (posts, fn) ->
+  totalNewPosts = 0
+
+  result = _.flatten(
+    _.map posts, (requests) ->
+
+      # if the new group was added
+      if postsCount[requests[0].response[1].to_id] is undefined
+
+        # all posts from that group are new
+        totalNewPosts += 10
+      else
+        unless requests[0].response[0] - postsCount[requests[0].response[1].to_id] < 0
+          totalNewPosts = requests[0].response[0] - postsCount[requests[0].response[1].to_id]
+
+      # store the number of total posts in that group
+      postsCount[requests[0].response[1].to_id] = requests[0].response[0] unless requests[0].response[0] is 0
+
+      return _.rest(requests[0].response)
+  )
+
+  # Save new value of postsCount to localstorage
+  chrome.storage.local.set {'pposts_count': postsCount}
+
+  posts = _.sortBy result, (item) -> return -item.date
+
+  if fn and typeof fn is "function"
+    fn(posts, totalNewPosts)
 
 
 # Display an alert with an error message, description
@@ -81,6 +136,11 @@ listenerHandler = (authenticationTabId) ->
           chrome.tabs.remove tabId
 
 
+# Add onAlarm listener, that schedules tasks
+chrome.alarms.onAlarm.addListener (alarm)->
+  updatePosts if alarm.name is 'update_posts'
+
+
 chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
   if request.action is "vk_notification_auth"
     vkClientId           = '3696318'
@@ -93,14 +153,15 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
     sendResponse({content: "OK"})
 
   if request.action is "noification_list"
-    chrome.storage.local.get 'group_items': [], (items) ->
+    chrome.storage.local.get 'group_items': {}, (items) ->
       unless $.isEmptyObject(items.group_items)
-        requestPromisses = []
-        for key, item of items.group_items
-          requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 15, access_token: request.token})
-
-        $.when.all(requestPromisses).then (schemas) ->
-          sendResponse({content: 'OK', data: processData(schemas), groups: items.group_items})
+        sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
+#        requestPromisses = []
+#        for key, item of items.group_items
+#          requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 15, access_token: request.token})
+#
+#        $.when.all(requestPromisses).then (schemas) ->
+#          sendResponse({content: 'OK', data: processData(schemas), groups: items.group_items})
       else
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
 
@@ -116,3 +177,12 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
     sendResponse({content: 'OK'})
 
   true
+
+
+chrome.runtime.onInstalled.addListener ->
+  chrome.storage.local.get 'posts_count': {}, (items) ->
+    postsCount = items.posts_count
+
+    chrome.alarms.create "update_posts",
+      when: Date.now() + 1000,
+      periodInMinutes: 1.0
