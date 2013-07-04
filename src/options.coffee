@@ -1,5 +1,5 @@
 groupItems = {}
-
+accessToken = null
 
 # Adds group-item to localstorage
 #
@@ -85,7 +85,7 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
     $loader.removeClass('visible')
     return
 
-  API.call 'groups.getById', {gid: shortName[1]}, (data) ->
+  API.call 'groups.getById', {gid: shortName[1], access_token: accessToken}, (data) ->
     unless data.error
       addGroupItemToStroage data.response[0], success: ->
         $pageUrl.remove()
@@ -144,7 +144,9 @@ $ ->
     if items.vkaccess_token.length is undefined
       $('.auth-actions').show()
       $('.option-items, #add-item').hide()
-    return
+      return
+    else
+      accessToken = items.vkaccess_token
 
 
   # Get group-items from local storage
