@@ -15,12 +15,8 @@ updatePosts = ->
             requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 10, access_token: token})
 
           $.when.all(requestPromisses).then (schemas) ->
-            console.log schemas
             processPosts schemas, (posts, totalNewPosts) ->
-              console.log 'in callback'
               groupPosts = posts
-              console.log groupPosts
-              console.log postsCount
 
 
 # Return a promise
@@ -47,38 +43,48 @@ processData = (data) ->
   return _.sortBy result, (item) -> return -item.date
 
 
+processSingleRequest = (posts) ->
+
+  groupId = posts[0].response[1].to_id
+  console.log groupId
+
+  # if the new group was added
+  if postsCount[groupId] is undefined
+
+    # all posts from that group are new
+    totalNewPosts += 10
+  else
+    unless posts[0].response[0] - postsCount[groupId] < 0
+      totalNewPosts = posts[0].response[0] - postsCount[groupId]
+
+  # store the number of total posts in that group
+  postsCount[groupId] = posts[0].response[0] unless posts[0].response[0] is 0
+
+  return _.rest(posts[0].response)
+
+
+prosessArrayOfRequests = (posts) ->
+  result = _.flatten(
+    _.map posts, (requests) ->
+      return processSingleRequest(requests)
+  )
+  return result
+
+
 processPosts = (posts, fn) ->
   totalNewPosts = 0
 
-  result = _.flatten(
-    console.log posts
-    _.map posts, (requests) ->
-
-      console.log requests.response
-      groupId = requests.response[1].to_id
-      console.log groupId
-      # if the new group was added
-      if postsCount[groupId] is undefined
-
-        # all posts from that group are new
-        totalNewPosts += 10
-      else
-        unless requests.response[0] - postsCount[groupId] < 0
-          totalNewPosts = requests.response[0] - postsCount[groupId]
-
-      # store the number of total posts in that group
-      postsCount[groupId] = requests.response[0] unless requests.response[0] is 0
-
-      return _.rest(requests.response)
-  )
+  if typeof posts[0] is 'object'
+    responses = processSingleRequest(posts)
+  else
+    responses = prosessArrayOfRequests(posts)
 
   # Save new value of postsCount to localstorage
   chrome.storage.local.set {'posts_count': postsCount}
 
-  posts = _.sortBy result, (item) -> return -item.date
+  posts = _.sortBy responses, (item) -> return -item.date
 
   if fn and typeof fn is "function"
-    console.log('callback')
     fn(posts, totalNewPosts)
 
 
