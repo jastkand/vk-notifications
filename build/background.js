@@ -29,11 +29,12 @@
               })));
             }
             return $.when.all(requestPromisses).then(function(schemas) {
+              console.log(schemas);
               return processPosts(schemas, function(posts, totalNewPosts) {
+                console.log('in callback');
                 groupPosts = posts;
                 console.log(groupPosts);
-                console.log(postsCount);
-                return console.log(totalNewPosts);
+                return console.log(postsCount);
               });
             });
           }
@@ -62,26 +63,31 @@
   processPosts = function(posts, fn) {
     var result, totalNewPosts;
     totalNewPosts = 0;
-    result = _.flatten(_.map(posts, function(requests) {
-      if (postsCount[requests[0].response[1].to_id] === void 0) {
+    result = _.flatten(console.log(posts), _.map(posts, function(requests) {
+      var groupId;
+      console.log(requests.response);
+      groupId = requests.response[1].to_id;
+      console.log(groupId);
+      if (postsCount[groupId] === void 0) {
         totalNewPosts += 10;
       } else {
-        if (!(requests[0].response[0] - postsCount[requests[0].response[1].to_id] < 0)) {
-          totalNewPosts = requests[0].response[0] - postsCount[requests[0].response[1].to_id];
+        if (!(requests.response[0] - postsCount[groupId] < 0)) {
+          totalNewPosts = requests.response[0] - postsCount[groupId];
         }
       }
-      if (requests[0].response[0] !== 0) {
-        postsCount[requests[0].response[1].to_id] = requests[0].response[0];
+      if (requests.response[0] !== 0) {
+        postsCount[groupId] = requests.response[0];
       }
-      return _.rest(requests[0].response);
+      return _.rest(requests.response);
     }));
     chrome.storage.local.set({
-      'pposts_count': postsCount
+      'posts_count': postsCount
     });
     posts = _.sortBy(result, function(item) {
       return -item.date;
     });
     if (fn && typeof fn === "function") {
+      console.log('callback');
       return fn(posts, totalNewPosts);
     }
   };
@@ -135,7 +141,7 @@
 
   chrome.alarms.onAlarm.addListener(function(alarm) {
     if (alarm.name === 'update_posts') {
-      return updatePosts;
+      return updatePosts();
     }
   });
 
@@ -200,7 +206,6 @@
     }, function(items) {
       postsCount = items.posts_count;
       return chrome.alarms.create("update_posts", {
-        when: Date.now() + 1000,
         periodInMinutes: 1.0
       });
     });

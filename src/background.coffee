@@ -6,6 +6,7 @@ updatePosts = ->
   # Get access_token from localstorage
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     token = items.vkaccess_token
+
     if token.length isnt undefined
       chrome.storage.local.get 'group_items': {}, (items) ->
         unless $.isEmptyObject(items.group_items)
@@ -14,14 +15,13 @@ updatePosts = ->
             requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 10, access_token: token})
 
           $.when.all(requestPromisses).then (schemas) ->
+            console.log schemas
             processPosts schemas, (posts, totalNewPosts) ->
+              console.log 'in callback'
               groupPosts = posts
               console.log groupPosts
               console.log postsCount
-              console.log totalNewPosts
 
-#  if fn and typeof fn is "function"
-#    fn()
 
 # Return a promise
 #
@@ -51,29 +51,34 @@ processPosts = (posts, fn) ->
   totalNewPosts = 0
 
   result = _.flatten(
+    console.log posts
     _.map posts, (requests) ->
 
+      console.log requests.response
+      groupId = requests.response[1].to_id
+      console.log groupId
       # if the new group was added
-      if postsCount[requests[0].response[1].to_id] is undefined
+      if postsCount[groupId] is undefined
 
         # all posts from that group are new
         totalNewPosts += 10
       else
-        unless requests[0].response[0] - postsCount[requests[0].response[1].to_id] < 0
-          totalNewPosts = requests[0].response[0] - postsCount[requests[0].response[1].to_id]
+        unless requests.response[0] - postsCount[groupId] < 0
+          totalNewPosts = requests.response[0] - postsCount[groupId]
 
       # store the number of total posts in that group
-      postsCount[requests[0].response[1].to_id] = requests[0].response[0] unless requests[0].response[0] is 0
+      postsCount[groupId] = requests.response[0] unless requests.response[0] is 0
 
-      return _.rest(requests[0].response)
+      return _.rest(requests.response)
   )
 
   # Save new value of postsCount to localstorage
-  chrome.storage.local.set {'pposts_count': postsCount}
+  chrome.storage.local.set {'posts_count': postsCount}
 
   posts = _.sortBy result, (item) -> return -item.date
 
   if fn and typeof fn is "function"
+    console.log('callback')
     fn(posts, totalNewPosts)
 
 
@@ -138,7 +143,7 @@ listenerHandler = (authenticationTabId) ->
 
 # Add onAlarm listener, that schedules tasks
 chrome.alarms.onAlarm.addListener (alarm)->
-  updatePosts if alarm.name is 'update_posts'
+  updatePosts() if alarm.name is 'update_posts'
 
 
 chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
@@ -184,5 +189,4 @@ chrome.runtime.onInstalled.addListener ->
     postsCount = items.posts_count
 
     chrome.alarms.create "update_posts",
-      when: Date.now() + 1000,
       periodInMinutes: 1.0

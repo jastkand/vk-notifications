@@ -6,7 +6,7 @@
     "homepage_url": "http://github.com/jastkand",
     "version": "1.0.0",
 
-    "permissions": [ "contextMenus", "tabs", "storage" , "alarms", "http://*/*", "https://*/*" ],
+    "permissions": [ "notifications", "contextMenus", "tabs", "storage" , "alarms", "http://*/*", "https://*/*" ],
 
     "icons": {
         "128": "assets/icon-128.png",
@@ -29,5 +29,9 @@
     "browser_action": {
         "default_icon": "assets/icon-48.png",
         "default_popup": "popup.html"
-    }
+    },
+
+    "web_accessible_resources": [
+        "assets/icon-48.png"
+    ]
 }
