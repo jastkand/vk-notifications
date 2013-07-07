@@ -2,7 +2,27 @@ groupPosts = []
 
 postsCount = {}
 
-updatePosts = ->
+# The variable is used for storing the new value of postsCount
+#
+# Finally the content should be sent to postsCount variable
+
+newPostsCount = {}
+
+
+# Returns a badge text according to number of posts
+#
+badgeText = (number) ->
+  return '' if number <= 0
+  return '10+' if totalNewPosts > 10
+  totalNewPosts
+
+
+updatePosts = (fn) ->
+  if fn and typeof fn is 'function'
+    callback = fn
+  else
+    callback = ->
+
   # Get access_token from localstorage
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     token = items.vkaccess_token
@@ -15,8 +35,7 @@ updatePosts = ->
             requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 10, access_token: token})
 
           $.when.all(requestPromisses).then (schemas) ->
-            processPosts schemas, (posts, totalNewPosts) ->
-              groupPosts = posts
+            processPosts schemas, callback
 
 
 # Return a promise
@@ -31,22 +50,8 @@ loadByUrl = (url) ->
     dataType: 'json'
 
 
-# Generate html object from data
-#
-# @param  {string} data  Array of data elements
-
-processData = (data) ->
-  result = _.flatten(
-    _.map data, (requests) ->
-      return _.rest(requests[0].response)
-  )
-  return _.sortBy result, (item) -> return -item.date
-
-
 processSingleRequest = (posts) ->
-
   groupId = posts[0].response[1].to_id
-  console.log groupId
 
   # if the new group was added
   if postsCount[groupId] is undefined
@@ -58,7 +63,7 @@ processSingleRequest = (posts) ->
       totalNewPosts = posts[0].response[0] - postsCount[groupId]
 
   # store the number of total posts in that group
-  postsCount[groupId] = posts[0].response[0] unless posts[0].response[0] is 0
+  newPostsCount[groupId] = posts[0].response[0] unless posts[0].response[0] is 0
 
   return _.rest(posts[0].response)
 
@@ -74,10 +79,14 @@ prosessArrayOfRequests = (posts) ->
 processPosts = (posts, fn) ->
   totalNewPosts = 0
 
-  if typeof posts[0] is 'object'
-    responses = processSingleRequest(posts)
-  else
+  newPostsCount = {}
+
+  if $.isArray(posts[0])
     responses = prosessArrayOfRequests(posts)
+  else
+    responses = processSingleRequest(posts)
+
+  postsCount = newPostsCount
 
   # Save new value of postsCount to localstorage
   chrome.storage.local.set {'posts_count': postsCount}
@@ -149,7 +158,10 @@ listenerHandler = (authenticationTabId) ->
 
 # Add onAlarm listener, that schedules tasks
 chrome.alarms.onAlarm.addListener (alarm)->
-  updatePosts() if alarm.name is 'update_posts'
+  if alarm.name is 'update_posts'
+    updatePosts (posts, totalNewPosts) ->
+      chrome.browserAction.setBadgeText({text: badgeText(totalNewPosts)})
+      groupPosts = posts
 
 
 chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
@@ -166,13 +178,11 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
   if request.action is "noification_list"
     chrome.storage.local.get 'group_items': {}, (items) ->
       unless $.isEmptyObject(items.group_items)
-        sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
-#        requestPromisses = []
-#        for key, item of items.group_items
-#          requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 15, access_token: request.token})
-#
-#        $.when.all(requestPromisses).then (schemas) ->
-#          sendResponse({content: 'OK', data: processData(schemas), groups: items.group_items})
+        if groupPosts.length is 0
+          updatePosts (posts, number)->
+            sendResponse({content: 'OK', data: posts, groups: items.group_items})
+        else
+          sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
       else
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
 
@@ -195,4 +205,5 @@ chrome.runtime.onInstalled.addListener ->
     postsCount = items.posts_count
 
     chrome.alarms.create "update_posts",
+      when: 1
       periodInMinutes: 1.0
