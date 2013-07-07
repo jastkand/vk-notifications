@@ -29,9 +29,5 @@
     "browser_action": {
         "default_icon": "assets/icon-48.png",
         "default_popup": "popup.html"
-    },
-
-    "web_accessible_resources": [
-        "assets/icon-48.png"
-    ]
+    }
 }
