@@ -9,12 +9,15 @@ postsCount = {}
 newPostsCount = {}
 
 
+totalNewPosts = 0
+
+
 # Returns a badge text according to number of posts
 #
 badgeText = (number) ->
   return '' if number <= 0
-  return '10+' if totalNewPosts > 10
-  totalNewPosts
+  return '10+' if number > 10
+  "#{number}"
 
 
 updatePosts = (fn) ->
@@ -77,8 +80,6 @@ prosessArrayOfRequests = (posts) ->
 
 
 processPosts = (posts, fn) ->
-  totalNewPosts = 0
-
   newPostsCount = {}
 
   if $.isArray(posts[0])
@@ -197,6 +198,19 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
     sendResponse({content: 'OK'})
 
+  if request.action is "watch_post"
+    if request.read is 'ALL'
+      totalNewPosts = 0
+    else
+#      TODO: open tab with the clicked post
+#      chrome.tabs.query url: optionsUrl, (tabs)->
+#        if tabs.length
+#          chrome.tabs.update tabs[0].id, active: true
+#        else
+#          chrome.tabs.create url: optionsUrl
+
+    sendResponse({content: 'OK'})
+
   true
 
 
@@ -205,5 +219,5 @@ chrome.runtime.onInstalled.addListener ->
     postsCount = items.posts_count
 
     chrome.alarms.create "update_posts",
-      when: 1
+      when: Date.now() + 1000
       periodInMinutes: 1.0
