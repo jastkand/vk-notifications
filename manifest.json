@@ -3,7 +3,7 @@
 
     "name": "Оповещения VK",
     "description": "Adds notifications about new post in groups.",
-    "homepage_url": "http://github.com/jastkand",
+    "homepage_url": "https://github.com/jastkand/vk-notifications",
     "version": "1.0.0",
 
     "permissions": [ "contextMenus", "tabs", "storage" , "alarms", "http://*/*", "https://*/*" ],
