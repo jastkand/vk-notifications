@@ -48,16 +48,25 @@ a {
       padding: 0 12px;
     }
 
-    #settings {
-      text-decoration: none;
+    .pull-right {
+      padding: 0 12px;
 
-      &:hover {
-        color: #555;
-      }
+      span {
+        padding: 0 6px;
+        text-decoration: none;
 
-      i {
-        font-size: 16px;
-        line-height: 32px;
+        &:last-child {
+          padding-right: 0;
+        }
+
+        &:hover {
+          color: #555;
+        }
+
+        i {
+          font-size: 16px;
+          line-height: 32px;
+        }
       }
     }
   }

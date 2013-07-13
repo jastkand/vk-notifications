@@ -51,11 +51,17 @@
       $('#list li').remove();
       return $('#auth').show();
     });
+    $('#clean-up').click(function(e) {
+      chrome.runtime.sendMessage({
+        action: "clean_up"
+      });
+      return e.preventDefault();
+    });
     return $('#settings').click(function(e) {
-      e.preventDefault();
-      return chrome.runtime.sendMessage({
+      chrome.runtime.sendMessage({
         action: "open_options_page"
       });
+      return e.preventDefault();
     });
   });
 

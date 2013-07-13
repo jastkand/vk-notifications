@@ -32,7 +32,16 @@ $ ->
     $('#auth').show()
 
 
-  $('#settings').click (e) ->
+  # Remove posts_count information from localstorage
+  #
+  $('#clean-up').click (e) ->
+    chrome.runtime.sendMessage {action: "clean_up"}
+
     e.preventDefault()
+
+
+  $('#settings').click (e) ->
     chrome.runtime.sendMessage {action: "open_options_page"}
+
+    e.preventDefault()
 

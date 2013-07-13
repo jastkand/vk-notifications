@@ -38,13 +38,18 @@ a {
     width: 100%; }
     .popup header span {
       padding: 0 12px; }
-    .popup header #settings {
-      text-decoration: none; }
-      .popup header #settings:hover {
-        color: #555; }
-      .popup header #settings i {
-        font-size: 16px;
-        line-height: 32px; }
+    .popup header .pull-right {
+      padding: 0 12px; }
+      .popup header .pull-right span {
+        padding: 0 6px;
+        text-decoration: none; }
+        .popup header .pull-right span:last-child {
+          padding-right: 0; }
+        .popup header .pull-right span:hover {
+          color: #555; }
+        .popup header .pull-right span i {
+          font-size: 16px;
+          line-height: 32px; }
   .popup #wrapper {
     padding-top: 30px; }
   .popup #auth {
