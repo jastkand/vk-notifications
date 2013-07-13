@@ -162,6 +162,8 @@ a {
     background: #fff;
     padding: 8px 12px;
     border-top: 1px solid #DAE2E8;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5);
