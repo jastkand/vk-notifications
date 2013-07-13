@@ -40,6 +40,16 @@ $ ->
     e.preventDefault()
 
 
+  # Mark all new posts as read
+  #
+  $('#check-all').click (e) ->
+    chrome.runtime.sendMessage {action: "watch_post", read: 'ALL'}
+
+    e.preventDefault()
+
+
+  # Open options tab, if the tab is already opened switch to one
+  #
   $('#settings').click (e) ->
     chrome.runtime.sendMessage {action: "open_options_page"}
 

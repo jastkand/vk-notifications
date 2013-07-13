@@ -11,7 +11,7 @@
   totalNewPosts = 0;
 
   badgeText = function(number) {
-    if (number <= 0) {
+    if (number <= 0 || number === void 0) {
       return '';
     }
     if (number > 10) {
@@ -255,6 +255,9 @@
     if (request.action === "watch_post") {
       if (request.read === 'ALL') {
         totalNewPosts = 0;
+        chrome.browserAction.setBadgeText({
+          text: badgeText(totalNewPosts)
+        });
       } else {
 
       }
@@ -279,6 +282,9 @@
     }, function(items) {
       postsCount = items.posts_count;
       log('onInstalled - postsCount', postsCount);
+      chrome.browserAction.setBadgeText({
+        text: badgeText(postsCount.total)
+      });
       return chrome.alarms.create("update_posts", {
         when: Date.now() + 1000,
         periodInMinutes: 1.0

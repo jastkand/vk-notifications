@@ -15,7 +15,7 @@ totalNewPosts = 0
 # Returns a badge text according to number of posts
 #
 badgeText = (number) ->
-  return '' if number <= 0
+  return '' if number <= 0 or number is undefined
   return '10+' if number > 10
   "#{number}"
 
@@ -247,6 +247,7 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
   if request.action is "watch_post"
     if request.read is 'ALL'
       totalNewPosts = 0
+      chrome.browserAction.setBadgeText({text: badgeText(totalNewPosts)})
     else
 #      TODO: open tab with the clicked post
 #      chrome.tabs.query url: optionsUrl, (tabs)->
@@ -273,6 +274,8 @@ chrome.runtime.onInstalled.addListener ->
     postsCount = items.posts_count
 
     log('onInstalled - postsCount', postsCount)
+
+    chrome.browserAction.setBadgeText({text: badgeText(postsCount.total)})
 
     chrome.alarms.create "update_posts",
       when: Date.now() + 1000

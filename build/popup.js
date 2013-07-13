@@ -57,6 +57,13 @@
       });
       return e.preventDefault();
     });
+    $('#check-all').click(function(e) {
+      chrome.runtime.sendMessage({
+        action: "watch_post",
+        read: 'ALL'
+      });
+      return e.preventDefault();
+    });
     return $('#settings').click(function(e) {
       chrome.runtime.sendMessage({
         action: "open_options_page"
