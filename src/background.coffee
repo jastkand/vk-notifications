@@ -30,12 +30,19 @@ updatePosts = (fn) ->
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
     token = items.vkaccess_token
 
+    log('updatePosts - vkaccess_token', token)
+
     if token.length isnt undefined
       chrome.storage.local.get 'group_items': {}, (items) ->
         unless $.isEmptyObject(items.group_items)
+
+          log('updatePosts - items.group_items', items.group_items)
+
           requestPromisses = []
           for key, item of items.group_items
             requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 10, access_token: token})
+
+          log('updatePosts - requestPromisses', requestPromisses)
 
           $.when.all(requestPromisses).then (schemas) ->
             processPosts schemas, callback
@@ -54,16 +61,26 @@ loadByUrl = (url) ->
 
 
 processSingleRequest = (posts) ->
-  groupId = posts[0].response[1].to_id
+
+  log('processSingleRequest - posts', posts)
+
+  # If the group doesn't have any posts than posts[0].response[1] will be undefuned
+  # and calling to_id will caouse the error
+  groupId = posts[0].response[1].to_id unless posts[0].response[1] is undefined
+
+  log('processSingleRequest - groupId', groupId)
 
   # if the new group was added
   if postsCount[groupId] is undefined
 
-    # all posts from that group are new
-    totalNewPosts += 10
+    # All posts from that group are new
+    # Unless the group is undefined
+    totalNewPosts += 10 unless groupId is undefined
   else
     unless posts[0].response[0] - postsCount[groupId] < 0
       totalNewPosts = posts[0].response[0] - postsCount[groupId]
+
+  log('processSingleRequest - totalNewPosts', totalNewPosts)
 
   # store the number of total posts in that group
   newPostsCount[groupId] = posts[0].response[0] unless posts[0].response[0] is 0
@@ -72,6 +89,9 @@ processSingleRequest = (posts) ->
 
 
 prosessArrayOfRequests = (posts) ->
+
+  log('prosessArrayOfRequests - posts', posts)
+
   result = _.flatten(
     _.map posts, (requests) ->
       return processSingleRequest(requests)
@@ -80,6 +100,10 @@ prosessArrayOfRequests = (posts) ->
 
 
 processPosts = (posts, fn) ->
+
+  log('processPosts - posts', posts)
+  log('processPosts - postsCount', postsCount)
+
   newPostsCount = {}
 
   if $.isArray(posts[0])
@@ -87,12 +111,19 @@ processPosts = (posts, fn) ->
   else
     responses = processSingleRequest(posts)
 
+  log('processPosts - responses', responses)
+
   postsCount = newPostsCount
+
+  log('processPosts - postsCount', postsCount)
 
   # Save new value of postsCount to localstorage
   chrome.storage.local.set {'posts_count': postsCount}
 
   posts = _.sortBy responses, (item) -> return -item.date
+
+  log('processPosts - posts', posts)
+  log('processPosts - totalNewPosts', totalNewPosts)
 
   if fn and typeof fn is "function"
     fn(posts, totalNewPosts)
@@ -161,6 +192,10 @@ listenerHandler = (authenticationTabId) ->
 chrome.alarms.onAlarm.addListener (alarm)->
   if alarm.name is 'update_posts'
     updatePosts (posts, totalNewPosts) ->
+
+      log('alarm update_posts, callback - posts', posts)
+      log('alarm update_posts, callback - totalNewPosts', totalNewPosts)
+
       chrome.browserAction.setBadgeText({text: badgeText(totalNewPosts)})
       groupPosts = posts
 

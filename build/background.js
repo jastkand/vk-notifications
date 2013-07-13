@@ -32,12 +32,14 @@
     }, function(items) {
       var token;
       token = items.vkaccess_token;
+      log('updatePosts - vkaccess_token', token);
       if (token.length !== void 0) {
         return chrome.storage.local.get({
           'group_items': {}
         }, function(items) {
           var item, key, requestPromisses, _ref;
           if (!$.isEmptyObject(items.group_items)) {
+            log('updatePosts - items.group_items', items.group_items);
             requestPromisses = [];
             _ref = items.group_items;
             for (key in _ref) {
@@ -48,6 +50,7 @@
                 access_token: token
               })));
             }
+            log('updatePosts - requestPromisses', requestPromisses);
             return $.when.all(requestPromisses).then(function(schemas) {
               return processPosts(schemas, callback);
             });
@@ -66,14 +69,21 @@
 
   processSingleRequest = function(posts) {
     var groupId;
-    groupId = posts[0].response[1].to_id;
+    log('processSingleRequest - posts', posts);
+    if (posts[0].response[1] !== void 0) {
+      groupId = posts[0].response[1].to_id;
+    }
+    log('processSingleRequest - groupId', groupId);
     if (postsCount[groupId] === void 0) {
-      totalNewPosts += 10;
+      if (groupId !== void 0) {
+        totalNewPosts += 10;
+      }
     } else {
       if (!(posts[0].response[0] - postsCount[groupId] < 0)) {
         totalNewPosts = posts[0].response[0] - postsCount[groupId];
       }
     }
+    log('processSingleRequest - totalNewPosts', totalNewPosts);
     if (posts[0].response[0] !== 0) {
       newPostsCount[groupId] = posts[0].response[0];
     }
@@ -82,6 +92,7 @@
 
   prosessArrayOfRequests = function(posts) {
     var result;
+    log('prosessArrayOfRequests - posts', posts);
     result = _.flatten(_.map(posts, function(requests) {
       return processSingleRequest(requests);
     }));
@@ -90,19 +101,25 @@
 
   processPosts = function(posts, fn) {
     var responses;
+    log('processPosts - posts', posts);
+    log('processPosts - postsCount', postsCount);
     newPostsCount = {};
     if ($.isArray(posts[0])) {
       responses = prosessArrayOfRequests(posts);
     } else {
       responses = processSingleRequest(posts);
     }
+    log('processPosts - responses', responses);
     postsCount = newPostsCount;
+    log('processPosts - postsCount', postsCount);
     chrome.storage.local.set({
       'posts_count': postsCount
     });
     posts = _.sortBy(responses, function(item) {
       return -item.date;
     });
+    log('processPosts - posts', posts);
+    log('processPosts - totalNewPosts', totalNewPosts);
     if (fn && typeof fn === "function") {
       return fn(posts, totalNewPosts);
     }
@@ -158,6 +175,8 @@
   chrome.alarms.onAlarm.addListener(function(alarm) {
     if (alarm.name === 'update_posts') {
       return updatePosts(function(posts, totalNewPosts) {
+        log('alarm update_posts, callback - posts', posts);
+        log('alarm update_posts, callback - totalNewPosts', totalNewPosts);
         chrome.browserAction.setBadgeText({
           text: badgeText(totalNewPosts)
         });
