@@ -73,12 +73,20 @@ processSingleRequest = (posts) ->
   # if the new group was added
   if postsCount[groupId] is undefined
 
+    log('processSingleRequest - when postsCount[groupId] is undefined - totalNewPosts', totalNewPosts)
+
     # All posts from that group are new
     # Unless the group is undefined
     totalNewPosts += 10 unless groupId is undefined
   else
+
+    log('processSingleRequest - when postsCount[groupId] is not undefined - posts[0].response[0]', posts[0].response[0])
+    log('processSingleRequest - when postsCount[groupId] is not undefined - postsCount[groupId]', postsCount[groupId])
+
     unless posts[0].response[0] - postsCount[groupId] < 0
-      totalNewPosts = posts[0].response[0] - postsCount[groupId]
+      totalNewPosts += posts[0].response[0] - postsCount[groupId]
+
+    log('processSingleRequest - when postsCount[groupId] is not undefined - totalNewPosts', totalNewPosts)
 
   log('processSingleRequest - totalNewPosts', totalNewPosts)
 
@@ -191,10 +199,13 @@ listenerHandler = (authenticationTabId) ->
 # Add onAlarm listener, that schedules tasks
 chrome.alarms.onAlarm.addListener (alarm)->
   if alarm.name is 'update_posts'
+
+    log('onAlarm - postsCount', postsCount)
+
     updatePosts (posts, totalNewPosts) ->
 
-      log('alarm update_posts, callback - posts', posts)
-      log('alarm update_posts, callback - totalNewPosts', totalNewPosts)
+      log('onAlarm update_posts, callback - posts', posts)
+      log('onAlarm update_posts, callback - totalNewPosts', totalNewPosts)
 
       chrome.browserAction.setBadgeText({text: badgeText(totalNewPosts)})
       groupPosts = posts
@@ -246,12 +257,22 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
     sendResponse({content: 'OK'})
 
+  if request.action is "clean_up"
+    chrome.storage.local.remove 'posts_count'
+    postsCount = {}
+
+    log('on clean_up - postsCount', postsCount)
+
+    sendResponse({content: 'OK'})
+
   true
 
 
 chrome.runtime.onInstalled.addListener ->
   chrome.storage.local.get 'posts_count': {}, (items) ->
     postsCount = items.posts_count
+
+    log('onInstalled - postsCount', postsCount)
 
     chrome.alarms.create "update_posts",
       when: Date.now() + 1000

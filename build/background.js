@@ -75,13 +75,17 @@
     }
     log('processSingleRequest - groupId', groupId);
     if (postsCount[groupId] === void 0) {
+      log('processSingleRequest - when postsCount[groupId] is undefined - totalNewPosts', totalNewPosts);
       if (groupId !== void 0) {
         totalNewPosts += 10;
       }
     } else {
+      log('processSingleRequest - when postsCount[groupId] is not undefined - posts[0].response[0]', posts[0].response[0]);
+      log('processSingleRequest - when postsCount[groupId] is not undefined - postsCount[groupId]', postsCount[groupId]);
       if (!(posts[0].response[0] - postsCount[groupId] < 0)) {
-        totalNewPosts = posts[0].response[0] - postsCount[groupId];
+        totalNewPosts += posts[0].response[0] - postsCount[groupId];
       }
+      log('processSingleRequest - when postsCount[groupId] is not undefined - totalNewPosts', totalNewPosts);
     }
     log('processSingleRequest - totalNewPosts', totalNewPosts);
     if (posts[0].response[0] !== 0) {
@@ -174,9 +178,10 @@
 
   chrome.alarms.onAlarm.addListener(function(alarm) {
     if (alarm.name === 'update_posts') {
+      log('onAlarm - postsCount', postsCount);
       return updatePosts(function(posts, totalNewPosts) {
-        log('alarm update_posts, callback - posts', posts);
-        log('alarm update_posts, callback - totalNewPosts', totalNewPosts);
+        log('onAlarm update_posts, callback - posts', posts);
+        log('onAlarm update_posts, callback - totalNewPosts', totalNewPosts);
         chrome.browserAction.setBadgeText({
           text: badgeText(totalNewPosts)
         });
@@ -257,6 +262,14 @@
         content: 'OK'
       });
     }
+    if (request.action === "clean_up") {
+      chrome.storage.local.remove('posts_count');
+      postsCount = {};
+      log('on clean_up - postsCount', postsCount);
+      sendResponse({
+        content: 'OK'
+      });
+    }
     return true;
   });
 
@@ -265,6 +278,7 @@
       'posts_count': {}
     }, function(items) {
       postsCount = items.posts_count;
+      log('onInstalled - postsCount', postsCount);
       return chrome.alarms.create("update_posts", {
         when: Date.now() + 1000,
         periodInMinutes: 1.0
