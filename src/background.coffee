@@ -227,9 +227,15 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
       unless $.isEmptyObject(items.group_items)
         if groupPosts.length is 0
           updatePosts (posts, number)->
+            groupPosts = posts
+
             sendResponse({content: 'OK', data: posts, groups: items.group_items})
         else
-          sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
+          # Hack way to add latency before data recieving
+          # In other way content is rendered so fast that it become scrolled to bottom
+          setTimeout ->
+              sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
+          , 100
       else
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
 

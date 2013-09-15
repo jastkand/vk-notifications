@@ -213,6 +213,7 @@
         if (!$.isEmptyObject(items.group_items)) {
           if (groupPosts.length === 0) {
             return updatePosts(function(posts, number) {
+              groupPosts = posts;
               return sendResponse({
                 content: 'OK',
                 data: posts,
@@ -220,11 +221,13 @@
               });
             });
           } else {
-            return sendResponse({
-              content: 'OK',
-              data: groupPosts,
-              groups: items.group_items
-            });
+            return setTimeout(function() {
+              return sendResponse({
+                content: 'OK',
+                data: groupPosts,
+                groups: items.group_items
+              });
+            }, 100);
           }
         } else {
           return sendResponse({

@@ -54,4 +54,3 @@ $ ->
     chrome.runtime.sendMessage {action: "open_options_page"}
 
     e.preventDefault()
-
