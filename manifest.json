@@ -3,10 +3,10 @@
 
     "name": "Оповещения VK",
     "description": "Adds notifications about new post in groups.",
-    "homepage_url": "http://github.com/jastkand",
+    "homepage_url": "https://github.com/jastkand/vk-notifications",
     "version": "1.0.0",
 
-    "permissions": [ "contextMenus", "tabs", "storage" , "http://*/*", "https://*/*" ],
+    "permissions": [ "contextMenus", "tabs", "storage" , "alarms", "http://*/*", "https://*/*" ],
 
     "icons": {
         "128": "assets/icon-128.png",
@@ -29,5 +29,9 @@
     "browser_action": {
         "default_icon": "assets/icon-48.png",
         "default_popup": "popup.html"
-    }
+    },
+
+    "web_accessible_resources": [
+        "libs/jquery-2.0.3.min.map"
+    ]
 }

@@ -24,3 +24,10 @@ function serialize(obj) {
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
     return str.join("&");
 }
+
+function log(scope, message){
+    var debug = true;
+    if (debug) {
+        console.log(scope + ':', message)
+    }
+}
