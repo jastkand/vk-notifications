@@ -280,18 +280,19 @@
   });
 
   chrome.runtime.onInstalled.addListener(function() {
-    return chrome.storage.local.get({
-      'posts_count': {}
-    }, function(items) {
-      postsCount = items.posts_count;
-      log('onInstalled - postsCount', postsCount);
-      chrome.browserAction.setBadgeText({
-        text: badgeText(postsCount.total)
-      });
-      return chrome.alarms.create("update_posts", {
-        when: Date.now() + 1000,
-        periodInMinutes: 1.0
-      });
+    return chrome.alarms.create("update_posts", {
+      when: Date.now() + 1000,
+      periodInMinutes: 1.0
+    });
+  });
+
+  chrome.storage.local.get({
+    'posts_count': {}
+  }, function(items) {
+    postsCount = items.posts_count;
+    log('onLaunch - postsCount', postsCount);
+    return chrome.browserAction.setBadgeText({
+      text: badgeText(postsCount.total)
     });
   });
 

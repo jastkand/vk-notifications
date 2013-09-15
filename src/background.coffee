@@ -276,13 +276,13 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
 
 chrome.runtime.onInstalled.addListener ->
-  chrome.storage.local.get 'posts_count': {}, (items) ->
-    postsCount = items.posts_count
+  chrome.alarms.create "update_posts",
+    when: Date.now() + 1000
+    periodInMinutes: 1.0
 
-    log('onInstalled - postsCount', postsCount)
+chrome.storage.local.get 'posts_count': {}, (items) ->
+  postsCount = items.posts_count
 
-    chrome.browserAction.setBadgeText({text: badgeText(postsCount.total)})
+  log('onLaunch - postsCount', postsCount)
 
-    chrome.alarms.create "update_posts",
-      when: Date.now() + 1000
-      periodInMinutes: 1.0
+  chrome.browserAction.setBadgeText({text: badgeText(postsCount.total)})
