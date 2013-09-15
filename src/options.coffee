@@ -85,6 +85,10 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
     $loader.removeClass('visible')
     return
 
+  eventMatch = shortName[1].match(/event(\d+)/)
+
+  shortName = eventMatch if eventMatch
+
   API.call 'groups.getById', {gid: shortName[1], access_token: accessToken}, (data) ->
     unless data.error
       addGroupItemToStroage data.response[0], success: ->

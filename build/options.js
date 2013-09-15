@@ -78,7 +78,7 @@
   });
 
   $(document).on('click', 'button[name=saveGroupItem]', function(e) {
-    var $loader, $pageUrl, $parent, $self, $status, shortName, url;
+    var $loader, $pageUrl, $parent, $self, $status, eventMatch, shortName, url;
     $self = $(this);
     $parent = $self.parent();
     $loader = $parent.find('.loader');
@@ -92,6 +92,10 @@
       $status.text('Неверный формат ссылки').addClass('visible');
       $loader.removeClass('visible');
       return;
+    }
+    eventMatch = shortName[1].match(/event(\d+)/);
+    if (eventMatch) {
+      shortName = eventMatch;
     }
     API.call('groups.getById', {
       gid: shortName[1],
