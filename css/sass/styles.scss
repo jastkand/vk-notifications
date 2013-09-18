@@ -31,6 +31,10 @@ a {
 .popup {
   width: 450px;
 
+  #clean-up {
+    display: none;
+  }
+
   header {
     background: #E1E7ED;
     color: #45688E;
