@@ -11,6 +11,8 @@ groupLink = (screen_name) ->
 itemTemplate = (item, groups) ->
   group = groups[item.to_id]
 
+  return null unless group
+
   $('<div />', {class: 'item'})
     .append(
       $('<div />', {class: 'group-image'})

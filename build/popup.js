@@ -17,6 +17,9 @@
   itemTemplate = function(item, groups) {
     var group;
     group = groups[item.to_id];
+    if (!group) {
+      return null;
+    }
     return $('<div />', {
       "class": 'item'
     }).append($('<div />', {
