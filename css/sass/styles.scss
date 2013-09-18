@@ -28,8 +28,10 @@ a {
   display: block;
 }
 
+$popup-width: 450px;
+
 .popup {
-  width: 450px;
+  width: $popup-width;
 
   #clean-up {
     display: none;
@@ -162,15 +164,46 @@ a {
 #notifications {
   padding: 0;
 
+  $padding-side: 12px;
+
   .item {
     background: #fff;
-    padding: 8px 12px;
+    padding: 8px $padding-side;
     border-top: 1px solid #DAE2E8;
     overflow: hidden;
     text-overflow: ellipsis;
 
     &:hover {
       background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5);
+    }
+
+    $image-width: 50px;
+    $image-margin: 7px;
+
+    .group-image {
+      width: $image-width;
+      margin-right: $image-margin;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .item-content {
+      display: inline-block;
+      width: $popup-width - $image-width - $image-margin - 2 * $padding-side;
+      vertical-align: top;
+
+      .group-name {
+        font-weight: bold;
+        padding-bottom: 3px;
+      }
+
+      .text {
+
+      }
+
+      .datestamp {
+        padding-top: 4px;
+      }
     }
   }
 

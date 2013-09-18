@@ -3,10 +3,28 @@ $(document).on 'click', 'a', (e) ->
 
   e.preventDefault()
 
-itemTemplate = (obj) ->
-  $('<div />', {class: 'item'}).html(obj.text).append(
-    $('<span />', {class: 'datestamp'}).html(dateFormat(obj.date * 1000, 'longDate'))
-  )
+
+groupLink = (screen_name) ->
+  "http://vk.com/#{screen_name}"
+
+
+itemTemplate = (item, groups) ->
+  group = groups[item.to_id]
+
+  $('<div />', {class: 'item'})
+    .append(
+      $('<div />', {class: 'group-image'})
+        .append( $('<a />', href: groupLink(group.screen_name)).append($('<img />', src: group.photo, title: group.name)) )
+    )
+    .append(
+      $('<div />', class: 'item-content')
+        .append(
+          $('<div />', {class: 'group-name'})
+            .append( $('<a />', href: groupLink(group.screen_name), text: group.name) )
+        )
+        .append( $('<div />', class: 'text').html(item.text) )
+        .append( $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate')) )
+    )
 
 $ ->
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
@@ -19,7 +37,7 @@ $ ->
         $('#notifications').append($('<p />', {text: 'Список отслеживаемых групп пуст. Добавьте группы в настройках расширения.'}))
       else
         for item in response.data
-          $('#notifications').append(itemTemplate({text: item.text, date: item.date}));
+          $('#notifications').append(itemTemplate(item, response.groups));
 
 
   $('#auth').click (e) ->

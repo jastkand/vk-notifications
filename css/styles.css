@@ -117,6 +117,20 @@ a {
     text-overflow: ellipsis; }
     #notifications .item:hover {
       background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5); }
+    #notifications .item .group-image {
+      width: 50px;
+      margin-right: 7px;
+      display: inline-block;
+      vertical-align: top; }
+    #notifications .item .item-content {
+      display: inline-block;
+      width: 369px;
+      vertical-align: top; }
+      #notifications .item .item-content .group-name {
+        font-weight: bold;
+        padding-bottom: 3px; }
+      #notifications .item .item-content .datestamp {
+        padding-top: 4px; }
   #notifications p {
     padding-left: 12px;
     padding-right: 12px; }
