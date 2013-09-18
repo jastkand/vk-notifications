@@ -235,7 +235,7 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
           # In other way content is rendered so fast that it become scrolled to bottom
           setTimeout ->
               sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
-          , 100
+          , 50
       else
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
 

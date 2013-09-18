@@ -227,7 +227,7 @@
                 data: groupPosts,
                 groups: items.group_items
               });
-            }, 100);
+            }, 50);
           }
         } else {
           return sendResponse({
