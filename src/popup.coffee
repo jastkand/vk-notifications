@@ -3,6 +3,10 @@ $(document).on 'click', 'a', (e) ->
 
   e.preventDefault()
 
+itemTemplate = (obj) ->
+  $('<div />', {class: 'item'}).html(obj.text).append(
+    $('<span />', {class: 'datestamp'}).html(dateFormat(obj.date * 1000, 'longDate'))
+  )
 
 $ ->
   chrome.storage.local.get 'vkaccess_token': {}, (items) ->
@@ -15,9 +19,7 @@ $ ->
         $('#notifications').append($('<p />', {text: 'Список отслеживаемых групп пуст. Добавьте группы в настройках расширения.'}))
       else
         for item in response.data
-          $('<div />', {class: 'item'}).html(item.text).append(
-            $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate'))
-          ).appendTo $('#notifications')
+          $('#notifications').append(itemTemplate({text: item.text, date: item.date}));
 
 
   $('#auth').click (e) ->
