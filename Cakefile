@@ -35,6 +35,7 @@ runCommand = (name, args) ->
 
 task 'build', 'Build extension code into build/', ->
   if_coffee ->
+    runCommand 'sass', ['--update', "#{SASS_PATH}:#{CSS_PATH}"]
     runCommand "coffee", ["--output", JAVASCRIPTS_PATH,"--compile", COFFEESCRIPTS_PATH]
 
 task 'watch', 'Build extension code into build/', ->
