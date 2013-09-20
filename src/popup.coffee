@@ -8,6 +8,19 @@ groupLink = (screen_name) ->
   "http://vk.com/#{screen_name}"
 
 
+showAttachments = (attachments) ->
+  return null unless attachments
+
+  photos = $('<div />', class: 'photos')
+  links = $('<div />', class: 'links')
+
+  for attachment in attachments
+    photos.append($('<img />', src: attachment.photo.src, class: 'photo')) if attachment.type is "photo"
+    links.append($('<a />', href: attachment.link.url, text: attachment.link.url, class: 'link')) if attachment.type is "link"
+
+  $('<div />', class: 'attachments').append(photos).append(links)
+
+
 itemTemplate = (item, groups) ->
   group = groups[item.to_id]
 
@@ -25,6 +38,7 @@ itemTemplate = (item, groups) ->
             .append( $('<a />', href: groupLink(group.screen_name), text: group.name) )
         )
         .append( $('<div />', class: 'text').html(item.text) )
+        .append( showAttachments(item.attachments) )
         .append( $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate')) )
     )
 

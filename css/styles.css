@@ -129,8 +129,18 @@ a {
       #notifications .item .item-content .group-name {
         font-weight: bold;
         padding-bottom: 3px; }
+      #notifications .item .item-content .text {
+        margin-bottom: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      #notifications .item .item-content .attachments .link {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        width: 330px; }
       #notifications .item .item-content .datestamp {
-        padding-top: 4px; }
+        margin-top: 4px; }
   #notifications p {
     padding-left: 12px;
     padding-right: 12px; }

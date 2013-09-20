@@ -198,11 +198,23 @@ $popup-width: 450px;
       }
 
       .text {
+        margin-bottom: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
+      .attachments {
+        .link {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: inline-block;
+          width: 330px;
+        }
       }
 
       .datestamp {
-        padding-top: 4px;
+        margin-top: 4px;
       }
     }
   }
