@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Оповещения VK",
-    "description": "Adds notifications about new post in groups.",
+    "description": "Оповещает о новых сообщениях на стене в выбранных группах.",
     "homepage_url": "https://github.com/jastkand/vk-notifications",
     "version": "1.0.0",
 
