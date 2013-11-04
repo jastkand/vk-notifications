@@ -16,11 +16,12 @@
 
     "background": {
         "scripts": [
-            "libs/jquery.min.js",
-            "libs/underscore.min.js",
-            "libs/api_manager.js",
-            "libs/helpers.js",
-            "build/background.js"
+          "libs/emoji.js",
+          "libs/jquery.min.js",
+          "libs/underscore.min.js",
+          "libs/api_manager.js",
+          "libs/helpers.js",
+          "build/background.js"
         ]
     },
 

@@ -11,7 +11,9 @@
   });
 
   processText = function(text) {
-    return text.replace(/\[(.+)\|(.+)\]/gi, '<a href="http://vk.com/$1">$2</a>');
+    text = text.trim().replace(/\n/g, '<br/>');
+    text = text.replace(/\[(.+)\|(.+)\]/gi, '<a href="http://vk.com/$1">$2</a>');
+    return jEmoji.unifiedToHTML(text);
   };
 
   groupLink = function(screen_name) {

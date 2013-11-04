@@ -1,5 +1,5 @@
 body {
-  font-size: 75%;
+  font-size: 11px;
   line-height: 130%;
   font-family: tahoma, arial, verdana, sans-serif, Lucida Sans; }
 
@@ -131,7 +131,8 @@ a {
       #notifications .item .item-content .text {
         margin-bottom: 4px;
         overflow: hidden;
-        text-overflow: ellipsis; }
+        text-overflow: ellipsis;
+        line-height: 160%; }
       #notifications .item .item-content .attachments .link {
         white-space: nowrap;
         overflow: hidden;

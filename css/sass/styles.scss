@@ -1,5 +1,5 @@
 body {
-  font-size: 75%;
+  font-size: 11px;
   line-height: 130%;
   font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
 }
@@ -200,6 +200,7 @@ $popup-width: 450px;
         margin-bottom: 4px;
         overflow: hidden;
         text-overflow: ellipsis;
+        line-height: 160%;
       }
 
       .attachments {
