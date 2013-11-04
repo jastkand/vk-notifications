@@ -4,6 +4,9 @@ $(document).on 'click', 'a', (e) ->
   e.preventDefault()
 
 
+processText = (text) ->
+   text.replace(/\[(.+)\|(.+)\]/gi, '<a href="http://vk.com/$1">$2</a>')
+
 groupLink = (screen_name) ->
   "http://vk.com/#{screen_name}"
 
@@ -37,7 +40,7 @@ itemTemplate = (item, groups) ->
           $('<div />', {class: 'group-name'})
             .append( $('<a />', href: groupLink(group.screen_name), text: group.name) )
         )
-        .append( $('<div />', class: 'text').html(item.text) )
+        .append( $('<div />', class: 'text').html(processText(item.text)) )
         .append( showAttachments(item.attachments) )
         .append( $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate')) )
     )
