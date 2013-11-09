@@ -12,6 +12,8 @@
 
   processText = function(text) {
     text = text.trim().replace(/\n/g, '<br/>');
+    text = replaceURLWithHTMLLinks(text);
+    text = replaceEmailWithHTMLLinks(text);
     text = text.replace(/\[([^\|]+)\|([^\]]+)\]/gi, '<a href="http://vk.com/$1">$2</a>');
     return jEmoji.unifiedToHTML(text);
   };

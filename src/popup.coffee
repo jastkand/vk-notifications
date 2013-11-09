@@ -5,7 +5,9 @@ $(document).on 'click', 'a', (e) ->
 
 
 processText = (text) ->
-  text = text.trim().replace(/\n/g, '<br/>');
+  text = text.trim().replace(/\n/g, '<br/>')
+  text = replaceURLWithHTMLLinks(text)
+  text = replaceEmailWithHTMLLinks(text)
   text = text.replace(/\[([^\|]+)\|([^\]]+)\]/gi, '<a href="http://vk.com/$1">$2</a>')
   jEmoji.unifiedToHTML(text)
 

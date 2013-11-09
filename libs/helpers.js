@@ -14,8 +14,17 @@ if (jQuery.when.all === undefined) {
 }
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return text.replace(exp, "<a href='$1'>$1</a>")
+    var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim,
+      pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+
+    return text
+      .replace(urlPattern, '<a href="$&">$&</a>')
+      .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>');
+}
+
+function replaceEmailWithHTMLLinks(text) {
+  var emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
+  return text.replace(emailAddressPattern, '<a href="mailto:$1">$1</a>');
 }
 
 function serialize(obj) {
