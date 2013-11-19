@@ -214,7 +214,7 @@ chrome.alarms.onAlarm.addListener (alarm)->
 chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
   if request.action is "vk_notification_auth"
     vkClientId           = '3696318'
-    vkRequestedScopes    = 'wall,offline'
+    vkRequestedScopes    = 'offline'
     vkAuthenticationUrl  = "https://oauth.vk.com/authorize?client_id=#{vkClientId}&scope=#{vkRequestedScopes}&redirect_uri=http%3A%2F%2Foauth.vk.com%2Fblank.html&display=page&response_type=token"
 
     chrome.tabs.create {url: vkAuthenticationUrl, selected: true}, (tab) ->
