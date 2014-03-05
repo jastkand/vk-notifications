@@ -16,7 +16,7 @@ if (jQuery.when.all === undefined) {
 function linkify(text) {
     var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim,
       pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim,
-      emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
+      emailAddressPattern = /[\w.+-]+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
 
     return text
       .replace(urlPattern, '<a href="$&">$&</a>')
