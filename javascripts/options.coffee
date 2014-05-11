@@ -1,3 +1,9 @@
+`
+//= require ../node_modules/jquery/dist/jquery.min.js
+//= require api_manager.js
+//= require helpers.js
+`
+
 groupItems = {}
 accessToken = null
 

@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Оповещения VK
+    meta charset="utf-8"
+    link rel="stylesheet" href="stylesheets/normalize.css"
+    link rel="stylesheet" href="stylesheets/styles.css"
+    link rel="stylesheet" href="stylesheets/font-awesome.css"
+    link rel="stylesheet" href="stylesheets/emoji.css"
+    script type="text/javascript" src="javascripts/popup.js"
+body class="popup"
+  header
+    span class="title"
+      | Оповещения VK
+    div class="pull-right"
+      span id="clean-up"
+        i class="icon-eraser"
+      span id="check-all" title="Прочитать все"
+        i class="icon-check"
+      span id="settings" title="Настройки"
+        i class="icon-cog"
+  #wrapper
+    #notifications
+    div class="actions"
+      button class="btn" id="auth"
+        | Авторизоваться
+      button class="btn" id="signout"
+        | Выйти

@@ -1,3 +1,11 @@
+`
+//= require ../node_modules/jquery/dist/jquery.min.js
+//= require api_manager.js
+//= require helpers.js
+//= require ../node_modules/emoji/lib/emoji.js
+//= require date.format.js
+`
+
 $(document).on 'click', 'a', (e) ->
   chrome.tabs.create {url: $(this).attr('href'), selected: true}
 

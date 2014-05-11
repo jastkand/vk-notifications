@@ -16,12 +16,7 @@
 
     "background": {
         "scripts": [
-          "libs/emoji.js",
-          "libs/jquery.min.js",
-          "libs/underscore.min.js",
-          "libs/api_manager.js",
-          "libs/helpers.js",
-          "build/background.js"
+          "javascripts/background.js"
         ]
     },
 
@@ -30,9 +25,5 @@
     "browser_action": {
         "default_icon": "assets/icon-48.png",
         "default_popup": "popup.html"
-    },
-
-    "web_accessible_resources": [
-        "libs/jquery-2.0.3.min.map"
-    ]
+    }
 }

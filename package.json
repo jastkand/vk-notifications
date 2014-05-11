@@ -1,0 +1,28 @@
+{
+  "name": "vk-notifications",
+  "version": "1.0.3",
+  "description": "Adds notifications about new post in groups.",
+  "dependencies": {
+    "jquery": "^2.1.1",
+    "underscore": "^1.6.0",
+    "emoji": "git://github.com/jastkand/emoji.git#change-quotes-type"
+  },
+  "devDependencies": {
+    "gulp": "~3.6.2",
+    "gulp-watch": "~0.6.4",
+    "gulp-coffee": "~1.4.3",
+    "gulp-sass": "~0.7.1",
+    "gulp-include": "^0.2.2",
+    "gulp-slim": "0.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jastkand/vk-notifications.git"
+  },
+  "author": "Andrey Krivko <jastkand@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jastkand/vk-notifications/issues"
+  },
+  "homepage": "https://github.com/jastkand/vk-notifications"
+}

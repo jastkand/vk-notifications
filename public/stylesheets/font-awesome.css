@@ -1,4 +1,4 @@
-/*
+/*!
  *  Font Awesome 3.2.1
  *  the iconic font designed for Bootstrap
  *  ------------------------------------------------------------------------------
@@ -27,24 +27,22 @@
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../assets/font/fontawesome-webfont.eot?v=3.2.1");
-  src: url("../assets/font/fontawesome-webfont.eot?#iefix&v=3.2.1") format("embedded-opentype"), url("../assets/font/fontawesome-webfont.woff?v=3.2.1") format("woff"), url("../assets/font/fontawesome-webfont.ttf?v=3.2.1") format("truetype"), url("../assets/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1") format("svg");
+  src: url('../assets/font/fontawesome-webfont.eot?v=3.2.1');
+  src: url('../assets/font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('../assets/font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('../assets/font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'), url('../assets/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
   font-weight: normal;
   font-style: normal; }
 
 /* FONT AWESOME CORE
  * -------------------------- */
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em; }
+  *margin-right: 0.3em; }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
+[class^="icon-"]:before, [class*=" icon-"]:before {
   text-decoration: inherit;
   display: inline-block;
   speak: none; }
@@ -55,19 +53,16 @@
   font-size: 1.33333em; }
 
 /* makes sure icons active on rollover in links */
-a [class^="icon-"],
-a [class*=" icon-"] {
+a [class^="icon-"], a [class*=" icon-"] {
   display: inline; }
 
 /* increased font size for icon-large */
-[class^="icon-"].icon-fixed-width,
-[class*=" icon-"].icon-fixed-width {
+[class^="icon-"].icon-fixed-width, [class*=" icon-"].icon-fixed-width {
   display: inline-block;
   width: 1.14286em;
   text-align: right;
   padding-right: 0.28571em; }
-  [class^="icon-"].icon-fixed-width.icon-large,
-  [class*=" icon-"].icon-fixed-width.icon-large {
+  [class^="icon-"].icon-fixed-width.icon-large, [class*=" icon-"].icon-fixed-width.icon-large {
     width: 1.42857em; }
 
 .icons-ul {
@@ -82,8 +77,7 @@ a [class*=" icon-"] {
     text-align: center;
     line-height: inherit; }
 
-[class^="icon-"].hide,
-[class*=" icon-"].hide {
+[class^="icon-"].hide, [class*=" icon-"].hide {
   display: none; }
 
 .icon-muted {
@@ -97,7 +91,7 @@ a [class*=" icon-"] {
 
 .icon-border {
   border: solid 1px #eeeeee;
-  padding: .2em .25em .15em;
+  padding: 0.2em 0.25em 0.15em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -140,12 +134,10 @@ a [class*=" icon-"] {
 .pull-left {
   float: left; }
 
-[class^="icon-"].pull-left,
-[class*=" icon-"].pull-left {
-  margin-right: .3em; }
-[class^="icon-"].pull-right,
-[class*=" icon-"].pull-right {
-  margin-left: .3em; }
+[class^="icon-"].pull-left, [class*=" icon-"].pull-left {
+  margin-right: 0.3em; }
+[class^="icon-"].pull-right, [class*=" icon-"].pull-right {
+  margin-left: 0.3em; }
 
 /* EXTRAS
  * -------------------------- */
@@ -157,8 +149,7 @@ a [class*=" icon-"] {
   height: 2em;
   line-height: 2em;
   vertical-align: -35%; }
-  .icon-stack [class^="icon-"],
-  .icon-stack [class*=" icon-"] {
+  .icon-stack [class^="icon-"], .icon-stack [class*=" icon-"] {
     display: block;
     text-align: center;
     position: absolute;
@@ -180,8 +171,7 @@ a [class*=" icon-"] {
   animation: spin 2s infinite linear; }
 
 /* Prevent stack and spinners from being taken inline when inside a link */
-a .icon-stack,
-a .icon-spin {
+a .icon-stack, a .icon-spin {
   display: inline-block;
   text-decoration: none; }
 
@@ -313,15 +303,13 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-zoom-out:before {
   content: "\f010"; }
 
-.icon-power-off:before,
-.icon-off:before {
+.icon-power-off:before, .icon-off:before {
   content: "\f011"; }
 
 .icon-signal:before {
   content: "\f012"; }
 
-.icon-gear:before,
-.icon-cog:before {
+.icon-gear:before, .icon-cog:before {
   content: "\f013"; }
 
 .icon-trash:before {
@@ -354,8 +342,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-play-circle:before {
   content: "\f01d"; }
 
-.icon-rotate-right:before,
-.icon-repeat:before {
+.icon-rotate-right:before, .icon-repeat:before {
   content: "\f01e"; }
 
 .icon-refresh:before {
@@ -550,8 +537,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-arrow-down:before {
   content: "\f063"; }
 
-.icon-mail-forward:before,
-.icon-share-alt:before {
+.icon-mail-forward:before, .icon-share-alt:before {
   content: "\f064"; }
 
 .icon-resize-full:before {
@@ -644,8 +630,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-key:before {
   content: "\f084"; }
 
-.icon-gears:before,
-.icon-cogs:before {
+.icon-gears:before, .icon-cogs:before {
   content: "\f085"; }
 
 .icon-comments:before {
@@ -693,8 +678,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-phone:before {
   content: "\f095"; }
 
-.icon-unchecked:before,
-.icon-check-empty:before {
+.icon-unchecked:before, .icon-check-empty:before {
   content: "\f096"; }
 
 .icon-bookmark-empty:before {
@@ -793,8 +777,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-copy:before {
   content: "\f0c5"; }
 
-.icon-paperclip:before,
-.icon-paper-clip:before {
+.icon-paperclip:before, .icon-paper-clip:before {
   content: "\f0c6"; }
 
 .icon-save:before {
@@ -872,8 +855,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-linkedin:before {
   content: "\f0e1"; }
 
-.icon-rotate-left:before,
-.icon-undo:before {
+.icon-rotate-left:before, .icon-undo:before {
   content: "\f0e2"; }
 
 .icon-legal:before {
@@ -1008,8 +990,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-circle:before {
   content: "\f111"; }
 
-.icon-mail-reply:before,
-.icon-reply:before {
+.icon-mail-reply:before, .icon-reply:before {
   content: "\f112"; }
 
 .icon-github-alt:before {
@@ -1060,8 +1041,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-mail-reply-all:before {
   content: "\f122"; }
 
-.icon-star-half-full:before,
-.icon-star-half-empty:before {
+.icon-star-half-full:before, .icon-star-half-empty:before {
   content: "\f123"; }
 
 .icon-location-arrow:before {
@@ -1196,35 +1176,28 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 .icon-expand:before {
   content: "\f152"; }
 
-.icon-euro:before,
-.icon-eur:before {
+.icon-euro:before, .icon-eur:before {
   content: "\f153"; }
 
 .icon-gbp:before {
   content: "\f154"; }
 
-.icon-dollar:before,
-.icon-usd:before {
+.icon-dollar:before, .icon-usd:before {
   content: "\f155"; }
 
-.icon-rupee:before,
-.icon-inr:before {
+.icon-rupee:before, .icon-inr:before {
   content: "\f156"; }
 
-.icon-yen:before,
-.icon-jpy:before {
+.icon-yen:before, .icon-jpy:before {
   content: "\f157"; }
 
-.icon-renminbi:before,
-.icon-cny:before {
+.icon-renminbi:before, .icon-cny:before {
   content: "\f158"; }
 
-.icon-won:before,
-.icon-krw:before {
+.icon-won:before, .icon-krw:before {
   content: "\f159"; }
 
-.icon-bitcoin:before,
-.icon-btc:before {
+.icon-bitcoin:before, .icon-btc:before {
   content: "\f15a"; }
 
 .icon-file:before {
