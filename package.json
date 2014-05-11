@@ -5,7 +5,9 @@
   "dependencies": {
     "jquery": "^2.1.1",
     "underscore": "^1.6.0",
-    "emoji": "git://github.com/jastkand/emoji.git#change-quotes-type"
+    "emoji": "git://github.com/jastkand/emoji.git#change-quotes-type",
+    "angular": "^1.2.16",
+    "normalize.css": "^3.0.1"
   },
   "devDependencies": {
     "gulp": "~3.6.2",
