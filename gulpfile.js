@@ -9,7 +9,6 @@ var path    = require('path'),
 
 var ROOT_PATH           = __dirname,
     COFFEESCRIPTS_PATH  = path.join(ROOT_PATH, 'javascripts/*.coffee'),
-    JS_SRC_PATH         = path.join(ROOT_PATH, 'javascripts/*.js'),
     SASS_PATH           = path.join(ROOT_PATH, 'stylesheets/**/*.scss'),
     STYLESHEETS_PATH    = path.join(ROOT_PATH, 'public/stylesheets'),
     JAVASCRIPTS_PATH    = path.join(ROOT_PATH, 'public/javascripts');
@@ -36,8 +35,8 @@ function buildSlim (files) {
        .pipe(gulp.dest("public"));
 }
 
-gulp.task('default', ['sass-watch', 'coffee-watch', 'slim-watch', 'js-watch', 'vendor-stylesheets']);
-gulp.task('build', ['sass-build', 'coffee-build', 'slim-build', 'js-build', 'vendor-stylesheets']);
+gulp.task('default', ['sass-watch', 'coffee-watch', 'slim-watch', 'vendor-stylesheets', 'vendor-javascripts']);
+gulp.task('build', ['sass-build', 'coffee-build', 'slim-build', 'vendor-stylesheets', 'vendor-javascripts']);
 
 gulp.task('sass-watch', function () {
   gulp.src(SASS_PATH)
@@ -47,11 +46,6 @@ gulp.task('sass-watch', function () {
 gulp.task("coffee-watch", function () {
   gulp.src(COFFEESCRIPTS_PATH)
       .pipe(watch(buildCoffee))
-});
-
-gulp.task("js-watch", function () {
-  gulp.src(JS_SRC_PATH)
-      .pipe(watch(buildJS))
 });
 
 gulp.task('slim-watch', function() {
@@ -67,10 +61,6 @@ gulp.task("coffee-build", function () {
   buildCoffee(gulp.src(COFFEESCRIPTS_PATH))
 });
 
-gulp.task("js-build", function () {
-  buildCoffee(gulp.src(JS_SRC_PATH))
-});
-
 gulp.task('slim-build', function() {
   buildSlim(gulp.src("views/*.slim"))
 });
@@ -80,4 +70,10 @@ gulp.task('vendor-stylesheets', function () {
     'node_modules/normalize.css/normalize.css',
     'node_modules/emoji/lib/emoji.css'
   ]).pipe( gulp.dest(STYLESHEETS_PATH) )
+});
+
+gulp.task('vendor-javascripts', function () {
+  gulp.src([
+    'node_modules/angular/lib/angular.min.js'
+  ]).pipe( gulp.dest(JAVASCRIPTS_PATH) )
 });
