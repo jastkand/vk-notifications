@@ -4,7 +4,8 @@ var path    = require('path'),
     sass    = require('gulp-sass')
     include = require('gulp-include'),
     coffee  = require('gulp-coffee'),
-    slim    = require("gulp-slim");
+    slim    = require("gulp-slim"),
+    prefix  = require('gulp-autoprefixer');
 
 var ROOT_PATH           = __dirname,
     COFFEESCRIPTS_PATH  = path.join(ROOT_PATH, 'javascripts/*.coffee'),
@@ -14,6 +15,7 @@ var ROOT_PATH           = __dirname,
 
 function buildSCSS (files) {
   files.pipe( sass() )
+       .pipe( prefix("last 5 Chrome versions") )
        .pipe( gulp.dest(STYLESHEETS_PATH) )
 }
 

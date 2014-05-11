@@ -15,7 +15,8 @@
     "gulp-coffee": "~1.4.3",
     "gulp-sass": "~0.7.1",
     "gulp-include": "^0.2.2",
-    "gulp-slim": "0.0.5"
+    "gulp-slim": "0.0.5",
+    "gulp-autoprefixer": "0.0.7"
   },
   "repository": {
     "type": "git",
