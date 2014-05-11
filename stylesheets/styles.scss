@@ -250,21 +250,15 @@ $popup-width: 450px;
   text-shadow: 0 1px 0 #45688E;
   border-radius: 2px;
   background: #6181a6;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7a9bbd), color-stop(100%,#50769e));
-  background: -webkit-linear-gradient(top, #7a9bbd 0%,#50769e 100%);
   background: linear-gradient(to bottom, #7a9bbd 0%,#50769e 100%);
 
   &:hover {
     background: #668aae;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#789abf), color-stop(100%,#5980a9));
-    background: -webkit-linear-gradient(top, #789abf 0%,#5980a9 100%);
     background: linear-gradient(to bottom, #789abf 0%,#5980a9 100%);
   }
 
   &:active {
     background: #5e80a5;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5e80a5), color-stop(100%,#5e80a5));
-    background: -webkit-linear-gradient(top, #5e80a5 0%,#5e80a5 100%);
     background: linear-gradient(to bottom, #5e80a5 0%,#5e80a5 100%);
   }
 }
