@@ -21,7 +21,7 @@ function buildSCSS (files) {
 
 function buildCoffee (files) {
   files.pipe( include() )
-       .pipe( coffee({ bare: true }) )
+       .pipe( coffee() )
        .pipe( gulp.dest(JAVASCRIPTS_PATH) )
 }
 
