@@ -1,10 +1,9 @@
-`
-//= require ../node_modules/jquery/dist/jquery.min.js
-//= require api_manager.js
-//= require helpers.js
-//= require ../node_modules/emoji/lib/emoji.js
-//= require date.format.js
-`
+$ = require('../node_modules/jquery')
+# require('../node_modules/emoji/lib/emoji.js')
+helpers = require('./helpers')
+linkify = helpers.linkify
+date = require('./date.format.js')
+dateFormat = date.dateFormat
 
 $(document).on 'click', 'a', (e) ->
   chrome.tabs.create {url: $(this).attr('href'), selected: true}
@@ -16,7 +15,8 @@ processText = (text) ->
   text = text.trim().replace(/\n/g, '<br/>')
   text = linkify(text)
   text = text.replace(/\[([^\|]+)\|([^\]]+)\]/gi, '<a href="http://vk.com/$1">$2</a>')
-  jEmoji.unifiedToHTML(text)
+  # jEmoji.unifiedToHTML(text)
+  text
 
 
 groupLink = (screen_name) ->

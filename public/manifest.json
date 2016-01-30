@@ -16,7 +16,7 @@
 
     "background": {
         "scripts": [
-          "javascripts/background.js"
+          "js/background.js"
         ]
     },
 

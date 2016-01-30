@@ -1,8 +1,7 @@
-`
-//= require ../node_modules/jquery/dist/jquery.min.js
-//= require api_manager.js
-//= require helpers.js
-`
+$ = require('../node_modules/jquery')
+API = require('./API')
+helpers = require('./helpers')
+log = helpers.log
 
 groupItems = {}
 accessToken = null
@@ -174,4 +173,3 @@ $ ->
 #
 #      API.call 'groups.getById', {gid: key}, (data) ->
 #        unless data.error
-

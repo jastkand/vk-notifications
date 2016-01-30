@@ -1,9 +1,8 @@
-`
-//= require ../node_modules/jquery/dist/jquery.min.js
-//= require ../node_modules/underscore/underscore-min.js
-//= require api_manager.js
-//= require helpers.js
-`
+jQuery = require('../node_modules/jquery')
+_ = require('../node_modules/lodash')
+API = require('./API')
+helpers = require('./helpers.js')
+log = helpers.log
 
 groupPosts = []
 
@@ -41,7 +40,7 @@ updatePosts = (fn) ->
 
     if token.length isnt undefined
       chrome.storage.local.get 'group_items': {}, (items) ->
-        unless $.isEmptyObject(items.group_items)
+        unless jQuery.isEmptyObject(items.group_items)
 
           log('updatePosts - items.group_items', items.group_items)
 
@@ -51,7 +50,7 @@ updatePosts = (fn) ->
 
           log('updatePosts - requestPromisses', requestPromisses)
 
-          $.when.all(requestPromisses).then (schemas) ->
+          jQuery.when.all(requestPromisses).then (schemas) ->
             processPosts schemas, callback
 
 
@@ -59,10 +58,10 @@ updatePosts = (fn) ->
 #
 # @param  {string} url  Request path
 #
-# @return {function} $.ajax function for specified request path
+# @return {function} jQuery.ajax function for specified request path
 
 loadByUrl = (url) ->
-  return $.ajax
+  return jQuery.ajax
     url: url
     dataType: 'json'
 
@@ -121,7 +120,7 @@ processPosts = (posts, fn) ->
 
   newPostsCount = {}
 
-  if $.isArray(posts[0])
+  if jQuery.isArray(posts[0])
     responses = prosessArrayOfRequests(posts)
   else
     responses = processSingleRequest(posts)
@@ -231,7 +230,7 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
   if request.action is "noification_list"
     chrome.storage.local.get 'group_items': {}, (items) ->
-      unless $.isEmptyObject(items.group_items)
+      unless jQuery.isEmptyObject(items.group_items)
         if groupPosts.length is 0
           updatePosts (posts, number)->
             groupPosts = posts

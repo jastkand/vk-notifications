@@ -22,3 +22,9 @@
     npm install
 
     gulp
+    webpack
+
+TODO:
+-----
+
+* Get rid of gulp
