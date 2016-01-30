@@ -19,8 +19,8 @@ processText = (text) ->
   text
 
 
-groupLink = (screen_name) ->
-  "http://vk.com/#{screen_name}"
+groupLink = (screen_name, item) ->
+  "https://vk.com/#{screen_name}?w=wall#{item.to_id}_#{item.id}"
 
 
 showAttachments = (attachments) ->
@@ -44,13 +44,13 @@ itemTemplate = (item, groups) ->
   $('<div />', {class: 'item'})
     .append(
       $('<div />', {class: 'group-image'})
-        .append( $('<a />', href: groupLink(group.screen_name)).append($('<img />', src: group.photo, title: group.name)) )
+        .append( $('<a />', href: groupLink(group.screen_name, item)).append($('<img />', src: group.photo, title: group.name)) )
     )
     .append(
       $('<div />', class: 'item-content')
         .append(
           $('<div />', {class: 'group-name'})
-            .append( $('<a />', href: groupLink(group.screen_name), text: group.name) )
+            .append( $('<a />', href: groupLink(group.screen_name, item), text: group.name) )
         )
         .append( $('<div />', class: 'text').html(processText(item.text)) )
         .append( showAttachments(item.attachments) )
