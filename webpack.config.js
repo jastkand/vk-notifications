@@ -1,6 +1,7 @@
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var extractHTML = new ExtractTextPlugin('[name]')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var extractHTML = new ExtractTextPlugin('[name]');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
@@ -30,7 +31,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/
       },
       { test: /\.(slm|slim)$/, loader: extractHTML.extract(['html', 'slm']) },
-      { test: /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader') },
+      { test: /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
@@ -52,6 +53,7 @@ module.exports = {
       }
     ]
   },
+  postcss: [autoprefixer({ browsers: ['last 5 Chrome versions'] })],
   resolve: {
     // you can now require('file') instead of require('file.coffee')
     extensions: ['', '.js', '.json', '.coffee']
