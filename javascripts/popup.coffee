@@ -2,8 +2,8 @@ $ = require('jquery')
 # require('emoji/lib/emoji.js')
 helpers = require('./helpers')
 linkify = helpers.linkify
-date = require('./date.format.js')
-dateFormat = date.dateFormat
+moment = require('moment')
+moment.locale('ru')
 
 $(document).on 'click', 'a', (e) ->
   chrome.tabs.create {url: $(this).attr('href'), selected: true}
@@ -54,7 +54,7 @@ itemTemplate = (item, groups) ->
         )
         .append( $('<div />', class: 'text').html(processText(item.text)) )
         .append( showAttachments(item.attachments) )
-        .append( $('<span />', {class: 'datestamp'}).html(dateFormat(item.date * 1000, 'longDate')) )
+        .append( $('<span />', {class: 'datestamp'}).html(moment(item.date * 1000).format('LLL')) )
     )
 
 $ ->
