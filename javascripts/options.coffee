@@ -94,7 +94,9 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
 
   shortName = eventMatch if eventMatch
 
-  API.call 'groups.getById', {gid: shortName[1], access_token: accessToken}, (data) ->
+  API.call('groups.getById', { gid: shortName[1], access_token: accessToken })
+     .then((response) -> response.json())
+     .then((data) ->
     unless data.error
       addGroupItemToStroage data.response[0], success: ->
         $pageUrl.remove()
@@ -105,6 +107,7 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
       $loader.removeClass('visible')
       return
 
+  )
   $loader.removeClass('visible')
   e.preventDefault()
 
@@ -171,5 +174,5 @@ $ ->
 
 #      TODO: make update of information about group on opening options page
 #
-#      API.call 'groups.getById', {gid: key}, (data) ->
+#      API.call('groups.getById', {gid: key}).then (data) ->
 #        unless data.error

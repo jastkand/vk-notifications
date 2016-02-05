@@ -1,20 +1,3 @@
-import jQuery from 'jquery'
-
-if (jQuery.when.all === undefined) {
-    jQuery.when.all = function(deferreds) {
-        var deferred = new jQuery.Deferred();
-        jQuery.when.apply(jQuery, deferreds).then(
-            function() {
-                deferred.resolve(Array.prototype.slice.call(arguments));
-            },
-            function() {
-                deferred.fail(Array.prototype.slice.call(arguments));
-            });
-
-        return deferred;
-    }
-}
-
 export function linkify(text) {
     var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim,
       pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim,

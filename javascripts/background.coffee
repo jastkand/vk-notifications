@@ -3,6 +3,7 @@ _ = require('lodash')
 API = require('./API')
 helpers = require('./helpers.js')
 log = helpers.log
+Promise = require('es6-promise').Promise
 
 groupPosts = []
 
@@ -46,24 +47,13 @@ updatePosts = (fn) ->
 
           requestPromisses = []
           for key, item of items.group_items
-            requestPromisses.push loadByUrl(API.requestUrl 'wall.get', {owner_id: key, count: 10, access_token: token})
+            url = API.requestUrl('wall.get', { owner_id: key, count: 10, access_token: token })
+            requestPromisses.push(fetch(url).then((response) -> response.json()))
 
           log('updatePosts - requestPromisses', requestPromisses)
 
-          jQuery.when.all(requestPromisses).then (schemas) ->
+          Promise.all(requestPromisses).then (schemas) ->
             processPosts schemas, callback
-
-
-# Return a promise
-#
-# @param  {string} url  Request path
-#
-# @return {function} jQuery.ajax function for specified request path
-
-loadByUrl = (url) ->
-  return jQuery.ajax
-    url: url
-    dataType: 'json'
 
 
 processSingleRequest = (posts) ->

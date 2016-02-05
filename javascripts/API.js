@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 function serialize(obj) {
     var str = [];
     for(var p in obj)
@@ -7,24 +5,17 @@ function serialize(obj) {
     return str.join("&");
 }
 
-export function call(method, options, callback) {
-  $.ajax({
-    url: requestUrl(method, options),
-    success: function(data) {
-      if (callback && typeof callback === "function") {
-        callback(data)
-      }
-    }
-  });
-};
+export function call(method, params) {
+  return fetch(requestUrl(method, params))
+}
 
-export function requestUrl(method, options) {
-  var optionsString;
-  if (options && typeof options === "object") {
-    optionsString = serialize(options)
+export function requestUrl(method, params) {
+  var paramsString;
+  if (params && typeof params === "object") {
+    paramsString = serialize(params)
   }
   else {
-    optionsString = options
+    paramsString = params
   }
-  return `https://api.vk.com/method/${method.toString()}?${optionsString}`
+  return `https://api.vk.com/method/${method.toString()}?${paramsString}`
 }
