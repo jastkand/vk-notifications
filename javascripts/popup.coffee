@@ -1,5 +1,5 @@
-$ = require('../node_modules/jquery')
-# require('../node_modules/emoji/lib/emoji.js')
+$ = require('jquery')
+# require('emoji/lib/emoji.js')
 helpers = require('./helpers')
 linkify = helpers.linkify
 date = require('./date.format.js')

@@ -1,4 +1,4 @@
-import jQuery from '../node_modules/jquery'
+import jQuery from 'jquery'
 
 if (jQuery.when.all === undefined) {
     jQuery.when.all = function(deferreds) {

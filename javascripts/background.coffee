@@ -1,5 +1,5 @@
-jQuery = require('../node_modules/jquery')
-_ = require('../node_modules/lodash')
+jQuery = require('jquery')
+_ = require('lodash')
 API = require('./API')
 helpers = require('./helpers.js')
 log = helpers.log

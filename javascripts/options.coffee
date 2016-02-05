@@ -1,4 +1,4 @@
-$ = require('../node_modules/jquery')
+$ = require('jquery')
 API = require('./API')
 helpers = require('./helpers')
 log = helpers.log
