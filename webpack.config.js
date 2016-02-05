@@ -8,7 +8,7 @@ module.exports = {
     'js/background.js': './javascripts/background.coffee',
     'js/options.js': './javascripts/options.coffee',
     'js/popup.js': './javascripts/popup.coffee',
-    'stylesheets/bundle.css': './javascripts/resources.js',
+    'bundle.css': './javascripts/resources.js',
     'options.html': './views/options.slim',
     'popup.html': './views/popup.slim'
   },
@@ -60,7 +60,7 @@ module.exports = {
   },
   plugins: [
     extractHTML,
-    new ExtractTextPlugin('stylesheets/bundle.css'),
+    new ExtractTextPlugin('bundle.css'),
     new webpack.ProvidePlugin({
       'Promise': 'es6-promise',
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
