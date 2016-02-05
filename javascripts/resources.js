@@ -2,6 +2,7 @@ require('../resources/manifest.json')
 
 require('normalize.css/normalize.css')
 require('font-awesome/css/font-awesome.css')
+require('emoji/lib/emoji.css')
 require('../stylesheets/styles.scss')
 
 require('../assets/icon-128.png')

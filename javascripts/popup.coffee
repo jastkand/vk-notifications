@@ -1,5 +1,5 @@
 $ = require('jquery')
-# require('emoji/lib/emoji.js')
+jEmoji = require('emoji')
 helpers = require('./helpers')
 linkify = helpers.linkify
 moment = require('moment')
@@ -15,8 +15,7 @@ processText = (text) ->
   text = text.trim().replace(/\n/g, '<br/>')
   text = linkify(text)
   text = text.replace(/\[([^\|]+)\|([^\]]+)\]/gi, '<a href="http://vk.com/$1">$2</a>')
-  # jEmoji.unifiedToHTML(text)
-  text
+  jEmoji.unifiedToHTML(text)
 
 
 groupLink = (screen_name, item) ->
