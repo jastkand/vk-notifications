@@ -41,7 +41,7 @@
   "scripts": {
     "clean": "rimraf public/*",
     "prebuild": "npm run clean -s",
-    "build": "webpack",
+    "build": "webpack -p",
     "dev": "webpack -w"
   }
 }

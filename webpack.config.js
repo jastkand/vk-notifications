@@ -21,7 +21,14 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.coffee$/, loader: 'coffee-loader' },
-      { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules|bower_components)/ },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        },
+        exclude: /(node_modules|bower_components)/
+      },
       { test: /\.(slm|slim)$/, loader: extractHTML.extract(['html', 'slm']) },
       { test: /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader') },
       {
