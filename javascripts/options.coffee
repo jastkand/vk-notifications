@@ -83,7 +83,7 @@ $(document).on 'click', 'button[name=saveGroupItem]', (e) ->
   $pageUrl = $parent.find('[name=pageUrl]')
 
   url = $pageUrl.val()
-  shortName = url.match(/vk.com\/(\w+)/)
+  shortName = url.match(/vk.com\/([\w\.]+)/)
 
   unless shortName
     $status.text('Неверный формат ссылки').addClass('visible')
