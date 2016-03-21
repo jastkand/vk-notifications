@@ -1,6 +1,6 @@
 {
   "name": "vk-notifications",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Adds notifications about new post in groups.",
   "dependencies": {
     "emoji": "^0.3.2",

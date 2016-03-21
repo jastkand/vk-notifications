@@ -1,4 +1,3 @@
-jQuery = require('jquery')
 _ = require('lodash')
 API = require('./API')
 helpers = require('./helpers.js')
@@ -41,7 +40,7 @@ updatePosts = (fn) ->
 
     if token.length isnt undefined
       chrome.storage.local.get 'group_items': {}, (items) ->
-        unless jQuery.isEmptyObject(items.group_items)
+        unless _.isEmpty(items.group_items)
 
           log('updatePosts - items.group_items', items.group_items)
 
@@ -56,13 +55,13 @@ updatePosts = (fn) ->
             processPosts schemas, callback
 
 
-processSingleRequest = (posts) ->
+processSingleRequest = (post) ->
 
-  log('processSingleRequest - posts', posts)
+  log('processSingleRequest - post', post)
 
-  # If the group doesn't have any posts than posts[0].response[1] will be undefuned
+  # If the group doesn't have any posts than post.response[1] will be undefuned
   # and calling to_id will caouse the error
-  groupId = posts[0].response[1].to_id unless posts[0].response[1] is undefined
+  groupId = post.response[1].to_id unless post.response[1] is undefined
 
   log('processSingleRequest - groupId', groupId)
 
@@ -76,20 +75,20 @@ processSingleRequest = (posts) ->
     totalNewPosts += 10 unless groupId is undefined
   else
 
-    log('processSingleRequest - when postsCount[groupId] is not undefined - posts[0].response[0]', posts[0].response[0])
+    log('processSingleRequest - when postsCount[groupId] is not undefined - posts[0].response[0]', post.response[0])
     log('processSingleRequest - when postsCount[groupId] is not undefined - postsCount[groupId]', postsCount[groupId])
 
-    unless posts[0].response[0] - postsCount[groupId] < 0
-      totalNewPosts += posts[0].response[0] - postsCount[groupId]
+    unless post.response[0] - postsCount[groupId] < 0
+      totalNewPosts += post.response[0] - postsCount[groupId]
 
     log('processSingleRequest - when postsCount[groupId] is not undefined - totalNewPosts', totalNewPosts)
 
   log('processSingleRequest - totalNewPosts', totalNewPosts)
 
   # store the number of total posts in that group
-  newPostsCount[groupId] = posts[0].response[0] unless posts[0].response[0] is 0
+  newPostsCount[groupId] = post.response[0] unless post.response[0] is 0
 
-  return _.rest(posts[0].response)
+  return _.rest(post.response)
 
 
 prosessArrayOfRequests = (posts) ->
@@ -110,7 +109,7 @@ processPosts = (posts, fn) ->
 
   newPostsCount = {}
 
-  if jQuery.isArray(posts[0])
+  if _.isArray(posts)
     responses = prosessArrayOfRequests(posts)
   else
     responses = processSingleRequest(posts)
@@ -220,7 +219,9 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
   if request.action is "noification_list"
     chrome.storage.local.get 'group_items': {}, (items) ->
-      unless jQuery.isEmptyObject(items.group_items)
+      if _.isEmpty(items.group_items)
+        sendResponse({content: 'EMPTY_GROUP_ITEMS'})
+      else
         if groupPosts.length is 0
           updatePosts (posts, number)->
             groupPosts = posts
@@ -232,8 +233,6 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
           setTimeout ->
               sendResponse({content: 'OK', data: groupPosts, groups: items.group_items})
           , 50
-      else
-        sendResponse({content: 'EMPTY_GROUP_ITEMS'})
 
   if request.action is "open_options_page"
     optionsUrl = chrome.extension.getURL('options.html')

@@ -21,5 +21,12 @@
 
 ```bash
 $ npm install
-$ webpack
+$ npm run dev
+```
+
+Build the extension:
+--------------------
+
+```bash
+$ npm run build
 ```
