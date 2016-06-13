@@ -262,3 +262,7 @@ $popup-width: 450px;
     background: linear-gradient(to bottom, #5e80a5 0%,#5e80a5 100%);
   }
 }
+
+.btn + .btn {
+  margin-left: 6px;
+}
