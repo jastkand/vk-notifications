@@ -10,8 +10,7 @@ export function linkify(text) {
 }
 
 export function log(scope, message){
-    var debug = true;
-    if (debug) {
-        console.log(scope + ':', message)
-    }
+  if (process.env.NODE_ENV === 'development') {
+    console.log(scope + ':', message);
+  }
 }
