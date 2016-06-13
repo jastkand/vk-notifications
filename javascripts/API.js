@@ -19,3 +19,7 @@ export function requestUrl(method, params) {
   }
   return `https://api.vk.com/method/${method.toString()}?${paramsString}`
 }
+
+export function isAuthError(response) {
+  return response && response.error && response.error.error_code == 5
+}

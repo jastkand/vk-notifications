@@ -52,7 +52,11 @@ updatePosts = (fn) ->
           log('updatePosts - requestPromisses', requestPromisses)
 
           Promise.all(requestPromisses).then (schemas) ->
-            processPosts schemas, callback
+            if API.isAuthError(schemas[0])
+              log 'updatePosts - remove authentication token'
+              chrome.storage.local.remove 'vkaccess_token'
+            else
+              processPosts schemas, callback
 
 
 processSingleRequest = (post) ->
