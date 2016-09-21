@@ -27,64 +27,6 @@ a {
   display: block;
 }
 
-$popup-width: 450px;
-
-.popup {
-  width: $popup-width;
-
-  #clean-up {
-    display: none;
-  }
-
-  header {
-    background: #E1E7ED;
-    color: #45688E;
-    height: 30px;
-    line-height: 30px;
-    padding: 0;
-    font-weight: bold;
-    box-shadow: 0px 1px 2px #999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    span {
-      padding: 0 12px;
-    }
-
-    .pull-right {
-      padding: 0 12px;
-
-      span {
-        padding: 0 6px;
-        text-decoration: none;
-
-        &:last-child {
-          padding-right: 0;
-        }
-
-        &:hover {
-          color: #555;
-        }
-
-        i {
-          font-size: 16px;
-          line-height: 32px;
-        }
-      }
-    }
-  }
-
-  #wrapper {
-    padding-top: 30px;
-  }
-
-  #auth {
-    display: none;
-  }
-}
-
 .options {
   padding: 20px 40px;
 
@@ -160,109 +102,10 @@ $popup-width: 450px;
   }
 }
 
-#notifications {
-  padding: 0;
-
-  $padding-side: 12px;
-
-  .item {
-    background: #fff;
-    padding: 8px $padding-side;
-    border-top: 1px solid #DAE2E8;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    &:hover {
-      background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5);
-    }
-
-    $image-width: 50px;
-    $image-margin: 7px;
-
-    .group-image {
-      width: $image-width;
-      margin-right: $image-margin;
-      display: inline-block;
-      vertical-align: top;
-    }
-
-    .item-content {
-      display: inline-block;
-      width: $popup-width - $image-width - $image-margin - 2 * $padding-side;
-      vertical-align: top;
-
-      .group-name {
-        font-weight: bold;
-        padding-bottom: 3px;
-      }
-
-      .text {
-        margin-bottom: 4px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-height: 160%;
-      }
-
-      .attachments {
-        .link {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: inline-block;
-          width: 330px;
-        }
-      }
-
-      .datestamp {
-        margin-top: 4px;
-      }
-    }
-  }
-
-  p {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
-
 .right {
   float: right;
 }
 
 .actions {
   padding: 12px;
-}
-
-.btn {
-  font-size: 11px;
-  margin: 0;
-  cursor: pointer;
-  white-space: nowrap;
-  outline: none;
-  padding: 4px 14px;
-  font-family: tahoma, arial, verdana, Lucida Sans, sans-serif;
-  vertical-align: top;
-  overflow: visible;
-  line-height: 14px;
-  border: 1px solid #5980A9;
-  border-top-color: #789ABF;
-  color: #FFF;
-  text-shadow: 0 1px 0 #45688E;
-  border-radius: 2px;
-  background: #6181a6;
-  background: linear-gradient(to bottom, #7a9bbd 0%,#50769e 100%);
-
-  &:hover {
-    background: #668aae;
-    background: linear-gradient(to bottom, #789abf 0%,#5980a9 100%);
-  }
-
-  &:active {
-    background: #5e80a5;
-    background: linear-gradient(to bottom, #5e80a5 0%,#5e80a5 100%);
-  }
-}
-
-.btn + .btn {
-  margin-left: 6px;
 }

@@ -1,3 +1,6 @@
 {
-  "plugins": ["transform-inline-environment-variables"]
+  "plugins": [
+    "transform-react-jsx",
+    "transform-inline-environment-variables"
+  ]
 }

@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     'js/background.js': './javascripts/background.coffee',
     'js/options.js': './javascripts/options.coffee',
-    'js/popup.js': './javascripts/popup.coffee',
+    'js/popup.js': './app/containers/Popup/index.js',
     'bundle.css': './javascripts/resources.js',
     'options.html': './views/options.slim',
     'popup.html': './views/popup.slim'
@@ -31,7 +31,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/
       },
       { test: /\.(slm|slim)$/, loader: extractHTML.extract(['html', 'slm']) },
-      { test: /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
+      { test: /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader') },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
