@@ -277,7 +277,7 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 chrome.runtime.onInstalled.addListener ->
   chrome.alarms.create "update_posts",
     when: Date.now() + 1000
-    periodInMinutes: 1.0
+    periodInMinutes: 5.0
 
 chrome.storage.local.get 'posts_count': {}, (items) ->
   postsCount = items.posts_count
