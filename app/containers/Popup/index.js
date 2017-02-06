@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import Button from '../../components/Button'
+import AuthPanel from '../../components/AuthPanel'
 import moment from 'moment'
 import { linkify } from '../../../javascripts/helpers'
 import jEmoji from 'emoji'
@@ -33,7 +34,6 @@ class Header extends React.Component {
       let href = $(this).attr('href')
 
       if (href) {
-        console.log('here i am');
         chrome.tabs.create({ url: href, selected: true });
       }
 
@@ -104,21 +104,6 @@ class Feed extends React.Component {
       <div className="post-list">
         {postNodes}
       </div>
-    )
-  }
-}
-
-class AuthPanel extends React.Component {
-  render() {
-    var button;
-    if (this.props.accessToken) {
-      button = <Button onClick={this.props.onLogOutClick}>Выйти</Button>
-    } else {
-      button = <Button onClick={this.props.onLogInClick}>Войти</Button>
-    }
-
-    return (
-      <div className="actions">{ button }</div>
     )
   }
 }
