@@ -2,7 +2,6 @@ _ = require('lodash')
 API = require('./API')
 helpers = require('./helpers.js')
 log = helpers.log
-Promise = require('es6-promise').Promise
 
 groupPosts = []
 

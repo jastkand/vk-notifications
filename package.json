@@ -3,9 +3,9 @@
   "version": "1.0.6",
   "description": "Adds notifications about new post in groups.",
   "dependencies": {
+    "axios": "^0.15.3",
     "classnames": "^2.2.5",
     "emoji": "^0.3.2",
-    "es6-promise": "^3.0.2",
     "exports-loader": "^0.6.2",
     "font-awesome": "^4.5.0",
     "imports-loader": "^0.6.5",
