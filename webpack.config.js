@@ -6,8 +6,8 @@ var autoprefixer = require('autoprefixer');
 module.exports = {
   entry: {
     'js/background.js': './javascripts/background.coffee',
-    'js/options.js': './javascripts/options.coffee',
     'js/popup.js': './app/containers/Popup/index.js',
+    'js/options.js': './app/containers/Options/index.js',
     'bundle.css': './javascripts/resources.js',
     'options.html': './views/options.slim',
     'popup.html': './views/popup.slim'
@@ -62,7 +62,6 @@ module.exports = {
     extractHTML,
     new ExtractTextPlugin('bundle.css'),
     new webpack.ProvidePlugin({
-      'Promise': 'es6-promise',
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     })
   ]

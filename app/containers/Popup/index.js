@@ -7,6 +7,7 @@ import moment from 'moment'
 import { linkify } from '../../../javascripts/helpers'
 import jEmoji from 'emoji'
 import $ from 'jquery'
+import { getToken } from '../../storages/SessionStorage'
 
 moment.locale('ru')
 
@@ -78,7 +79,7 @@ class FeedContainer extends React.Component {
   }
 
   componentDidMount() {
-    chrome.runtime.sendMessage({ action: "noification_list", token: this.props.accessToken }, (response) => {
+    chrome.runtime.sendMessage({ action: "noification_list" }, (response) => {
       if (response.content == 'EMPTY_GROUP_ITEMS') {
         this.setState({ posts: [], groups: [] })
       } else {
@@ -175,22 +176,16 @@ class Popup extends React.Component {
       accessToken: null
     }
 
-    this.handleLogInClick = this.handleLogInClick.bind(this)
-    this.handleLogOutClick = this.handleLogOutClick.bind(this)
+    this.afterLogOutClick = this.afterLogOutClick.bind(this)
   }
 
-  handleLogInClick() {
-    chrome.runtime.sendMessage({ action: "vk_notification_auth" })
-  }
-
-  handleLogOutClick() {
-    chrome.storage.local.remove('vkaccess_token')
+  afterLogOutClick() {
     this.setState({ accessToken: null })
   }
 
   componentDidMount() {
-    chrome.storage.local.get({ 'vkaccess_token': {} }, (items) => {
-      this.setState({ accessToken: items.vkaccess_token })
+    getToken().then((token) => {
+      this.setState({ accessToken: token })
     })
   }
 
@@ -208,8 +203,7 @@ class Popup extends React.Component {
           { feed }
           <AuthPanel
             accessToken={ this.state.accessToken }
-            onLogInClick={ this.handleLogInClick }
-            onLogOutClick={ this.handleLogOutClick }
+            afterLogOutClick={ this.afterLogOutClick }
           />
         </div>
       </div>

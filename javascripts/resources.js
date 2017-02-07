@@ -7,6 +7,7 @@ require('../stylesheets/styles.scss')
 require('../app/components/Button/styles.scss')
 require('../app/components/AuthPanel/styles.scss')
 require('../app/containers/Popup/styles.scss')
+require('../app/containers/Options/styles.scss')
 
 require('../assets/icon-128.png')
 require('../assets/icon-16.png')

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 function serialize(obj) {
     var str = [];
     for(var p in obj)
@@ -6,12 +8,13 @@ function serialize(obj) {
 }
 
 export function call(method, params) {
-  return fetch(requestUrl(method, params))
+  return axios.post(requestUrl(method, params))
 }
 
 export function requestUrl(method, params) {
   var paramsString;
   if (params && typeof params === "object") {
+    Object.assign(params, {v: '5.62'});
     paramsString = serialize(params)
   }
   else {
