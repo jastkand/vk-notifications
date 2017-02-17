@@ -5,7 +5,7 @@ var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
-    'js/background.js': './javascripts/background.coffee',
+    'js/background.js': './app/background.js',
     'js/popup.js': './app/containers/Popup/index.js',
     'js/options.js': './app/containers/Options/index.js',
     'bundle.css': './app/resources.js',
