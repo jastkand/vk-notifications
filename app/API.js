@@ -11,7 +11,7 @@ export function call(method, params) {
   return axios.post(requestUrl(method, params))
 }
 
-export function requestUrl(method, params) {
+function requestUrl(method, params) {
   var paramsString;
   if (params && typeof params === "object") {
     Object.assign(params, {v: '5.62'});

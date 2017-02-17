@@ -1,7 +1,7 @@
 _ = require('lodash')
-API = require('./API')
 helpers = require('./helpers.js')
 log = helpers.log
+API = require('../app/API')
 
 groupPosts = []
 
