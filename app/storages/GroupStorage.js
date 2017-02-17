@@ -1,4 +1,4 @@
-import { call, isAuthError } from '../../javascripts/API'
+import { call, isAuthError } from '../API'
 import { getToken } from './SessionStorage'
 
 export function getGroups() {
