@@ -96,7 +96,7 @@ class FeedContainer extends React.Component {
 class Feed extends React.Component {
   render() {
     let postNodes = this.props.posts.map((post) => {
-      let group = this.props.groups[post.to_id]
+      let group = this.props.groups[post.owner_id]
 
       return group ? <Post key={ post.id } post={ post } group={ group } /> : null
     })
@@ -111,13 +111,13 @@ class Feed extends React.Component {
 
 class Post extends React.Component {
   groupLink(screen_name, item) {
-    return `https://vk.com/${screen_name}?w=wall${item.to_id}_${item.id}`
+    return `https://vk.com/${screen_name}?w=wall${item.owner_id}_${item.id}`
   }
 
   processText(content) {
     let text = content.trim().replace(/\n/g, '<br/>')
     text = linkify(text)
-    text = text.replace(/\[([^\|]+)\|([^\]]+)\]/gi, '<a href="http://vk.com/$1">$2</a>')
+    text = text.replace(/\[([^\|]+)\|([^\]]+)\]/gi, '<a href="https://vk.com/$1">$2</a>')
     return jEmoji.unifiedToHTML(text)
   }
 
