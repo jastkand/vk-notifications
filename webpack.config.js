@@ -8,7 +8,7 @@ module.exports = {
     'js/background.js': './javascripts/background.coffee',
     'js/popup.js': './app/containers/Popup/index.js',
     'js/options.js': './app/containers/Options/index.js',
-    'bundle.css': './javascripts/resources.js',
+    'bundle.css': './app/resources.js',
     'options.html': './views/options.slim',
     'popup.html': './views/popup.slim'
   },
