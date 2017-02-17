@@ -8,9 +8,3 @@ export function linkify(text) {
       .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
       .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
 }
-
-export function log(scope, message){
-  if (process.env.NODE_ENV === 'development') {
-    console.log(scope + ':', message);
-  }
-}
