@@ -3,7 +3,7 @@ import { log } from './helpers/Logger'
 import { badgeText, updatePosts } from './helpers/Background'
 import { getGroups } from './storages/GroupStorage'
 import { getPostsCount, resetPostsCount, resetTotalPostsCount } from './storages/PostsCountStorage'
-import AuthHandler from './helpers/AuthHandler'
+import { authListenerHandler } from './helpers/AuthHandler'
 
 let groupPosts = []
 
@@ -24,10 +24,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action == "vk_notification_auth") {
     let vkClientId           = '3696318'
     let vkRequestedScopes    = 'offline'
-    let vkAuthenticationUrl  = `https://oauth.vk.com/authorize?client_id=//${vkClientId}&scope=${vkRequestedScopes}&redirect_uri=http%3A%2F%2Foauth.vk.com%2Fblank.html&display=page&response_type=token`
+    let vkAuthenticationUrl  = `https://oauth.vk.com/authorize?client_id=${vkClientId}&scope=${vkRequestedScopes}&redirect_uri=http%3A%2F%2Foauth.vk.com%2Fblank.html&display=page&response_type=token`
 
     chrome.tabs.create({ url: vkAuthenticationUrl, selected: true }, (tab) => {
-      chrome.tabs.onUpdated.addListener(AuthHandler.handler(tab.id))
+      chrome.tabs.onUpdated.addListener(authListenerHandler(tab.id))
     })
 
     sendResponse({content: "OK"})
