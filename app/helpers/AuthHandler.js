@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash'
+import { isUndefined, isEmpty } from 'lodash'
 import { saveToken } from '../storages/SessionStorage'
 
 function showError(title, description) {
@@ -9,13 +9,18 @@ function getUrlParameterValue(url, parameterName) {
   let urlParameters = url.substr(url.indexOf("#") + 1)
   urlParameters = urlParameters.split("&")
 
+  let paramValue
+
   urlParameters.forEach((param) => {
     let temp = param.split("=")
 
     if (temp[0] === parameterName) {
-      return temp[1] === undefined ? true : temp[1]
+      paramValue = isUndefined(temp[1]) ? true : temp[1]
+      return
     }
   })
+
+  return paramValue
 }
 
 // Chrome tab update listener handler. Return a function which is used as a listener itself by chrome.tabs.obUpdated
@@ -24,11 +29,10 @@ function getUrlParameterValue(url, parameterName) {
 //
 // @return {function}                   Listener for chrome.tabs.onUpdated
 //
-export function listenerHandler(authenticationTabId) {
+export function authListenerHandler(authenticationTabId) {
   return function tabUpdateListener(tabId, changeInfo) {
-    if (tabId === authenticationTabId && changeInfo.url != undefined && changeInfo.status === "loading") {
+    if (tabId === authenticationTabId && !isUndefined(changeInfo.url) && changeInfo.status === "loading") {
       if (changeInfo.url.indexOf('oauth.vk.com/blank.html') > -1) {
-        let authenticationTabId
         chrome.tabs.onUpdated.removeListener(tabUpdateListener)
 
         let vkAccessToken = getUrlParameterValue(changeInfo.url, 'access_token')
@@ -38,7 +42,7 @@ export function listenerHandler(authenticationTabId) {
           return
         }
 
-        vkAccessTokenExpiredFlag = Number(getUrlParameterValue(changeInfo.url, 'expires_in'))
+        let vkAccessTokenExpiredFlag = Number(getUrlParameterValue(changeInfo.url, 'expires_in'))
 
         if ((vkAccessTokenExpiredFlag !== 0)) {
           showError('Authentication Error', `Access token cannot be used`)
