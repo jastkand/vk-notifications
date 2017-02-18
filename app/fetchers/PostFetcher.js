@@ -22,6 +22,7 @@ function fetchPostsForGroup(groupId, accessToken) {
       let data = response.data
 
       if (isAuthError(data)) {
+        removeToken()
         return Promise.reject({ error: 'auth_error', message: 'Authentication failure', response: data })
       } else {
         return Promise.resolve(normalizePost(data))
@@ -39,10 +40,5 @@ export function fetchAllPosts() {
       let requestPromisses = Object.keys(groups).map((key) => fetchPostsForGroup(key, token))
 
       return Promise.all(requestPromisses)
-    })
-    .catch(({ error }) => {
-      if (error == 'auth_error') {
-        removeToken()
-      }
     })
 }
