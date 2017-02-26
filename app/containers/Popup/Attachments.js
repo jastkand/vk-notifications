@@ -1,3 +1,4 @@
+import { get } from 'lodash'
 import React from 'react'
 
 class AttachmentLink extends React.Component {
@@ -30,19 +31,15 @@ class AttachmentVideo extends React.Component {
 
 class AttachmentDoc extends React.Component {
   render() {
-    let preview = this.props.doc.preview
+    let video = get(this.props.doc, 'preview.video')
 
-    if (preview && preview.video) {
-      let video = preview.video
-
-      return (
-        <video className="doc-preview" width={ video.width } height={ video.height } autoplay>
-          <source src={ video.src } type="video/mp4" />
-        </video>
-      )
+    if (!video) {
+      return null
     }
 
-    return null
+    return (
+      <video className="doc-preview" width={ video.width } height={ video.height } autoPlay loop src={ video.src } />
+    )
   }
 }
 

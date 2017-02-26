@@ -71,10 +71,6 @@ $popup-width: 450px;
     overflow: hidden;
     text-overflow: ellipsis;
 
-    &:hover {
-      background: none repeat scroll 0 0 rgba(219, 227, 235, 0.5);
-    }
-
     $image-width: 50px;
     $image-margin: 7px;
 
@@ -83,6 +79,12 @@ $popup-width: 450px;
       margin-right: $image-margin;
       display: inline-block;
       vertical-align: top;
+    }
+
+    .item-quote {
+      border-left: 2px solid #dee6ee;
+      padding-left: 12px;
+      margin: 5px 0 0;
     }
 
     .item-content {
