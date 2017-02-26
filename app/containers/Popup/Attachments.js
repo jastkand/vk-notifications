@@ -1,5 +1,15 @@
 import React from 'react'
 
+class AttachmentLink extends React.Component {
+  render() {
+    return (
+      <a href={ this.props.link.url } className="link">
+        { this.props.link.url }
+      </a>
+    )
+  }
+}
+
 class AttachmentVideo extends React.Component {
   render() {
     let videoPreviewSrc = this.props.video.photo_640 || this.props.video.photo_800
@@ -33,10 +43,10 @@ export default class Attachments extends React.Component {
         photos.push(<img src={ attachment.photo.photo_604 } className="photo" key={ index }/>)
       }
       if (attachment.type == "link") {
-        links.push(<a href={ attachment.link.url } className="link" key={ index }>{ attachment.link.url }</a>)
+        links.push(<AttachmentLink link={ attachment.link } key={ index } />)
       }
       if (attachment.type == "video") {
-        videos.push(<AttachmentVideo postLink={ this.props.postLink } video= { attachment.video } key={ index } />)
+        videos.push(<AttachmentVideo postLink={ this.props.postLink } video={ attachment.video } key={ index } />)
       }
     })
 
