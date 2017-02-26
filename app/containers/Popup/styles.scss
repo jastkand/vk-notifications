@@ -15,6 +15,7 @@ $popup-width: 450px;
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 1;
 
     span {
       padding: 0 12px;
@@ -108,6 +109,44 @@ $popup-width: 450px;
           text-overflow: ellipsis;
           display: inline-block;
           width: 330px;
+        }
+
+        .photo {
+          width: 100%;
+          display: block;
+          margin-bottom: 0.5em;
+        }
+
+        .video {
+          .preview {
+            position: relative;
+
+            img {
+              width: 100%;
+              display: block;
+            }
+
+            .play-icon {
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              top: 50%;
+              right: 50%;
+              margin-top: -25px;
+              margin-right: -25px;
+              text-align: center;
+              color: #fff;
+              background: rgba(0, 0, 0, 0.6);
+              border-radius: 50%;
+              font-size: 20px;
+              padding: 15px 13px 15px 17px;
+            }
+          }
+
+          .title {
+            margin-top: 0.5em;
+            font-weight: bold;
+          }
         }
       }
 
