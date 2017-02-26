@@ -28,6 +28,24 @@ class AttachmentVideo extends React.Component {
   }
 }
 
+class AttachmentDoc extends React.Component {
+  render() {
+    let preview = this.props.doc.preview
+
+    if (preview && preview.video) {
+      let video = preview.video
+
+      return (
+        <video className="doc-preview" width={ video.width } height={ video.height } autoplay>
+          <source src={ video.src } type="video/mp4" />
+        </video>
+      )
+    }
+
+    return null
+  }
+}
+
 export default class Attachments extends React.Component {
   render() {
     if (!this.props.attachments) {
@@ -37,6 +55,7 @@ export default class Attachments extends React.Component {
     let videos = []
     let photos = []
     let links = []
+    let docs = []
 
     this.props.attachments.forEach((attachment, index) => {
       if (attachment.type == "photo") {
@@ -48,11 +67,15 @@ export default class Attachments extends React.Component {
       if (attachment.type == "video") {
         videos.push(<AttachmentVideo postLink={ this.props.postLink } video={ attachment.video } key={ index } />)
       }
+      if (attachment.type == "doc") {
+        docs.push(<AttachmentDoc doc={ attachment.doc } key={ index } />)
+      }
     })
 
     return (
       <div className="attachments">
         <div className="videos">{ videos }</div>
+        <div className="docs">{ docs }</div>
         <div className="photos">{ photos }</div>
         <div className="links">{ links }</div>
       </div>
