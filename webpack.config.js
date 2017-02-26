@@ -21,10 +21,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.coffee$/,
-        loader: 'coffee-loader'
-      },
-      {
         test: /\.js$/,
         loader: 'babel-loader',
         query: {
@@ -65,7 +61,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.json', '.coffee']
+    extensions: ['.js', '.json']
   },
   plugins: [
     extractHTML,
