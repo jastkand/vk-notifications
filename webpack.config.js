@@ -1,7 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractHTML = new ExtractTextPlugin('[name]');
-var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
@@ -13,15 +12,18 @@ module.exports = {
     'popup.html': './views/popup.slim'
   },
   resolve: {
-      modulesDirectories: ['node_modules']
+    modules: ['node_modules']
   },
   output: {
     path: 'public/',
     filename: '[name]' // Template based on keys in entry above
   },
   module: {
-    loaders: [
-      { test: /\.coffee$/, loader: 'coffee-loader' },
+    rules: [
+      {
+        test: /\.coffee$/,
+        loader: 'coffee-loader'
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -30,13 +32,22 @@ module.exports = {
         },
         exclude: /(node_modules|bower_components)/
       },
-      { test: /\.(slm|slim)$/, loader: extractHTML.extract(['html', 'slm']) },
-      { test: /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader') },
+      {
+        test: /\.(slm|slim)$/,
+        loader: extractHTML.extract({ use: ['html-loader', 'slm-loader'] })
+      },
+      {
+        test: /\.(css|scss)$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader', 'sass-loader']
+        })
+      },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?digest=hex&name=assets/[name].[ext]',
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          'file-loader?digest=hex&name=assets/[name].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
       {
@@ -45,24 +56,19 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file?name=assets/[name].[ext]'
+        loader: 'file-loader?name=assets/[name].[ext]'
       },
       {
         test: /manifest\.json$/,
-        loader: 'file?name=./[name].[ext]'
+        loader: 'file-loader?name=./[name].[ext]'
       }
     ]
   },
-  postcss: [autoprefixer({ browsers: ['last 5 Chrome versions'] })],
   resolve: {
-    // you can now require('file') instead of require('file.coffee')
-    extensions: ['', '.js', '.json', '.coffee']
+    extensions: ['.js', '.json', '.coffee']
   },
   plugins: [
     extractHTML,
-    new ExtractTextPlugin('bundle.css'),
-    new webpack.ProvidePlugin({
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    })
+    new ExtractTextPlugin({ filename: 'bundle.css' })
   ]
 };
