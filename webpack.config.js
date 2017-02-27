@@ -23,10 +23,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        },
-        exclude: /(node_modules|bower_components)/
+        exclude: /node_modules/
       },
       {
         test: /\.(slm|slim)$/,
@@ -41,22 +38,50 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file-loader?digest=hex&name=assets/[name].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              digest: 'hex',
+              name: 'assets/[name].[ext]'
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              optipng: {
+                optimizationLevel: 7,
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              bypassOnDebug: true,
+            }
+          }
         ]
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?&limit=10000&minetype=application/font-woff&name=assets/[name].[ext]'
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          mimetype: 'application/font-woff',
+          name: 'assets/[name].[ext]'
+        }
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader?name=assets/[name].[ext]'
+        loader: 'file-loader',
+        options: {
+          name: 'assets/[name].[ext]'
+        }
       },
       {
         test: /manifest\.json$/,
-        loader: 'file-loader?name=./[name].[ext]'
+        loader: 'file-loader',
+        options: {
+          name: './[name].[ext]'
+        }
       }
     ]
   },
