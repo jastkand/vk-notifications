@@ -8,8 +8,8 @@ module.exports = {
     'js/popup.js': './app/containers/Popup/index.js',
     'js/options.js': './app/containers/Options/index.js',
     'bundle.css': './app/resources.js',
-    'options.html': './views/options.slim',
-    'popup.html': './views/popup.slim'
+    'options.html': './views/options.html',
+    'popup.html': './views/popup.html'
   },
   resolve: {
     modules: ['node_modules']
@@ -26,8 +26,8 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(slm|slim)$/,
-        loader: extractHTML.extract({ use: ['html-loader', 'slm-loader'] })
+        test: /\.(html)$/,
+        loader: extractHTML.extract({ use: ['html-loader'] })
       },
       {
         test: /\.(css|scss)$/,

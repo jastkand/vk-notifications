@@ -34,7 +34,6 @@
     "postcss-loader": "^1.3.2",
     "rimraf": "^2.5.1",
     "sass-loader": "^6.0.2",
-    "slm-loader": "^0.2.3",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1"
