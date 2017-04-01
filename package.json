@@ -55,6 +55,6 @@
     "dev": "NODE_ENV=development webpack -w"
   },
   "browserslist": [
-    "last 2 versions"
+    "last 2 Chrome versions"
   ]
 }
