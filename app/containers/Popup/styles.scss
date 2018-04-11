@@ -1,21 +1,19 @@
 $popup-width: 450px;
+$popup-height: 600px;
+$header-height: 30px;
 
 .popup {
   width: $popup-width;
+  height: $popup-height;
 
   .header {
     background: #E1E7ED;
     color: #45688E;
-    height: 30px;
-    line-height: 30px;
+    height: $header-height;
+    line-height: $header-height;
     padding: 0;
     font-weight: bold;
     box-shadow: 0px 1px 2px #999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
 
     span {
       padding: 0 12px;
@@ -51,11 +49,9 @@ $popup-width: 450px;
   }
 
   .wrapper {
-    padding-top: 30px;
-  }
-
-  #auth {
-    display: none;
+    width: 100%;
+    overflow: auto;
+    height: $popup-height - $header-height;
   }
 }
 
@@ -73,6 +69,10 @@ $popup-width: 450px;
 
     $image-width: 50px;
     $image-margin: 7px;
+
+    &:first-child {
+      border-top: 0;
+    }
 
     .group-image {
       width: $image-width;
