@@ -1,6 +1,5 @@
 import React from 'react'
 import Button from '../Button'
-import classNames from 'classnames'
 import { removeToken } from '../../storages/SessionStorage'
 
 export default class AuthPanel extends React.Component {
