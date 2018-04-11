@@ -1,5 +1,3 @@
-require('../resources/manifest.json')
-
 require('normalize.css/normalize.css')
 require('font-awesome/css/font-awesome.css')
 require('emoji/lib/emoji.css')
