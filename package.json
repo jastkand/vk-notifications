@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/jastkand/vk-notifications",
   "scripts": {
-    "clean": "rimraf public/*",
+    "clean": "rimraf public/app/*",
     "prebuild": "npm run clean -s",
     "build": "NODE_ENV=production webpack -p",
     "dev": "NODE_ENV=development webpack -w"

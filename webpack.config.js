@@ -1,22 +1,19 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractHTML = new ExtractTextPlugin('[name]');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
   entry: {
-    'js/background.js': './app/background.js',
-    'js/popup.js': './app/containers/Popup/index.js',
-    'js/options.js': './app/containers/Options/index.js',
-    'bundle.css': './app/resources.js',
-    'options.html': './views/options.html',
-    'popup.html': './views/popup.html'
+    'background.js': './app/background.js',
+    'popup.js': './app/containers/Popup/index.js',
+    'options.js': './app/containers/Options/index.js',
+    'bundle.css': './app/resources.js'
   },
   resolve: {
     modules: ['node_modules']
   },
   output: {
-    path: 'public/',
+    path: 'public/app/',
     filename: '[name]' // Template based on keys in entry above
   },
   module: {
@@ -76,13 +73,6 @@ module.exports = {
         options: {
           name: 'assets/[name].[ext]'
         }
-      },
-      {
-        test: /manifest\.json$/,
-        loader: 'file-loader',
-        options: {
-          name: './[name].[ext]'
-        }
       }
     ]
   },
@@ -90,8 +80,7 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   plugins: [
-    extractHTML,
-    new ExtractTextPlugin({ filename: 'bundle.css' }),
+    new ExtractTextPlugin({ filename: 'bundle.css', allChunks: true }),
     new MomentLocalesPlugin({
       localesToKeep: ['ru']
     })
