@@ -30,11 +30,8 @@ export default class AuthPanel extends React.Component {
   }
 
   render() {
-    let panelClass = classNames(
-      "auth-panel",
-      { 'is-invisible': this.props.hidden }
-    )
-    let button;
+    let button
+
     if (this.props.accessToken) {
       button = <Button onClick={this.handleLogOutClick}>Выйти</Button>
     } else {
@@ -42,7 +39,7 @@ export default class AuthPanel extends React.Component {
     }
 
     return (
-      <div className={ panelClass }>{ button }</div>
+      this.props.hidden ? null : <div className='auth-panel'>{ button }</div>
     )
   }
 }

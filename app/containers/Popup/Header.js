@@ -4,14 +4,10 @@ import $ from 'jquery'
 
 class HeaderButton extends React.Component {
   render() {
-    var btnClass = classNames(
-      "nav-btn",
-      { 'is-invisible': this.props.hidden }
-    )
     var iconClass = classNames('fa', `fa-${this.props.icon}`)
 
-    return (
-      <a onClick={ this.props.onClick } className={ btnClass } title={ this.props.title }>
+    return this.props.hidden ? null : (
+      <a onClick={ this.props.onClick } className="nav-btn" title={ this.props.title }>
         <i className={ iconClass }></i>
       </a>
     )

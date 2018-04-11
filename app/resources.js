@@ -5,7 +5,7 @@ require('font-awesome/css/font-awesome.css')
 require('emoji/lib/emoji.css')
 require('../stylesheets/styles.scss')
 require('./components/Button/styles.scss')
-require('./components/AuthPanel/styles.scss')
+require('./components/AuthPanel/styles.css')
 require('./containers/Popup/styles.scss')
 require('./containers/Options/styles.scss')
 
