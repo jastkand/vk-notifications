@@ -1,0 +1,20 @@
+.group {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #C0CAD5;
+}
+
+.image {
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+  float: left;
+}
+
+.header {
+  color: #45688E;
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+  padding-bottom: 9px;
+}

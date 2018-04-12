@@ -1,5 +1,5 @@
 import React from 'react'
-import Post from './Post'
+import Feed from './Feed'
 
 export default class FeedContainer extends React.Component {
   constructor() {
@@ -19,21 +19,5 @@ export default class FeedContainer extends React.Component {
 
   render() {
     return <Feed posts={ this.state.posts } groups={ this.state.groups } />;
-  }
-}
-
-class Feed extends React.Component {
-  render() {
-    let postNodes = this.props.posts.map((post) => {
-      let group = this.props.groups[post.owner_id]
-
-      return group ? <Post key={ post.id } post={ post } group={ group } /> : null
-    })
-
-    return (
-      <div className="post-list">
-        {postNodes}
-      </div>
-    )
   }
 }

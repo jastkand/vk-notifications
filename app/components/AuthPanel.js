@@ -1,6 +1,7 @@
 import React from 'react'
-import Button from '../Button'
-import { removeToken } from '../../storages/SessionStorage'
+import Button from './Button'
+import { removeToken } from '../storages/SessionStorage'
+import styles from './AuthPanel.css'
 
 export default class AuthPanel extends React.Component {
   constructor() {
@@ -38,7 +39,7 @@ export default class AuthPanel extends React.Component {
     }
 
     return (
-      this.props.hidden ? null : <div className='auth-panel'>{ button }</div>
+      this.props.hidden ? null : <div className={ styles['auth-panel'] }>{ button }</div>
     )
   }
 }

@@ -1,20 +1,9 @@
 import React from 'react'
-import classNames from 'classnames'
 import $ from 'jquery'
+import HeaderButton from './HeaderButton'
+import styles from './PopupHeader.css'
 
-class HeaderButton extends React.Component {
-  render() {
-    var iconClass = classNames('fa', `fa-${this.props.icon}`)
-
-    return this.props.hidden ? null : (
-      <a onClick={ this.props.onClick } className="nav-btn" title={ this.props.title }>
-        <i className={ iconClass }></i>
-      </a>
-    )
-  }
-}
-
-export default class Header extends React.Component {
+export default class PopupHeader extends React.Component {
   constructor() {
     super()
 
@@ -47,10 +36,10 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <header className="header">
-        <span className="title">Оповещения VK</span>
-        <div className="pull-right">
-          <HeaderButton onClick={ this.handleClearClick } icon="eraser" hidden={true} />
+      <header className={ styles.header }>
+        <span className={ styles.title }>Оповещения VK</span>
+        <div className={ styles.actions }>
+          <HeaderButton onClick={ this.handleClearClick } icon="eraser" hidden={ true } />
           <HeaderButton onClick={ this.handleWatchPostsClick } icon="check-square-o" title="Прочитать все" />
           <HeaderButton onClick={ this.handleSettingsClick } icon="cog" title="Настройки" />
         </div>

@@ -1,9 +1,13 @@
+import './global'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AuthPanel from '../../components/AuthPanel'
-import Header from './Header'
-import FeedContainer from './FeedContainer'
-import { getToken } from '../../storages/SessionStorage'
+import AuthPanel from './components/AuthPanel'
+import PopupHeader from './components/PopupHeader'
+import FeedContainer from './components/FeedContainer'
+import { getToken } from './storages/SessionStorage'
+
+import styles from './Popup.css'
 
 class Popup extends React.Component {
   constructor() {
@@ -28,14 +32,18 @@ class Popup extends React.Component {
   render() {
     let feed
 
+    let wrapperClass = `${styles.wrapper}`
+
     if (this.state.accessToken) {
       feed = <FeedContainer accessToken={this.state.accessToken} />
+    } else {
+      wrapperClass = `${wrapperClass} ${styles['wrapper-tiny']}`
     }
 
     return (
-      <div>
-        <Header />
-        <div className="wrapper">
+      <div className={ styles.popup }>
+        <PopupHeader />
+        <div className={ wrapperClass }>
           { feed }
           <AuthPanel
             accessToken={ this.state.accessToken }

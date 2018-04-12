@@ -1,0 +1,24 @@
+:root {
+  --popup-width: 450px;
+  --popup-height: 600px;
+  --header-height: 30px;
+  --padding-side: 12px;
+  --image-width: 50px;
+  --image-margin: 7px;
+}
+
+.popup {
+  width: var(--popup-width);
+  height: var(--popup-height);
+}
+
+.wrapper {
+  width: 100%;
+  overflow: auto;
+  height: calc(var(--popup-height) - var(--header-height));
+  margin-top: 2px;
+}
+
+.wrapper-tiny {
+  height: 48px;
+}

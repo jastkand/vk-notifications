@@ -1,10 +1,11 @@
 import { get } from 'lodash'
 import React from 'react'
+import styles from './Attachments.css'
 
 class AttachmentLink extends React.Component {
   render() {
     return (
-      <a href={ this.props.link.url } className="link">
+      <a href={ this.props.link.url } className={ styles.link }>
         { this.props.link.url }
       </a>
     )
@@ -16,14 +17,14 @@ class AttachmentVideo extends React.Component {
     let videoPreviewSrc = this.props.video.photo_640 || this.props.video.photo_800
 
     return (
-      <a className="video" href={ this.props.postLink }>
-        <div className="preview">
-          <img src={ videoPreviewSrc } />
-          <div className="play-icon">
+      <a className={ styles.video } href={ this.props.postLink }>
+        <div className={ styles['video-preview'] }>
+          <img className={ styles['preview-image'] } src={ videoPreviewSrc } />
+          <div className={ styles['play-icon'] }>
             <i className="fa fa-play" />
           </div>
         </div>
-        <div className="title">{ this.props.video.title }</div>
+        <div className={ styles.title }>{ this.props.video.title }</div>
       </a>
     )
   }
@@ -38,7 +39,14 @@ class AttachmentDoc extends React.Component {
     }
 
     return (
-      <video className="doc-preview" width={ video.width } height={ video.height } autoPlay loop src={ video.src } />
+      <video
+        className={ styles['doc-preview'] }
+        width={ video.width }
+        height={ video.height }
+        autoPlay
+        loop
+        src={ video.src }
+      />
     )
   }
 }
@@ -56,7 +64,7 @@ export default class Attachments extends React.Component {
 
     this.props.attachments.forEach((attachment, index) => {
       if (attachment.type == "photo") {
-        photos.push(<img src={ attachment.photo.photo_604 } className="photo" key={ index }/>)
+        photos.push(<img src={ attachment.photo.photo_604 } className={ styles.photo } key={ index }/>)
       }
       if (attachment.type == "link") {
         links.push(<AttachmentLink link={ attachment.link } key={ index } />)

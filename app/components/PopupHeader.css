@@ -1,0 +1,19 @@
+.header {
+  background: #E1E7ED;
+  color: #45688E;
+  height: var(--header-height);
+  line-height: var(--header-height);
+  padding: 0;
+  font-weight: bold;
+  box-shadow: 0px 1px 2px #999;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  padding: 0 12px;
+}
+
+.actions {
+  padding: 0 12px;
+}
