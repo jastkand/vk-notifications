@@ -1,9 +1,8 @@
 import React from 'react'
-import classNames from 'classnames'
 import styles from './HeaderButton.css'
 
 export default (props) => {
-  let iconClass = classNames('fa', `fa-${props.icon}`, styles.icon)
+  let iconClass = `fa fa-${props.icon} ${styles.icon}`
 
   if (props.hidden) {
     return null
