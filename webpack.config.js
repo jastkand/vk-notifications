@@ -51,25 +51,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                sourceMap: true,
-                importLoaders: 2,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-              }
-            },
-            'postcss-loader',
-            'sass-loader'
-          ]
-        })
-      },
-      {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
           {
