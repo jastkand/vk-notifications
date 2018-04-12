@@ -1,0 +1,19 @@
+.nav-button {
+  padding: 0 6px;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  color: #555;
+}
+
+.nav-button:last-child {
+  padding-right: 0;
+}
+
+.icon {
+  font-size: 16px;
+  line-height: 32px;
+}

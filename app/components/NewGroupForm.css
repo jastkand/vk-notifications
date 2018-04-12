@@ -1,0 +1,33 @@
+.form {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #c0cad5;
+}
+
+.input {
+  width: 250px;
+  border: 1px solid #C0CAD5;
+  background: #FFF;
+  color: #000;
+  margin: 0px;
+  padding: 4px;
+  outline: 0;
+  vertical-align: top;
+  margin-right: 4px;
+}
+
+.loader {
+  background: url(../assets/loader.gif) 50% 50% no-repeat transparent;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-bottom: -3px;
+}
+
+.status {
+  vertical-align: top;
+  line-height: 24px;
+  padding-left: 10px;
+  color: #999;
+  display: inline-block;
+}

@@ -4,17 +4,16 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
   entry: {
-    'background.js': './app/background.js',
-    'popup.js': './app/containers/Popup/index.js',
-    'options.js': './app/containers/Options/index.js',
-    'bundle.css': './app/resources.js'
+    background: './app/background.js',
+    popup: './app/Popup.js',
+    options: './app/Options.js'
   },
   resolve: {
     modules: ['node_modules']
   },
   output: {
     path: 'public/app/',
-    filename: '[name]' // Template based on keys in entry above
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -24,14 +23,50 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(html)$/,
-        loader: extractHTML.extract({ use: ['html-loader'] })
+        test: /\.css$/,
+        oneOf: [
+          {
+            resourceQuery: /^\?raw$/,
+            use: ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: ['css-loader', 'postcss-loader']
+            })
+          },
+          {
+            use: ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true,
+                    importLoaders: 1,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                  }
+                },
+                'postcss-loader',
+              ]
+            })
+          },
+        ]
       },
       {
-        test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract({
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                sourceMap: true,
+                importLoaders: 2,
+                localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            },
+            'postcss-loader',
+            'sass-loader'
+          ]
         })
       },
       {
@@ -80,7 +115,7 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   plugins: [
-    new ExtractTextPlugin({ filename: 'bundle.css', allChunks: true }),
+    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
     new MomentLocalesPlugin({
       localesToKeep: ['ru']
     })
