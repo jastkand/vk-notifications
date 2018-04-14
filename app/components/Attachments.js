@@ -15,17 +15,26 @@ class AttachmentLink extends React.Component {
 }
 
 class AttachmentVideo extends React.Component {
-  render() {
+  _renderVideoPreview () {
     let videoPreviewSrc = this.props.video.photo_640 || this.props.video.photo_800
+    if (!videoPreviewSrc) {
+      return null
+    }
 
     return (
-      <a href={ this.props.postLink }>
-        <div className={ styles['video-preview'] }>
-          <img className={ styles['preview-image'] } src={ videoPreviewSrc } />
-          <div className={ styles['play-icon'] }>
-            <FontAwesomeIcon icon={ faPlay } />
-          </div>
+      <div className={ styles['video-preview'] }>
+        <img className={ styles['preview-image'] } src={ videoPreviewSrc } />
+        <div className={ styles['play-icon'] }>
+          <FontAwesomeIcon icon={ faPlay } />
         </div>
+      </div>
+    )
+  }
+
+  render () {
+    return (
+      <a href={ this.props.postLink }>
+        { this._renderVideoPreview() }
         <div className={ styles.title }>{ this.props.video.title }</div>
       </a>
     )
