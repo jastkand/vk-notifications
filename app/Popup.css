@@ -31,3 +31,7 @@
   overflow: auto;
   height: calc(var(--popup-height) - var(--header-height));
 }
+
+.auth-wrapper {
+  padding: 12px;
+}
