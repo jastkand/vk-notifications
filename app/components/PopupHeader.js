@@ -1,6 +1,9 @@
 import React from 'react'
 import $ from 'jquery'
 import HeaderButton from './HeaderButton'
+import faCog from '@fortawesome/fontawesome-free-solid/faCog'
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
+import faEraser from '@fortawesome/fontawesome-free-solid/faEraser'
 import styles from './PopupHeader.css'
 
 export default class PopupHeader extends React.Component {
@@ -39,9 +42,9 @@ export default class PopupHeader extends React.Component {
       <header className={ styles.header }>
         <span className={ styles.title }>Оповещения VK</span>
         <div className={ styles.actions }>
-          <HeaderButton onClick={ this.handleClearClick } icon="eraser" hidden={ true } />
-          <HeaderButton onClick={ this.handleWatchPostsClick } icon="check-square-o" title="Прочитать все" />
-          <HeaderButton onClick={ this.handleSettingsClick } icon="cog" title="Настройки" />
+          <HeaderButton onClick={ this.handleClearClick } icon={ faEraser } hidden={ true } />
+          <HeaderButton onClick={ this.handleWatchPostsClick } icon={ faCheck } title="Прочитать все" />
+          <HeaderButton onClick={ this.handleSettingsClick } icon={ faCog } title="Настройки" />
         </div>
       </header>
     )

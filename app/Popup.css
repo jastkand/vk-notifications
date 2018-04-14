@@ -1,8 +1,10 @@
 :root {
   --popup-width: 450px;
   --popup-height: 600px;
-  --popup-tiny-height: 78px;
-  --header-height: 30px;
+  --popup-tiny-height: calc(var(--wrapper-tiny-height) + var(--header-height));
+  --header-height: 42px;
+  --header-color: #FFF;
+  --wrapper-tiny-height: 52px;
   --padding-side: 12px;
   --image-width: 50px;
   --image-margin: 7px;
@@ -11,6 +13,8 @@
 .popup {
   width: var(--popup-width);
   height: var(--popup-height);
+  border-top: 1px solid transparent;
+  box-sizing: border-box;
 }
 
 
@@ -19,12 +23,11 @@
 }
 
 .popup-tiny .wrapper {
-  height: calc(var(--popup-tiny-height) - var(--header-height));
+  height: var(--wrapper-tiny-height);
 }
 
 .wrapper {
   width: 100%;
   overflow: auto;
   height: calc(var(--popup-height) - var(--header-height));
-  margin-top: 2px;
 }

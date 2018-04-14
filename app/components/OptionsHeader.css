@@ -1,6 +1,4 @@
 .header {
-  font-size: 120%;
-  font-weight: bold;
   color: #45688E;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -8,4 +6,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.header span {
+  font-size: 120%;
+  font-weight: bold;
 }
