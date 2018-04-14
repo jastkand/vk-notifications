@@ -44,11 +44,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             sendResponse({content: 'OK', data: posts, groups: groups})
           })
         } else {
-          // Hack way to add latency before data recieving
-          // In other way content is rendered so fast that it become scrolled to bottom
-          setTimeout(() => {
-            sendResponse({content: 'OK', data: groupPosts, groups: groups})
-          }, 50)
+          sendResponse({content: 'OK', data: groupPosts, groups: groups})
         }
       }
     })
