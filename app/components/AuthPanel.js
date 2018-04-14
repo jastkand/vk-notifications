@@ -1,18 +1,10 @@
 import React from 'react'
 import Button from './Button'
 import { removeToken } from '../storages/SessionStorage'
-import styles from './AuthPanel.css'
 
 export default class AuthPanel extends React.Component {
-  constructor() {
-    super()
-
-    this.handleLogInClick = this.handleLogInClick.bind(this)
-    this.handleLogOutClick = this.handleLogOutClick.bind(this)
-  }
-
   handleLogInClick() {
-    chrome.runtime.sendMessage({ action: "vk_notification_auth" }, (response) => {
+    chrome.runtime.sendMessage({ action: 'vk_notification_auth' }, (response) => {
       if (response.content == 'OK') {
         if (this.props.afterLogInClick) {
           this.props.afterLogInClick()
@@ -33,13 +25,11 @@ export default class AuthPanel extends React.Component {
     let button
 
     if (this.props.accessToken) {
-      button = <Button onClick={this.handleLogOutClick}>Выйти</Button>
+      button = <Button onClick={ () => this.handleLogOutClick() }>Выйти</Button>
     } else {
-      button = <Button onClick={this.handleLogInClick}>Войти</Button>
+      button = <Button onClick={ () => this.handleLogInClick() }>Войти</Button>
     }
 
-    return (
-      this.props.hidden ? null : <div className={ styles['auth-panel'] }>{ button }</div>
-    )
+    return this.props.hidden ? null : button
   }
 }
