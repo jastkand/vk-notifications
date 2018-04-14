@@ -8,7 +8,7 @@ export default class FeedContainer extends React.Component {
   }
 
   componentDidMount() {
-    chrome.runtime.sendMessage({ action: "noification_list" }, (response) => {
+    chrome.runtime.sendMessage({ action: 'notification_list' }, (response) => {
       if (response.content == 'EMPTY_GROUP_ITEMS') {
         this.setState({ posts: [], groups: [] })
       } else {

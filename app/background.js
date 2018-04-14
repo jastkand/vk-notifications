@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({content: "OK"})
   }
 
-  if (request.action == "noification_list") {
+  if (request.action === 'notification_list') {
     getGroups().then((groups) => {
       if (isEmpty(groups)) {
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
@@ -50,7 +50,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     })
   }
 
-  if (request.action == "open_options_page") {
+  if (request.action === 'open_options_page') {
     let optionsUrl = chrome.extension.getURL('options.html')
 
     chrome.tabs.query({ url: optionsUrl }, (tabs) => {
@@ -63,8 +63,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({content: 'OK'})
   }
 
-  if (request.action == "watch_post") {
-    if (request.read == 'ALL') {
+  if (request.action === 'watch_post') {
+    if (request.read === 'ALL') {
       resetTotalPostsCount().then((value) => {
         chrome.browserAction.setBadgeText({ text: badgeText(value.total) })
       })
@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({content: 'OK'})
   }
 
-  if (request.action == "clean_up") {
+  if (request.action === 'clean_up') {
     resetPostsCount()
     sendResponse({content: 'OK'})
   }
