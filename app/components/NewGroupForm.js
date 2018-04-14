@@ -1,7 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 import styles from './NewGroupForm.css'
 import btnStyles from './Button.css'
+
+const Loader = (props) => {
+  if (!props.active) {
+    return null
+  }
+
+  return (
+    <div className={ styles.loader }>
+      <FontAwesomeIcon icon={ faSpinner } size="lg" spin />
+    </div>
+  )
+}
 
 export default class NewGroupForm extends React.Component {
   constructor() {
@@ -46,7 +60,7 @@ export default class NewGroupForm extends React.Component {
                  value={ this.state.value }
                  onChange={ this.handleChange } />
           <input type="submit" value="Подписаться" className={ btnStyles.btn } />
-          { (this.state.submitting ? <div className={ styles.loader } /> : null) }
+          <Loader active={ this.state.submitting } />
           { (!!this.state.errorMessage ? <div className={ styles.status }>{ this.state.errorMessage }</div> : null) }
         </form>
       </div>

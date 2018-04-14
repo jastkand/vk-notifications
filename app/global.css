@@ -1,11 +1,12 @@
 body {
-  font-size: 11px;
-  line-height: 130%;
-  font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
+  font-size: 12px;
+  line-height: 1.154;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: #2B587A;
+  color: #2a5885;
   text-decoration: none;
 }
 

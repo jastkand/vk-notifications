@@ -10,18 +10,23 @@
   background: #FFF;
   color: #000;
   margin: 0px;
-  padding: 4px;
+  padding: 5px;
+  height: 16px;
+  line-height: 16px;
   outline: 0;
   vertical-align: top;
-  margin-right: 4px;
+  margin-right: 6px;
 }
 
 .loader {
-  background: url(../assets/loader.gif) 50% 50% no-repeat transparent;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  margin-bottom: -3px;
+  margin: 0 6px;
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  border-bottom: 3px solid transparent;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .status {

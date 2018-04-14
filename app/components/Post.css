@@ -17,10 +17,9 @@
 }
 
 .datestamp {
-  font-size: 10px;
+  font-size: 0.9em;
   color: #999;
   display: block;
-  margin-top: 4px;
 }
 
 .group-name {
@@ -41,9 +40,9 @@
   vertical-align: top;
 }
 
-.text {
+.content {
   margin-bottom: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 160%;
+  line-height: 150%;
 }

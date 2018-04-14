@@ -1,5 +1,7 @@
 import { get } from 'lodash'
 import React from 'react'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPlay from '@fortawesome/fontawesome-free-solid/faPlay'
 import styles from './Attachments.css'
 
 class AttachmentLink extends React.Component {
@@ -17,11 +19,11 @@ class AttachmentVideo extends React.Component {
     let videoPreviewSrc = this.props.video.photo_640 || this.props.video.photo_800
 
     return (
-      <a className={ styles.video } href={ this.props.postLink }>
+      <a href={ this.props.postLink }>
         <div className={ styles['video-preview'] }>
           <img className={ styles['preview-image'] } src={ videoPreviewSrc } />
           <div className={ styles['play-icon'] }>
-            <i className="fa fa-play" />
+            <FontAwesomeIcon icon={ faPlay } />
           </div>
         </div>
         <div className={ styles.title }>{ this.props.video.title }</div>
@@ -79,10 +81,10 @@ export default class Attachments extends React.Component {
 
     return (
       <div className="attachments">
-        <div className="videos">{ videos }</div>
-        <div className="docs">{ docs }</div>
-        <div className="photos">{ photos }</div>
-        <div className="links">{ links }</div>
+        <div>{ videos }</div>
+        <div>{ docs }</div>
+        <div>{ photos }</div>
+        <div>{ links }</div>
       </div>
     )
   }

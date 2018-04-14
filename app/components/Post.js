@@ -1,21 +1,24 @@
+import { get } from 'lodash'
+import moment from 'moment'
+import 'moment/locale/ru'
 import React from 'react'
 import { processText } from '../helpers/Text'
 import Attachments from './Attachments'
-import { get } from 'lodash'
-import moment from 'moment'
 import styles from './Post.css'
-
-moment.locale('ru')
 
 class PostContent extends React.Component {
   render() {
     return (
-      <div className={ styles.text } dangerouslySetInnerHTML={{ __html: processText(this.props.text) }} />
+      <div className={ styles.content } dangerouslySetInnerHTML={{ __html: processText(this.props.text) }} />
     )
   }
 }
 
 export default class Post extends React.Component {
+  componentWillMount () {
+    moment.locale('ru')
+  }
+
   groupLink(screen_name, item) {
     return `https://vk.com/${screen_name}?w=wall${item.owner_id}_${item.id}`
   }

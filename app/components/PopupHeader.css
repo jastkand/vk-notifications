@@ -1,13 +1,16 @@
 .header {
-  background: #E1E7ED;
-  color: #45688E;
+  box-sizing: border-box;
+  background: #4a76a8;
+  border-bottom: 1px solid #4872a3;
+  color: var(--header-color);
   height: var(--header-height);
   line-height: var(--header-height);
   padding: 0;
-  font-weight: bold;
-  box-shadow: 0px 1px 2px #999;
+  font-weight: 700;
+  font-size: 12.5px;
   display: flex;
   justify-content: space-between;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .title {
@@ -15,5 +18,5 @@
 }
 
 .actions {
-  padding: 0 12px;
+  padding: 0;
 }
