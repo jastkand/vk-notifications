@@ -1,5 +1,4 @@
 import React from 'react'
-import $ from 'jquery'
 import HeaderButton from './HeaderButton'
 import faCog from '@fortawesome/fontawesome-free-solid/faCog'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
@@ -9,16 +8,6 @@ import styles from './PopupHeader.css'
 export default class PopupHeader extends React.Component {
   constructor() {
     super()
-
-    $(document).on('click', 'a', function (e) {
-      let href = $(this).attr('href')
-
-      if (href) {
-        chrome.tabs.create({ url: href, selected: true });
-      }
-
-      e.preventDefault();
-    })
 
     this.handleClearClick = this.handleClearClick.bind(this)
     this.handleWatchPostsClick = this.handleWatchPostsClick.bind(this)
