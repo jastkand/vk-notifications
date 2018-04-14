@@ -28,18 +28,21 @@ class Options extends React.Component {
   unsubscribeAll() {
     removeAllGroups().then((groups) => {
       this.setState({ groups: groups })
+      this.resetPostsCache()
     })
   }
 
   unsubscribe(groupId) {
     removeGroup(groupId).then((groups) => {
       this.setState({ groups: groups })
+      this.resetPostsCache()
     })
   }
 
   subscribe(value) {
     return fetchGroupByUrl(value).then((groups) => {
       this.setState({ groups: groups })
+      this.resetPostsCache()
     })
   }
 
@@ -50,6 +53,10 @@ class Options extends React.Component {
 
   afterLogOutClick() {
     this.setState({ accessToken: null })
+  }
+
+  resetPostsCache() {
+    chrome.runtime.sendMessage({ action: 'reset_posts_cache' })
   }
 
   componentDidMount() {

@@ -61,9 +61,10 @@ function listPosts(posts) {
 
 export function updatePosts() {
   return fetchAllPosts().then((posts) => {
-    return Promise.all([
+    let promises = [
       Promise.resolve(listPosts(posts)),
       updatePostsCount(posts)
-    ])
+    ]
+    return Promise.all(promises)
   })
 }

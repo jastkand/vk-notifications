@@ -7,16 +7,32 @@ import { authListenerHandler } from './helpers/AuthHandler'
 
 let groupPosts = []
 
+function updatePostsCache ({ updateBadge = false }) {
+  return updatePosts().then(([posts, newPostsCount]) => {
+    log('updatePosts - posts', posts)
+    log('updatePosts - newPostsCount', newPostsCount)
+
+    if (updateBadge) {
+      chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount) })
+    }
+
+    groupPosts = posts
+
+    return [posts, newPostsCount]
+  })
+}
+
+function resetTotalPostsCountCache () {
+  return resetTotalPostsCount().then((value) => {
+    chrome.browserAction.setBadgeText({ text: badgeText(value.total) })
+    return value
+  })
+}
+
 // Add onAlarm listener, that schedules tasks
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == 'update_posts') {
-    return updatePosts().then(([posts, newPostsCount]) => {
-      log('updatePosts - posts', posts)
-      log('updatePosts - newPostsCount', newPostsCount)
-
-      chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount) })
-      groupPosts = posts
-    })
+    return updatePostsCache({ updateBadge: true })
   }
 })
 
@@ -33,13 +49,23 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({content: "OK"})
   }
 
+  if (request.action === 'reset_posts_cache') {
+    groupPosts = []
+
+    updatePostsCache({ updateBadge: false }).then(() => {
+      resetTotalPostsCountCache().then(() => {
+        sendResponse({content: 'OK'})
+      })
+    })
+  }
+
   if (request.action === 'notification_list') {
     getGroups().then((groups) => {
       if (isEmpty(groups)) {
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
       } else {
         if (groupPosts.length == 0) {
-          updatePosts().then(([posts, number]) => {
+          updatePostsCache().then(([posts, number]) => {
             groupPosts = posts
             sendResponse({content: 'OK', data: posts, groups: groups})
           })
@@ -65,9 +91,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   if (request.action === 'watch_post') {
     if (request.read === 'ALL') {
-      resetTotalPostsCount().then((value) => {
-        chrome.browserAction.setBadgeText({ text: badgeText(value.total) })
-      })
+      resetTotalPostsCountCache()
     } else {
       //      TODO: open tab with the clicked post
       //      chrome.tabs.query url: optionsUrl, (tabs)->
