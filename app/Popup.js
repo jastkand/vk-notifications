@@ -32,18 +32,18 @@ class Popup extends React.Component {
   render() {
     let feed
 
-    let wrapperClass = `${styles.wrapper}`
+    let popupClass = `${styles.popup}`
 
     if (this.state.accessToken) {
       feed = <FeedContainer accessToken={this.state.accessToken} />
     } else {
-      wrapperClass = `${wrapperClass} ${styles['wrapper-tiny']}`
+      popupClass = `${popupClass} ${styles['popup-tiny']}`
     }
 
     return (
-      <div className={ styles.popup }>
+      <div className={ popupClass }>
         <PopupHeader />
-        <div className={ wrapperClass }>
+        <div className={ styles.wrapper }>
           { feed }
           <AuthPanel
             accessToken={ this.state.accessToken }
