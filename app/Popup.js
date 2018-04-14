@@ -42,7 +42,7 @@ class Popup extends React.Component {
 
     return (
       <div className={ popupClass }>
-        <PopupHeader />
+        <PopupHeader loggedIn={ !!this.state.accessToken } />
         <div className={ styles.wrapper }>
           { feed }
           <AuthPanel
