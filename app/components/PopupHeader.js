@@ -6,14 +6,6 @@ import faEraser from '@fortawesome/fontawesome-free-solid/faEraser'
 import styles from './PopupHeader.css'
 
 export default class PopupHeader extends React.Component {
-  constructor() {
-    super()
-
-    this.handleClearClick = this.handleClearClick.bind(this)
-    this.handleWatchPostsClick = this.handleWatchPostsClick.bind(this)
-    this.handleSettingsClick = this.handleSettingsClick.bind(this)
-  }
-
   handleClearClick() {
     chrome.runtime.sendMessage({ action: "clean_up" })
   }
@@ -31,9 +23,22 @@ export default class PopupHeader extends React.Component {
       <header className={ styles.header }>
         <span className={ styles.title }>Оповещения VK</span>
         <div className={ styles.actions }>
-          <HeaderButton onClick={ this.handleClearClick } icon={ faEraser } hidden={ true } />
-          <HeaderButton onClick={ this.handleWatchPostsClick } icon={ faCheck } title="Прочитать все" />
-          <HeaderButton onClick={ this.handleSettingsClick } icon={ faCog } title="Настройки" />
+          <HeaderButton
+            onClick={ () => this.handleClearClick() }
+            icon={ faEraser }
+            hidden={ true }
+          />
+          <HeaderButton
+            onClick={ () => this.handleWatchPostsClick() }
+            icon={ faCheck }
+            hidden={ !this.props.loggedIn }
+            title="Прочитать все"
+          />
+          <HeaderButton
+            onClick={ () => this.handleSettingsClick() }
+            icon={ faCog }
+            title="Настройки"
+          />
         </div>
       </header>
     )
