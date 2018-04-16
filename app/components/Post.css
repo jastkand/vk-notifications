@@ -4,40 +4,37 @@
   border-top: 1px solid #DAE2E8;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
 }
 
 .post:first-child {
   border-top: 0;
 }
 
+.group-image {
+  width: var(--image-width);
+  margin-right: var(--image-margin);
+}
+
+.wrapper {
+  width: calc(var(--popup-width) - var(--image-width) - var(--image-margin) - 2 * var(--padding-side));
+}
+
 .quote {
   border-left: 2px solid #dee6ee;
   padding-left: 12px;
-  margin: 5px 0 0;
+  margin-bottom: 4px;
 }
 
 .datestamp {
   font-size: 0.9em;
   color: #999;
-  display: block;
+  margin-top: 4px;
 }
 
 .group-name {
   font-weight: bold;
-  padding-bottom: 3px;
-}
-
-.content {
-  display: inline-block;
-  width: calc(var(--popup-width) - var(--image-width) - var(--image-margin) - 2 * var(--padding-side));
-  vertical-align: top;
-}
-
-.group-image {
-  width: var(--image-width);
-  margin-right: var(--image-margin);
-  display: inline-block;
-  vertical-align: top;
+  margin-bottom: 4px;
 }
 
 .content {

@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+import { get, isEmpty } from 'lodash'
 import moment from 'moment'
 import 'moment/locale/ru'
 import React from 'react'
@@ -6,19 +6,29 @@ import { processText } from '../helpers/Text'
 import Attachments from './Attachments'
 import styles from './Post.css'
 
-class PostContent extends React.Component {
-  render() {
+const PostContent = (props) => {
+  if (isEmpty(props.text)) {
+    return null
+  }
+
+  return (
+    <div className={ styles.content } dangerouslySetInnerHTML={{ __html: processText(props.text) }} />
+  )
+}
+
+class FormattedDate extends React.Component {
+  componentWillMount () {
+    moment.locale('ru')
+  }
+
+  render () {
     return (
-      <div className={ styles.content } dangerouslySetInnerHTML={{ __html: processText(this.props.text) }} />
+      <div className={ this.props.className }>{ moment(this.props.date * 1000).format('LLL') }</div>
     )
   }
 }
 
 export default class Post extends React.Component {
-  componentWillMount () {
-    moment.locale('ru')
-  }
-
   groupLink(screen_name, item) {
     return `https://vk.com/${screen_name}?w=wall${item.owner_id}_${item.id}`
   }
@@ -46,14 +56,14 @@ export default class Post extends React.Component {
             <img src={ group.photo } title={ group.name } />
           </a>
         </div>
-        <div className={ styles.content }>
+        <div className={ styles.wrapper }>
           <div className={ styles['group-name'] }>
             <a href={ postLink }>{ group.name }</a>
           </div>
           <PostContent text={ post.text } />
           <Attachments attachments={ post.attachments } postLink={ postLink } />
           { copyHistory }
-          <span className={ styles.datestamp }>{ moment(post.date * 1000).format('LLL') }</span>
+          <FormattedDate date={ post.date } className= { styles.datestamp } />
         </div>
       </div>
     )
