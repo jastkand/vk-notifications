@@ -1,19 +1,26 @@
 import React from 'react'
-import $ from 'jquery'
 import Post from './Post'
 import styles from './Feed.css'
 
 export default class Feed extends React.Component {
   componentWillMount () {
-    $(document).on('click', 'a', function (e) {
-      let href = $(this).attr('href')
+    document.addEventListener('click', this.visitAnchor)
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('click', this.visitAnchor)
+  }
+
+  visitAnchor (event) {
+    if (event.target.matches('a')) {
+      let href = event.target.href
 
       if (href) {
-        chrome.tabs.create({ url: href, selected: true });
+        chrome.tabs.create({ url: href, selected: true })
       }
 
-      e.preventDefault();
-    })
+      event.preventDefault()
+    }
   }
 
   render() {
