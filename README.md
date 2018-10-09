@@ -20,15 +20,15 @@
 ----------
 
 ```bash
-$ npm install
-$ npm run dev
+$ yarn install
+$ yarn dev
 ```
 
 Build the extension:
 --------------------
 
 ```bash
-$ npm run build
+$ yarn build
 ```
 
 ## VK Stored Functions
@@ -37,22 +37,23 @@ $ npm run build
 var groupIds = Args.group_ids;
 var groupIdsArray = [];
 var i = 0;
-var cursor = 0;
-var offset = 0;
+var cursorStart = 0;
+var cursorEnd = 0;
 var l = groupIds.length;
 
 while (i < l) {
     var isDelimiter = groupIds.substr(i, 1) == ",";
-    if (isDelimiter || i == l - 1) {
-        if (isDelimiter) {
-            offset = 0;
-        } else {
-            offset = 1;
-        }
 
-        var groupId = groupIds.substr(cursor, i + offset);
-        groupIdsArray.push(groupId);
-        cursor = i + 1;
+    if (isDelimiter || i == l - 1) {
+      cursorEnd = i + 1;
+
+      if (cursorEnd == l) {
+        cursorEnd = cursorEnd + 1;
+      }
+
+      var groupId = groupIds.substr(cursorStart, cursorEnd - cursorStart - 1);
+      cursorStart = cursorEnd;
+      groupIdsArray.push(groupId);
     }
 
     i = i + 1;
