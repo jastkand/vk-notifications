@@ -61,10 +61,10 @@ export function fetchGroupByUrl(url) {
 export function fetchGroup(name, accessToken) {
   return call('groups.getById', { group_id: name, access_token: accessToken })
     .then((response) => {
-      if (response.data.error) {
-        return response.data
+      if (response.error) {
+        return response
       } else {
-        return normalizeGroup(response.data.response[0])
+        return normalizeGroup(response.response[0])
       }
     })
 }
