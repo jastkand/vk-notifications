@@ -1,5 +1,5 @@
 export function getToken() {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     chrome.storage.local.get({ "vkaccess_token": null }, (items) => {
       resolve(items.vkaccess_token)
     })
@@ -7,7 +7,7 @@ export function getToken() {
 }
 
 export function saveToken(accessToken) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     chrome.storage.local.set({ "vkaccess_token": accessToken }, () => resolve(accessToken))
   })
 }
