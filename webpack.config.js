@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -96,9 +95,6 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
-    new MomentLocalesPlugin({
-      localesToKeep: ['ru']
-    })
+    new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
   ]
 };
