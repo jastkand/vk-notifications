@@ -1,3 +1,7 @@
+.attachments {
+  margin: 7px 0;
+}
+
 .link {
   white-space: nowrap;
   overflow: hidden;

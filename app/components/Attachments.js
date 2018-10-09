@@ -89,7 +89,7 @@ export default class Attachments extends React.Component {
     })
 
     return (
-      <div className="attachments">
+      <div className={ styles.attachments }>
         <div>{ videos }</div>
         <div>{ docs }</div>
         <div>{ photos }</div>
