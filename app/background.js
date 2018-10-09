@@ -7,7 +7,7 @@ import { authListenerHandler } from './helpers/AuthHandler'
 
 let groupPosts = []
 
-function updatePostsCache ({ updateBadge = false }) {
+function updatePostsCache ({ updateBadge = false } = {}) {
   return updatePosts().then(([posts, newPostsCount]) => {
     log('updatePosts - posts', posts)
     log('updatePosts - newPostsCount', newPostsCount)
