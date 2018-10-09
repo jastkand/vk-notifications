@@ -17,12 +17,6 @@ class Options extends React.Component {
       accessToken: null,
       groups: {},
     }
-
-    this.unsubscribeAll = this.unsubscribeAll.bind(this)
-    this.unsubscribe = this.unsubscribe.bind(this)
-    this.subscribe = this.subscribe.bind(this)
-    this.afterLogInClick = this.afterLogInClick.bind(this)
-    this.afterLogOutClick = this.afterLogOutClick.bind(this)
   }
 
   unsubscribeAll() {
@@ -75,18 +69,18 @@ class Options extends React.Component {
 
     if (this.state.accessToken) {
       groups = <GroupsContainer groups={ this.state.groups }
-                                unsubscribe={ this.unsubscribe }
-                                subscribe={ this.subscribe }
+                                unsubscribe={ (groupId) => this.unsubscribe(groupId) }
+                                subscribe={ (value) => this.subscribe(value) }
                />
     }
 
     return (
       <div className={ styles.wrapper }>
-        <OptionsHeader unsubscribeAll={ this.unsubscribeAll } />
+        <OptionsHeader unsubscribeAll={ () => this.unsubscribeAll() } />
         <AuthPanel
           accessToken={ this.state.accessToken }
-          afterLogInClick={ this.afterLogInClick }
-          afterLogOutClick={ this.afterLogOutClick }
+          afterLogInClick={ () => this.afterLogInClick() }
+          afterLogOutClick={ () => this.afterLogOutClick() }
           hidden={ !!this.state.accessToken }
         />
         { groups }
