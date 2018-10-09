@@ -11,7 +11,7 @@ module.exports = {
     modules: ['node_modules']
   },
   output: {
-    path: 'public/app/',
+    path: __dirname + '/public/app/',
     filename: '[name].js'
   },
   module: {
@@ -95,6 +95,7 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
-  ]
+    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+  ],
+  devtool: 'cheap-module-source-map'
 };
