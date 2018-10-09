@@ -45,7 +45,7 @@ export function authListenerHandler(authenticationTabId) {
         let vkAccessTokenExpiredFlag = Number(getUrlParameterValue(changeInfo.url, 'expires_in'))
 
         if ((vkAccessTokenExpiredFlag !== 0)) {
-          showError('Authentication Error', `Access token cannot be used`)
+          showError('Authentication Error', 'Access token cannot be used')
           return
         }
 
