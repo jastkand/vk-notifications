@@ -49,7 +49,7 @@ function updatePostsCount(posts) {
   })
 }
 
-function listPosts(posts) {
+export function listPosts(posts) {
   log('listPosts - posts', posts)
 
   let result = chain(posts).map((post) => post.posts).flatten().sortBy((post) => -post.date).value()
