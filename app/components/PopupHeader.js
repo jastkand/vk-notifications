@@ -1,8 +1,6 @@
 import React from 'react'
 import HeaderButton from './HeaderButton'
-import faCog from '@fortawesome/fontawesome-free-solid/faCog'
-import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
-import faEraser from '@fortawesome/fontawesome-free-solid/faEraser'
+import { faCog, faCheck, faEraser } from '@fortawesome/free-solid-svg-icons'
 import styles from './PopupHeader.css'
 
 export default class PopupHeader extends React.Component {

@@ -1,7 +1,7 @@
 import { get } from 'lodash'
 import React from 'react'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faPlay from '@fortawesome/fontawesome-free-solid/faPlay'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import styles from './Attachments.css'
 
 class AttachmentLink extends React.Component {

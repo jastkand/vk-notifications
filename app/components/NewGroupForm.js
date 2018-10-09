@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import styles from './NewGroupForm.css'
 import btnStyles from './Button.css'
 
