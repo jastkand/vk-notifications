@@ -1,9 +1,8 @@
 import { get, isEmpty } from 'lodash'
-import moment from 'moment'
-import 'moment/locale/ru'
 import React from 'react'
 import { processText } from '../helpers/Text'
 import Attachments from './Attachments'
+import FormattedDate from './FormattedDate'
 import styles from './Post.css'
 
 const PostContent = (props) => {
@@ -14,18 +13,6 @@ const PostContent = (props) => {
   return (
     <div className={ styles.content } dangerouslySetInnerHTML={{ __html: processText(props.text) }} />
   )
-}
-
-class FormattedDate extends React.Component {
-  componentWillMount () {
-    moment.locale('ru')
-  }
-
-  render () {
-    return (
-      <div className={ this.props.className }>{ moment(this.props.date * 1000).format('LLL') }</div>
-    )
-  }
 }
 
 export default class Post extends React.Component {
@@ -63,7 +50,7 @@ export default class Post extends React.Component {
           <PostContent text={ post.text } />
           <Attachments attachments={ post.attachments } postLink={ postLink } />
           { copyHistory }
-          <FormattedDate date={ post.date } className= { styles.datestamp } />
+          <FormattedDate date={ post.date } />
         </div>
       </div>
     )
