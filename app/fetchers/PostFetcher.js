@@ -28,7 +28,7 @@ export function fetchAllPosts() {
           return []
         }
 
-        if (isAuthError(responses[0].data)) {
+        if (isAuthError(responses[0])) {
           removeToken()
           return Promise.reject({ error: 'auth_error', message: 'Authentication failure', response: responses })
         } else {
@@ -42,7 +42,7 @@ function formatQueryResult (responses) {
   let results = []
 
   forEach(responses, (responseChunk) => {
-    forEach(responseChunk.data.response, (post) => {
+    forEach(responseChunk.response, (post) => {
       results.push(normalizePost(post))
     })
   })
