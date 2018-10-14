@@ -8,7 +8,7 @@
     "@fortawesome/react-fontawesome": "^0.0.18",
     "axios": "^0.15.3",
     "emoji": "^0.3.2",
-    "lodash": "^3.0.0",
+    "lodash": "^4.17.11",
     "moment": "^2.22.0",
     "moment-locales-webpack-plugin": "^1.0.5",
     "normalize.css": "^3.0.1",
