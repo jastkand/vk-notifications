@@ -46,8 +46,8 @@
   "scripts": {
     "clean": "rm -rf  public/app/*",
     "prebuild": "npm run clean -s",
-    "build": "NODE_ENV=production webpack -p",
-    "dev": "NODE_ENV=development webpack -w",
+    "build": "NODE_ENV=production webpack --mode=production",
+    "dev": "NODE_ENV=development webpack --watch --mode=development",
     "test": "jest"
   },
   "resolutions": {
