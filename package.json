@@ -6,7 +6,6 @@
     "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-solid": "^5.0.10",
     "@fortawesome/react-fontawesome": "^0.0.18",
-    "axios": "^0.15.3",
     "date-fns": "^1.29.0",
     "emoji": "^0.3.2",
     "lodash": "^4.17.11",
