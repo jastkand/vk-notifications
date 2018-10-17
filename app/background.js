@@ -4,6 +4,7 @@ import { badgeText, updatePosts } from './helpers/Background'
 import { getGroups } from './storages/GroupStorage'
 import { getPostsCount, resetPostsCount, resetTotalPostsCount } from './storages/PostsCountStorage'
 import { authListenerHandler } from './helpers/AuthHandler'
+import { getSettings } from './storages/SettingsStorage'
 import playSound from './helpers/playSound'
 
 let groupPosts = []
@@ -17,7 +18,11 @@ function updatePostsCache ({ updateBadge = false } = {}) {
       chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount) })
 
       if (newPostsCount.hasNewUnreadPosts) {
-        playSound()
+        getSettings().then((settings) => {
+          if (!settings.disableSounds) {
+            playSound()
+          }
+        })
       }
     }
 

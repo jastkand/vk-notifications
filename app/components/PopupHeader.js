@@ -1,5 +1,6 @@
 import React from 'react'
 import HeaderButton from './HeaderButton'
+import ToggleSoundHeaderButton from './ToggleSoundHeaderButton'
 import { faCog, faCheck, faEraser } from '@fortawesome/free-solid-svg-icons'
 import styles from './PopupHeader.css'
 
@@ -32,6 +33,7 @@ export default class PopupHeader extends React.Component {
             hidden={ !this.props.loggedIn }
             title="Прочитать все"
           />
+          <ToggleSoundHeaderButton />
           <HeaderButton
             onClick={ () => this.handleSettingsClick() }
             icon={ faCog }
