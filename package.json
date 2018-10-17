@@ -46,7 +46,7 @@
   "scripts": {
     "clean": "rm -rf  public/app/*",
     "prebuild": "npm run clean -s",
-    "build": "NODE_ENV=production webpack --mode=production",
+    "build": "NODE_ENV=production webpack --mode=production && rm public/**/*.map",
     "dev": "NODE_ENV=development webpack --watch --mode=development",
     "test": "jest"
   },
