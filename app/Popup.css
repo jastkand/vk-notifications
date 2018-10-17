@@ -15,8 +15,7 @@
   height: var(--popup-height);
   border-top: 1px solid transparent;
   box-sizing: border-box;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 
