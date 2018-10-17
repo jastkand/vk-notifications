@@ -4,7 +4,7 @@
     "name": "Оповещения VK",
     "description": "Оповещает о новых сообщениях на стене в выбранных группах.",
     "homepage_url": "https://github.com/jastkand/vk-notifications",
-    "version": "1.1.1",
+    "version": "1.2.0",
 
     "permissions": [ "contextMenus", "tabs", "storage" , "alarms", "http://*/*", "https://*/*" ],
 
