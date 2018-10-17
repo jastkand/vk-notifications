@@ -74,6 +74,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.mp3$/,
+        loader: 'file-loader'
+      },
+      {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader',
         options: {

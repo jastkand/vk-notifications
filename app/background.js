@@ -4,6 +4,7 @@ import { badgeText, updatePosts } from './helpers/Background'
 import { getGroups } from './storages/GroupStorage'
 import { getPostsCount, resetPostsCount, resetTotalPostsCount } from './storages/PostsCountStorage'
 import { authListenerHandler } from './helpers/AuthHandler'
+import playSound from './helpers/playSound'
 
 let groupPosts = []
 
@@ -14,6 +15,10 @@ function updatePostsCache ({ updateBadge = false } = {}) {
 
     if (updateBadge) {
       chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount) })
+
+      if (newPostsCount.hasNewUnreadPosts) {
+        playSound()
+      }
     }
 
     groupPosts = posts
@@ -65,7 +70,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
       } else {
         if (groupPosts.length == 0) {
-          updatePostsCache().then(([posts, number]) => {
+          updatePostsCache().then(([posts, postsCount]) => {
             groupPosts = posts
             sendResponse({content: 'OK', data: posts, groups: groups})
           })
