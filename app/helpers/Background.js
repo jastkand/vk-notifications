@@ -19,7 +19,8 @@ function updatePostsCount(posts) {
   log('updatePostsCount - posts', posts)
 
   return getPostsCount().then((postsCount) => {
-    let totalNewPosts = postsCount.total || 0
+    let oldUnreadPostsCount = postsCount.total || 0
+    let newUnreadPostsCount = oldUnreadPostsCount
     let newPostsCount = {}
 
     posts.forEach((post) => {
@@ -28,27 +29,26 @@ function updatePostsCount(posts) {
 
       // This is new group
       if (isUndefined(postsCount[groupId])) {
-        if (totalPostsCount > 0) {
-          totalNewPosts += 10
-        }
+        newUnreadPostsCount += Math.min(totalPostsCount, 10)
       } else {
         let differenceBetweenValues = totalPostsCount - postsCount[groupId]
 
         if (differenceBetweenValues > 0) {
-          totalNewPosts += differenceBetweenValues
+          newUnreadPostsCount += differenceBetweenValues
         }
       }
 
       newPostsCount[groupId] = totalPostsCount
     })
 
-    newPostsCount['total'] = totalNewPosts
+    newPostsCount['total'] = newUnreadPostsCount
 
     log('updatePostsCount - newPostsCount', newPostsCount)
     savePostsCount(newPostsCount)
 
-    log('updatePostsCount - totalNewPosts', totalNewPosts)
-    return Promise.resolve(totalNewPosts)
+    log('updatePostsCount - newUnreadPostsCount', newUnreadPostsCount)
+    let hasNewUnreadPosts = !!(newUnreadPostsCount > oldUnreadPostsCount)
+    return Promise.resolve({ newUnreadPostsCount, hasNewUnreadPosts })
   })
 }
 
