@@ -16,7 +16,7 @@ async function refreshPostsCache ({ updateBadge = false } = {}) {
 
     if (updateBadge) {
       console.log('Update badge text');
-      chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount) })
+      chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount.newUnreadPostsCount) })
 
       if (newPostsCount.hasNewUnreadPosts) {
         getSettings().then((settings) => {
