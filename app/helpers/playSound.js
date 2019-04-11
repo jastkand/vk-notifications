@@ -1,4 +1,4 @@
-import soundFile from '../../assets/sound.mp3'
+import soundFile from '../assets/sound.mp3'
 
 let sound = new Audio()
 sound.src = soundFile

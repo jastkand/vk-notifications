@@ -78,7 +78,11 @@ let config = {
       },
       {
         test: /\.mp3$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
+        options: {
+          name: 'assets/[name].[ext]',
+          publicPath: 'app'
+        }
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
