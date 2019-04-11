@@ -7,7 +7,7 @@ import { authListenerHandler } from './helpers/AuthHandler'
 
 let groupPosts = []
 
-function updatePostsCache ({ updateBadge = false } = {}) {
+function refreshPostsCache ({ updateBadge = false } = {}) {
   return updatePosts().then(([posts, newPostsCount]) => {
     log('updatePosts - posts', posts)
     log('updatePosts - newPostsCount', newPostsCount)
@@ -32,7 +32,11 @@ function resetTotalPostsCountCache () {
 // Add onAlarm listener, that schedules tasks
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == 'update_posts') {
-    return updatePostsCache({ updateBadge: true })
+    console.group('onAlarm')
+    const result = refreshPostsCache({ updateBadge: true })
+    console.groupEnd()
+
+    return result;
   }
 })
 
@@ -54,7 +58,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (action === 'reset_posts_cache') {
     groupPosts = []
 
-    updatePostsCache({ updateBadge: false }).then(() => {
+    refreshPostsCache({ updateBadge: false }).then(() => {
       resetTotalPostsCountCache().then(() => {
         sendResponse({content: 'OK'})
       })
@@ -67,7 +71,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
       } else {
         if (groupPosts.length == 0) {
-          updatePostsCache().then(([posts, number]) => {
+          refreshPostsCache().then(([posts, number]) => {
             groupPosts = posts
             sendResponse({content: 'OK', data: posts, groups: groups})
           })
