@@ -58,7 +58,7 @@ export function fetchGroupByUrl(url) {
   })
 }
 
-export function fetchGroup(name, accessToken) {
+function fetchGroup(name, accessToken) {
   return call('groups.getById', { group_id: name, access_token: accessToken })
     .then((response) => {
       if (response.error) {
