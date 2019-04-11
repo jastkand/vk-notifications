@@ -37,7 +37,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 })
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action == "vk_notification_auth") {
+  const action = request.action;
+
+  if (action == 'vk_notification_auth') {
     let vkClientId           = '3696318'
     let vkRequestedScopes    = 'offline'
     let vkAuthenticationUrl  = `https://oauth.vk.com/authorize?client_id=${vkClientId}&scope=${vkRequestedScopes}&redirect_uri=http%3A%2F%2Foauth.vk.com%2Fblank.html&display=page&response_type=token`
@@ -46,10 +48,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       chrome.tabs.onUpdated.addListener(authListenerHandler(tab.id))
     })
 
-    sendResponse({content: "OK"})
+    sendResponse({content: 'OK'})
   }
 
-  if (request.action === 'reset_posts_cache') {
+  if (action === 'reset_posts_cache') {
     groupPosts = []
 
     updatePostsCache({ updateBadge: false }).then(() => {
@@ -59,7 +61,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     })
   }
 
-  if (request.action === 'notification_list') {
+  if (action === 'notification_list') {
     getGroups().then((groups) => {
       if (isEmpty(groups)) {
         sendResponse({content: 'EMPTY_GROUP_ITEMS'})
@@ -76,7 +78,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     })
   }
 
-  if (request.action === 'open_options_page') {
+  if (action === 'open_options_page') {
     let optionsUrl = chrome.extension.getURL('options.html')
 
     chrome.tabs.query({ url: optionsUrl }, (tabs) => {
@@ -89,7 +91,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({content: 'OK'})
   }
 
-  if (request.action === 'watch_post') {
+  if (action === 'watch_post') {
     if (request.read === 'ALL') {
       resetTotalPostsCountCache()
     } else {
@@ -104,7 +106,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({content: 'OK'})
   }
 
-  if (request.action === 'clean_up') {
+  if (action === 'clean_up') {
     resetPostsCount()
     sendResponse({content: 'OK'})
   }
@@ -114,7 +116,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.alarms.create("update_posts", {
+  chrome.alarms.create('update_posts', {
     when: Date.now() + 1000,
     periodInMinutes: 5.0
   })
