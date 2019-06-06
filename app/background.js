@@ -7,19 +7,25 @@ import { authListenerHandler } from './helpers/AuthHandler'
 
 let groupPosts = []
 
-function refreshPostsCache ({ updateBadge = false } = {}) {
-  return updatePosts().then(([posts, newPostsCount]) => {
-    log('updatePosts - posts', posts)
-    log('updatePosts - newPostsCount', newPostsCount)
+async function refreshPostsCache ({ updateBadge = false } = {}) {
+  console.group('refreshPostsCache')
+
+  try {
+    const { posts, newPostsCount } = await updatePosts()
 
     if (updateBadge) {
+      console.log('Update badge text');
       chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount) })
     }
 
     groupPosts = posts
 
-    return [posts, newPostsCount]
-  })
+    return { posts, newPostsCount }
+  } catch (e) {
+    console.log(e);
+  }
+
+  console.groupEnd()
 }
 
 function resetTotalPostsCountCache () {
@@ -30,15 +36,37 @@ function resetTotalPostsCountCache () {
 }
 
 // Add onAlarm listener, that schedules tasks
-chrome.alarms.onAlarm.addListener((alarm) => {
+chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name == 'update_posts') {
     console.group('onAlarm')
-    const result = refreshPostsCache({ updateBadge: true })
+    const result = await refreshPostsCache({ updateBadge: true })
     console.groupEnd()
 
     return result;
   }
 })
+
+const getPosts = async () => {
+  console.group('Background: get posts')
+
+  const groups = await getGroups();
+  log('groups', groups);
+
+  if (isEmpty(groups)) {
+    return Promise.resolve({content: 'EMPTY_GROUP_ITEMS'})
+  } else {
+    if (groupPosts.length === 0) {
+      console.log('No posts in cache. Loading...')
+      const { posts, newPostsCount } = await refreshPostsCache();
+      groupPosts = posts
+      return Promise.resolve({content: 'OK', data: posts, groups: groups})
+    } else {
+      console.log('Giving posts from cache')
+      return Promise.resolve({content: 'OK', data: groupPosts, groups: groups})
+    }
+  }
+  console.groupEnd()
+}
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const action = request.action;
@@ -66,20 +94,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (action === 'notification_list') {
-    getGroups().then((groups) => {
-      if (isEmpty(groups)) {
-        sendResponse({content: 'EMPTY_GROUP_ITEMS'})
-      } else {
-        if (groupPosts.length == 0) {
-          refreshPostsCache().then(([posts, number]) => {
-            groupPosts = posts
-            sendResponse({content: 'OK', data: posts, groups: groups})
-          })
-        } else {
-          sendResponse({content: 'OK', data: groupPosts, groups: groups})
-        }
-      }
-    })
+    getPosts().then(sendResponse)
   }
 
   if (action === 'open_options_page') {

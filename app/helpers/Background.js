@@ -50,21 +50,25 @@ function updatePostsCount(posts) {
 }
 
 export function listPosts(posts) {
-  log('listPosts - posts', posts)
+  console.group('listPosts')
+  console.log('posts', posts)
 
   let result = chain(posts).map((post) => post.posts).flatten().sortBy((post) => -post.date).value()
-
-  log('listPosts - result', result)
+  console.log('result', result)
+  console.groupEnd()
 
   return result
 }
 
 export function updatePosts() {
   return fetchAllPosts().then((posts) => {
-    let promises = [
+    return Promise.all([
       Promise.resolve(listPosts(posts)),
       updatePostsCount(posts)
-    ]
-    return Promise.all(promises)
+    ]).then(([posts, newPostsCount]) => {
+      log('updatePosts - posts', posts)
+      log('updatePosts - newPostsCount', newPostsCount)
+      return { posts, newPostsCount }
+    })
   })
 }
