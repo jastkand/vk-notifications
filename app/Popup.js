@@ -21,10 +21,9 @@ class Popup extends React.Component {
     this.setState({ accessToken: null })
   }
 
-  componentDidMount() {
-    getToken().then((token) => {
-      this.setState({ accessToken: token })
-    })
+  async componentDidMount() {
+    const accessToken = await getToken()
+    this.setState({ accessToken })
   }
 
   render() {
