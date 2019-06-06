@@ -42,7 +42,21 @@ class AttachmentVideo extends React.Component {
 }
 
 class AttachmentDoc extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { hidden: false }
+    this.onError = this.onError.bind(this)
+  }
+
+  onError () {
+    this.setState({ hidden: true })
+  }
+
   render() {
+    if (this.state.hidden) {
+      return null;
+    }
+
     let video = get(this.props.doc, 'preview.video')
 
     if (!video) {
@@ -57,6 +71,7 @@ class AttachmentDoc extends React.Component {
         autoPlay
         loop
         src={ video.src }
+        onError={ this.onError }
       />
     )
   }
