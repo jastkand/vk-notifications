@@ -20,7 +20,7 @@
 
 
 .popup-tiny {
-  height: calc(var(--popup-tiny-height) - var(--header-height));
+  height: var(--popup-tiny-height);
 }
 
 .popup-tiny .wrapper {
