@@ -6,7 +6,13 @@
     "homepage_url": "https://github.com/jastkand/vk-notifications",
     "version": "1.2.0",
 
-    "permissions": [ "contextMenus", "tabs", "storage" , "alarms", "http://*/*", "https://*/*" ],
+    "permissions": [
+      "contextMenus",
+      "tabs",
+      "storage",
+      "alarms",
+      "https://api.vk.com/*"
+    ],
 
     "icons": {
         "128": "assets/icon-128.png",
