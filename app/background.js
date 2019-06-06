@@ -1,5 +1,4 @@
 import { isEmpty } from 'lodash'
-import { log } from './helpers/Logger'
 import { badgeText, updatePosts } from './helpers/Background'
 import { getGroups } from './storages/GroupStorage'
 import { getPostsCount, resetPostsCount, resetTotalPostsCount } from './storages/PostsCountStorage'
@@ -50,7 +49,7 @@ const getPosts = async () => {
   console.group('Background: get posts')
 
   const groups = await getGroups();
-  log('groups', groups);
+  console.log('groups', groups);
 
   if (isEmpty(groups)) {
     return Promise.resolve({content: 'EMPTY_GROUP_ITEMS'})
@@ -142,6 +141,6 @@ chrome.runtime.onInstalled.addListener(() => {
 })
 
 getPostsCount().then((value) => {
-  log('onLaunch - getPostsCount', value)
+  console.log('onLaunch - getPostsCount', value)
   chrome.browserAction.setBadgeText({ text: badgeText(value.total) })
 })
