@@ -2,8 +2,8 @@ import { call, isAuthError } from '../API'
 import { getToken } from './SessionStorage'
 
 export function getGroups() {
-  return new Promise(function(resolve, reject) {
-    chrome.storage.local.get({ "group_items": {} }, (items) => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get({ 'group_items': {} }, (items) => {
       resolve(items.group_items)
     })
   })
