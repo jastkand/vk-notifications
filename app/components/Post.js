@@ -5,13 +5,13 @@ import Attachments from './Attachments'
 import FormattedDate from './FormattedDate'
 import styles from './Post.css'
 
-const PostContent = (props) => {
-  if (isEmpty(props.text)) {
+const PostContent = ({ text }) => {
+  if (isEmpty(text)) {
     return null
   }
 
   return (
-    <div className={ styles.content } dangerouslySetInnerHTML={{ __html: processText(props.text) }} />
+    <div className={ styles.content } dangerouslySetInnerHTML={{ __html: processText(text) }} />
   )
 }
 
