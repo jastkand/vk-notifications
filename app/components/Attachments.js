@@ -45,10 +45,9 @@ class AttachmentDoc extends React.Component {
   constructor (props) {
     super(props)
     this.state = { hidden: false }
-    this.onError = this.onError.bind(this)
   }
 
-  onError () {
+  onError = () => {
     this.setState({ hidden: true })
   }
 

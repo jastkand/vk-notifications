@@ -2,34 +2,36 @@ import React from 'react'
 import Button from './Button'
 import { removeToken } from '../storages/SessionStorage'
 
-export default class AuthPanel extends React.Component {
-  handleLogInClick() {
+export default (props) => {
+  const handleLogInClick = () => {
     chrome.runtime.sendMessage({ action: 'vk_notification_auth' }, (response) => {
       if (response.content == 'OK') {
-        if (this.props.afterLogInClick) {
-          this.props.afterLogInClick()
+        if (props.afterLogInClick) {
+          props.afterLogInClick()
         }
       }
     })
   }
 
-  handleLogOutClick() {
-    removeToken().then(() => {
-      if (this.props.afterLogOutClick) {
-        this.props.afterLogOutClick()
+  const handleLogOutClick = async () => {
+    try {
+      await removeToken()
+      if (props.afterLogOutClick) {
+        props.afterLogOutClick()
       }
-    })
-  }
-
-  render() {
-    let button
-
-    if (this.props.accessToken) {
-      button = <Button onClick={ () => this.handleLogOutClick() }>Выйти</Button>
-    } else {
-      button = <Button onClick={ () => this.handleLogInClick() }>Войти</Button>
+    } catch (e) {
+      /* handle error */
+      console.log(e);
     }
-
-    return this.props.hidden ? null : button
   }
+
+  let button
+
+  if (props.accessToken) {
+    button = <Button onClick={ handleLogOutClick }>Выйти</Button>
+  } else {
+    button = <Button onClick={ handleLogInClick }>Войти</Button>
+  }
+
+  return props.hidden ? null : button
 }

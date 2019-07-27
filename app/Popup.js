@@ -17,7 +17,7 @@ class Popup extends React.Component {
     }
   }
 
-  afterLogOutClick() {
+  afterLogOutClick = () => {
     this.setState({ accessToken: null })
   }
 
@@ -45,7 +45,7 @@ class Popup extends React.Component {
           <div className={ styles['auth-wrapper'] }>
             <AuthPanel
               accessToken={ this.state.accessToken }
-              afterLogOutClick={ () => this.afterLogOutClick() }
+              afterLogOutClick={ this.afterLogOutClick }
             />
           </div>
         </div>
