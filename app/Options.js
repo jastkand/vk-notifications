@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import Button from './components/Button'
 import GroupsContainer from './components/GroupsContainer'
 import AuthPanel from './components/AuthPanel'
-import OptionsHeader from './components/OptionsHeader'
+import { OptionsHeader } from './components/OptionsHeader'
 import { getGroups, removeAllGroups, removeGroup, fetchGroupByUrl } from './storages/GroupStorage'
 import { getToken } from './storages/SessionStorage'
 import styles from './Options.css'
@@ -19,33 +19,31 @@ class Options extends React.Component {
     }
   }
 
-  unsubscribeAll() {
-    removeAllGroups().then((groups) => {
-      this.setState({ groups: groups })
-      this.resetPostsCache()
-    })
+  unsubscribeAll = async () => {
+    const groups = await removeAllGroups()
+    this.setState({ groups })
+    this.resetPostsCache()
   }
 
-  unsubscribe(groupId) {
-    removeGroup(groupId).then((groups) => {
-      this.setState({ groups: groups })
-      this.resetPostsCache()
-    })
+  unsubscribe = async (groupId) => {
+    const groups = await removeGroup(groupId)
+    this.setState({ groups })
+    this.resetPostsCache()
   }
 
-  subscribe(value) {
+  subscribe = (value) => {
     return fetchGroupByUrl(value).then((groups) => {
       this.setState({ groups: groups })
       this.resetPostsCache()
     })
   }
 
-  afterLogInClick() {
+  afterLogInClick = () => {
     // accessToken by itself is not required here. `true` means that user is signed in
     this.setState({ accessToken: true })
   }
 
-  afterLogOutClick() {
+  afterLogOutClick = () => {
     this.setState({ accessToken: null })
   }
 
@@ -53,15 +51,13 @@ class Options extends React.Component {
     chrome.runtime.sendMessage({ action: 'reset_posts_cache' })
   }
 
-  componentDidMount() {
-    getToken().then((token) => {
-      this.setState({ accessToken: token })
-    })
+  async componentDidMount () {
+    const accessToken = await getToken()
+    this.setState({ accessToken })
 
     // TODO: make update of information about group on opening options page
-    getGroups().then((groups) => {
-      this.setState({ groups: groups })
-    })
+    const groups = await getGroups()
+    this.setState({ groups })
   }
 
   render() {
@@ -69,18 +65,18 @@ class Options extends React.Component {
 
     if (this.state.accessToken) {
       groups = <GroupsContainer groups={ this.state.groups }
-                                unsubscribe={ (groupId) => this.unsubscribe(groupId) }
-                                subscribe={ (value) => this.subscribe(value) }
+                                unsubscribe={ this.unsubscribe }
+                                subscribe={ this.subscribe }
                />
     }
 
     return (
       <div className={ styles.wrapper }>
-        <OptionsHeader unsubscribeAll={ () => this.unsubscribeAll() } />
+        <OptionsHeader unsubscribeAll={ this.unsubscribeAll } />
         <AuthPanel
           accessToken={ this.state.accessToken }
-          afterLogInClick={ () => this.afterLogInClick() }
-          afterLogOutClick={ () => this.afterLogOutClick() }
+          afterLogInClick={ this.afterLogInClick }
+          afterLogOutClick={ this.afterLogOutClick }
           hidden={ !!this.state.accessToken }
         />
         { groups }
