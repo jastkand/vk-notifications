@@ -4,41 +4,48 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import styles from './Attachments.css'
 
-class AttachmentLink extends React.Component {
-  render() {
-    return (
-      <a href={ this.props.link.url } className={ styles.link }>
-        { this.props.link.url }
-      </a>
-    )
-  }
+const AttachmentLink = ({ link }) => {
+  return (
+    <a href={ link.url } className={ styles.link }>
+        { link.url }
+    </a>
+  )
 }
 
-class AttachmentVideo extends React.Component {
-  _renderVideoPreview () {
-    let videoPreviewSrc = this.props.video.photo_640 || this.props.video.photo_800
-    if (!videoPreviewSrc) {
-      return null
-    }
+const AttachmentVideo = ({ postLink, video }) => {
+  return (
+    <a href={ postLink }>
+      <AttachmentVideoPreview video={ video } />
+      <div className={ styles.title }>{ video.title }</div>
+    </a>
+  )
+}
 
-    return (
-      <div className={ styles['video-preview'] }>
-        <img className={ styles['preview-image'] } src={ videoPreviewSrc } />
-        <div className={ styles['play-icon'] }>
-          <FontAwesomeIcon icon={ faPlay } />
-        </div>
+const AttachmentVideoPreview = ({ video }) => {
+  let videoPreviewSrc = video.photo_640 || video.photo_800
+  if (!videoPreviewSrc) {
+    return null
+  }
+
+  return (
+    <div className={ styles['video-preview'] }>
+      <img className={ styles['preview-image'] } src={ videoPreviewSrc } />
+      <div className={ styles['play-icon'] }>
+        <FontAwesomeIcon icon={ faPlay } />
       </div>
-    )
+    </div>
+  )
+}
+
+const AttachmentPhoto = ({ photo }) => {
+  const photoVariant = photo.sizes.find((size) => size.type === 'x')
+  if (!photoVariant) {
+    return null
   }
 
-  render () {
-    return (
-      <a href={ this.props.postLink }>
-        { this._renderVideoPreview() }
-        <div className={ styles.title }>{ this.props.video.title }</div>
-      </a>
-    )
-  }
+  return (
+    <img src={ photoVariant.url } className={ styles.photo } />
+  )
 }
 
 class AttachmentDoc extends React.Component {
@@ -89,7 +96,7 @@ export default class Attachments extends React.Component {
 
     this.props.attachments.forEach((attachment, index) => {
       if (attachment.type == "photo") {
-        photos.push(<img src={ attachment.photo.photo_604 } className={ styles.photo } key={ index }/>)
+        photos.push(<AttachmentPhoto photo={ attachment.photo } key={ index } />)
       }
       if (attachment.type == "link") {
         links.push(<AttachmentLink link={ attachment.link } key={ index } />)
