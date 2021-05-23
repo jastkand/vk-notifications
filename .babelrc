@@ -5,6 +5,5 @@
   ],
   "plugins": [
     "transform-inline-environment-variables",
-    "@babel/plugin-proposal-class-properties"
   ]
 }

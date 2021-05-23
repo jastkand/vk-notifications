@@ -2,6 +2,9 @@
   "name": "vk-notifications",
   "version": "1.2.0",
   "description": "Adds notifications about new post in groups.",
+  "resolutions": {
+    "lodash": "4.17.21"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
@@ -14,25 +17,23 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "autoprefixer": "^9.2.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-loader": "^8.0.4",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
-    "css-loader": "^1.0.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^2.0.0",
-    "image-webpack-loader": "^4.3.1",
-    "jest": "^23.6.0",
-    "postcss": "^7.0.5",
-    "postcss-loader": "^3.0.0",
-    "style-loader": "^0.13.2",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "css-loader": "^5.2.5",
+    "file-loader": "^6.2.0",
+    "image-webpack-loader": "^7.0.1",
+    "jest": "^26.6.3",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss": "^8.3.0",
+    "postcss-loader": "^5.3.0",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
   },
   "repository": {
     "type": "git",
@@ -50,9 +51,5 @@
     "build": "NODE_ENV=production webpack --mode=production && rm public/**/*.map",
     "dev": "NODE_ENV=development webpack --watch --mode=development",
     "test": "jest"
-  },
-  "resolutions": {
-    "babel-core": "7.0.0-bridge.0",
-    "lodash": "4.17.21"
   }
 }
