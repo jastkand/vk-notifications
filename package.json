@@ -2,16 +2,13 @@
   "name": "vk-notifications",
   "version": "1.2.0",
   "description": "Adds notifications about new post in groups.",
-  "resolutions": {
-    "lodash": "4.17.19"
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
     "@fortawesome/react-fontawesome": "^0.1.3",
     "autolinker": "^3.11.1",
     "date-fns": "^1.29.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "normalize.css": "^8.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
@@ -55,6 +52,7 @@
     "test": "jest"
   },
   "resolutions": {
-    "babel-core": "7.0.0-bridge.0"
+    "babel-core": "7.0.0-bridge.0",
+    "lodash": "4.17.21"
   }
 }
