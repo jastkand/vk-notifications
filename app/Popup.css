@@ -13,7 +13,6 @@
 .popup {
   width: var(--popup-width);
   height: var(--popup-height);
-  border-top: 1px solid transparent;
   box-sizing: border-box;
   overflow: hidden;
 }
