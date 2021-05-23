@@ -1,5 +1,6 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
@@ -26,26 +27,26 @@ module.exports = {
         oneOf: [
           {
             resourceQuery: /^\?raw$/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: ['css-loader', 'postcss-loader']
-            })
+            use: [
+              devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+              'css-loader',
+              'postcss-loader',
+            ],
           },
           {
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    importLoaders: 1,
+            use: [
+              devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
                     localIdentName: '[name]__[local]___[hash:base64:5]'
-                  }
-                },
-                'postcss-loader',
-              ]
-            })
+                  },
+                  importLoaders: 1,
+                }
+              },
+              'postcss-loader',
+            ],
           },
         ]
       },
@@ -95,7 +96,7 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
   ],
   devtool: 'cheap-module-source-map'
 };
