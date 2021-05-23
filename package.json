@@ -6,9 +6,9 @@
     "lodash": "4.17.21"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.6",
-    "@fortawesome/free-solid-svg-icons": "^5.4.1",
-    "@fortawesome/react-fontawesome": "^0.1.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "autolinker": "^3.11.1",
     "date-fns": "^1.29.0",
     "lodash": "^4.17.21",
