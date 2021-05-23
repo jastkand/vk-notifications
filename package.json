@@ -10,7 +10,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "autolinker": "^3.11.1",
-    "date-fns": "^1.29.0",
+    "date-fns": "^2.21.3",
     "lodash": "^4.17.21",
     "modern-normalize": "^1.1.0",
     "react": "^17.0.2",
