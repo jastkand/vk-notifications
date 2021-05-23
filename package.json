@@ -51,7 +51,7 @@
     "prebuild": "npm run clean -s",
     "build": "NODE_ENV=production webpack --mode=production && rm public/**/*.map",
     "dev": "NODE_ENV=development webpack --watch --mode=development",
-    "analyze": "BUNDLE_ANALYZE=1 NODE_ENV=development webpack --mode=development",
+    "analyze": "BUNDLE_ANALYZE=1 NODE_ENV=production webpack --mode=production",
     "test": "jest"
   }
 }
