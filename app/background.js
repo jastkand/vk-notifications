@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 import { badgeText, updatePosts } from './helpers/Background'
 import { getGroups } from './storages/GroupStorage'
 import { getPostsCount, resetPostsCount, resetTotalPostsCount } from './storages/PostsCountStorage'

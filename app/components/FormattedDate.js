@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import format from 'date-fns/format'
 import ru from 'date-fns/locale/ru'
 import React from 'react'
 import styles from './FormattedDate.css'
