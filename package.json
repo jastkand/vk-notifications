@@ -33,6 +33,7 @@
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.37.1",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.0"
   },
   "repository": {
@@ -50,6 +51,7 @@
     "prebuild": "npm run clean -s",
     "build": "NODE_ENV=production webpack --mode=production && rm public/**/*.map",
     "dev": "NODE_ENV=development webpack --watch --mode=development",
+    "analyze": "BUNDLE_ANALYZE=1 NODE_ENV=development webpack --mode=development",
     "test": "jest"
   }
 }

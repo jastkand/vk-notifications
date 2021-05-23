@@ -1,8 +1,10 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const devMode = process.env.NODE_ENV !== 'production';
+const isAnalyze = process.env.BUNDLE_ANALYZE === '1';
 
-module.exports = {
+let config = {
   entry: {
     background: './app/background.js',
     popup: './app/Popup.js',
@@ -100,3 +102,9 @@ module.exports = {
   ],
   devtool: 'cheap-module-source-map'
 };
+
+if (isAnalyze) {
+  config.plugins.push(new BundleAnalyzerPlugin());
+}
+
+module.exports = config;

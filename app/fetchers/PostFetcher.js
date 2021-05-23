@@ -1,4 +1,6 @@
-import { get, chunk, forEach } from 'lodash'
+import get from 'lodash/get'
+import chunk from 'lodash/chunk'
+import forEach from 'lodash/forEach'
 import { log } from '../helpers/Logger'
 import { call, isAuthError } from '../API'
 import { getGroups } from '../storages/GroupStorage'

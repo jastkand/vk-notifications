@@ -1,4 +1,5 @@
-import { get, isEmpty } from 'lodash'
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 import React from 'react'
 import { processText } from '../helpers/Text'
 import Attachments from './Attachments'

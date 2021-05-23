@@ -1,4 +1,5 @@
-import { isUndefined, isEmpty } from 'lodash'
+import isUndefined from 'lodash/isUndefined'
+import isEmpty from 'lodash/isEmpty'
 import { saveToken } from '../storages/SessionStorage'
 
 function showError(title, description) {

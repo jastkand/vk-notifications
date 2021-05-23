@@ -1,4 +1,7 @@
-import { chain, flatten, isUndefined, sortBy } from 'lodash'
+import map from 'lodash/map'
+import flatten from 'lodash/flatten'
+import sortBy from 'lodash/sortBy'
+import isUndefined from 'lodash/isUndefined'
 import { log } from './Logger'
 import { getPostsCount, savePostsCount } from '../storages/PostsCountStorage'
 import { fetchAllPosts } from '../fetchers/PostFetcher'
@@ -53,7 +56,7 @@ export function listPosts(posts) {
   console.group('listPosts')
   console.log('posts', posts)
 
-  let result = chain(posts).map((post) => post.posts).flatten().sortBy((post) => -post.date).value()
+  let result = sortBy(flatten(map(posts, (post) => post.posts)), (post) => -post.date);
   console.log('result', result)
   console.groupEnd()
 
