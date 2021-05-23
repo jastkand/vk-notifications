@@ -2,6 +2,9 @@
   "name": "vk-notifications",
   "version": "1.2.0",
   "description": "Adds notifications about new post in groups.",
+  "resolutions": {
+    "lodash": "4.17.19"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
