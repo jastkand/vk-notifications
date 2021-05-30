@@ -7,7 +7,6 @@
     "version": "1.2.0",
 
     "permissions": [
-      "contextMenus",
       "tabs",
       "storage",
       "alarms",
