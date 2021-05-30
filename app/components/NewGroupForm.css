@@ -1,17 +1,17 @@
 .form {
   padding-bottom: 15px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #c0cad5;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .input {
   width: 250px;
-  border: 1px solid #C0CAD5;
-  background: #FFF;
-  color: #000;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--font-color);
   margin: 0px;
   padding: 5px;
-  height: 16px;
+  height: 28px;
   line-height: 16px;
   outline: 0;
   vertical-align: top;
@@ -33,6 +33,6 @@
   vertical-align: top;
   line-height: 24px;
   padding-left: 10px;
-  color: #999;
+  color: var(--secondary-font-color);
   display: inline-block;
 }

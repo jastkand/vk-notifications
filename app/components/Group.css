@@ -1,7 +1,7 @@
 .group {
   padding-bottom: 15px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #C0CAD5;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .image {
@@ -12,7 +12,7 @@
 }
 
 .header {
-  color: #45688E;
+  color: var(--options-header-color);
   font-size: 12px;
   font-weight: bold;
   display: block;

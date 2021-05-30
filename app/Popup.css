@@ -3,7 +3,8 @@
   --popup-height: 600px;
   --popup-tiny-height: calc(var(--wrapper-tiny-height) + var(--header-height));
   --header-height: 42px;
-  --header-color: #FFF;
+  --header-bg: #4a76a8;
+  --header-color: #fff;
   --wrapper-tiny-height: 52px;
   --padding-side: 12px;
   --image-width: 50px;

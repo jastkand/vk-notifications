@@ -1,8 +1,8 @@
 .header {
-  color: #45688E;
+  color: var(--options-header-color);
   padding-bottom: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #C0CAD5;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;

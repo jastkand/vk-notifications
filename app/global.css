@@ -2,11 +2,16 @@ body {
   font-size: 12px;
   line-height: 1.154;
   font-weight: 400;
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+
+  --border-color: #c0cad5;
+  --font-color: #000;
+  --secondary-font-color: #999;
+  --bg-color: #fff;
+  --link-color: #2a5885;
 }
 
 a {
-  color: #2a5885;
+  color: var(--link-color);
   text-decoration: none;
 }
 

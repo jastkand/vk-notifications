@@ -1,3 +1,7 @@
+:root {
+  --options-header-color: #45688e;
+}
+
 .wrapper {
   padding: 20px 40px;
 }

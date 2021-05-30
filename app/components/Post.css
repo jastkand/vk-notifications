@@ -1,5 +1,5 @@
 .post {
-  background: #fff;
+  background: var(--bg-color);
   padding: 8px var(--padding-side);
   border-top: 1px solid #DAE2E8;
   overflow: hidden;

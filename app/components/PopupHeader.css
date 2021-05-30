@@ -1,7 +1,6 @@
 .header {
   box-sizing: border-box;
-  background: #4a76a8;
-  border-bottom: 1px solid #4872a3;
+  background: var(--header-bg);
   color: var(--header-color);
   height: var(--header-height);
   line-height: var(--header-height);
