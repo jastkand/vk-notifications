@@ -3,7 +3,7 @@ import Post from './Post'
 import styles from './Feed.css'
 
 export default class Feed extends React.Component {
-  componentWillMount () {
+  componentDidMount () {
     document.addEventListener('click', this.visitAnchor)
   }
 
