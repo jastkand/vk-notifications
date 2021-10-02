@@ -2,11 +2,10 @@ import './global'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Button from './components/Button'
 import GroupsContainer from './components/GroupsContainer'
 import AuthPanel from './components/AuthPanel'
 import { OptionsHeader } from './components/OptionsHeader'
-import { getGroups, removeAllGroups, removeGroup, fetchGroupByUrl } from './storages/GroupStorage'
+import { getGroups, removeGroup, fetchGroupByUrl } from './storages/GroupStorage'
 import { getToken } from './storages/SessionStorage'
 import styles from './Options.css'
 
@@ -19,23 +18,16 @@ class Options extends React.Component {
     }
   }
 
-  unsubscribeAll = async () => {
-    const groups = await removeAllGroups()
-    this.setState({ groups })
-    this.resetPostsCache()
-  }
-
   unsubscribe = async (groupId) => {
     const groups = await removeGroup(groupId)
     this.setState({ groups })
     this.resetPostsCache()
   }
 
-  subscribe = (value) => {
-    return fetchGroupByUrl(value).then((groups) => {
-      this.setState({ groups: groups })
-      this.resetPostsCache()
-    })
+  subscribe = async (value) => {
+    const groups = await fetchGroupByUrl(value)
+    this.setState({ groups: groups })
+    this.resetPostsCache()
   }
 
   afterLogInClick = () => {
@@ -47,7 +39,7 @@ class Options extends React.Component {
     this.setState({ accessToken: null })
   }
 
-  resetPostsCache() {
+  resetPostsCache () {
     chrome.runtime.sendMessage({ action: 'reset_posts_cache' })
   }
 
@@ -72,7 +64,7 @@ class Options extends React.Component {
 
     return (
       <div className={ styles.wrapper }>
-        <OptionsHeader unsubscribeAll={ this.unsubscribeAll } />
+        <OptionsHeader />
         <AuthPanel
           accessToken={ this.state.accessToken }
           afterLogInClick={ this.afterLogInClick }

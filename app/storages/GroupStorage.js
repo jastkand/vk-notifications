@@ -111,11 +111,3 @@ export function removeGroup(groupId) {
     }
   })
 }
-
-export function removeAllGroups() {
-  return new Promise(function(resolve, reject) {
-    chrome.storage.local.remove("group_items", () => {
-      resolve({})
-    })
-  })
-}
