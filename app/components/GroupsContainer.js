@@ -16,6 +16,8 @@ export default class GroupsContainer extends React.Component {
     return (
       <div>
         <NewGroupForm subscribe={ this.props.subscribe } />
+
+        <h3>Список подписок</h3>
         { groups }
       </div>
     )
