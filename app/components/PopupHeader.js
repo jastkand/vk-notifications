@@ -29,7 +29,7 @@ export default (props) => {
           onClick={ handleWatchPostsClick }
           icon={ faCheck }
           hidden={ !props.loggedIn }
-          title="Прочитать все"
+          title="Прочитать всё"
         />
         <HeaderButton
           onClick={ handleSettingsClick }
