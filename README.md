@@ -70,3 +70,11 @@ while (i < l) {
 
 return result;
 ```
+
+## Release steps
+
+1. Bump version in `public/manifest.json`
+2. `yarn build`
+3. zip contents of a public directory
+4. try out the zipped file locally
+5. upload zip file to Chrome Webstore Developer Dashboard
