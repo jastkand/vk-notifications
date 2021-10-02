@@ -10,7 +10,7 @@ export function getGroups() {
 }
 
 export function addGroup(item) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     if (item) {
       getGroups().then((items) => {
         let groups = items
@@ -29,7 +29,7 @@ export function addGroup(item) {
 export function fetchGroupByUrl(url) {
   let shortName = url.match(/vk.com\/([\w\.]+)/)
 
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     if (shortName) {
       let eventMatch = shortName[1].match(/event(\d+)/)
       if (eventMatch) {
@@ -58,15 +58,13 @@ export function fetchGroupByUrl(url) {
   })
 }
 
-function fetchGroup(name, accessToken) {
-  return call('groups.getById', { group_id: name, access_token: accessToken })
-    .then((response) => {
-      if (response.error) {
-        return response
-      } else {
-        return normalizeGroup(response.response[0])
-      }
-    })
+async function fetchGroup (name, accessToken) {
+  const response = await call('groups.getById', { group_id: name, access_token: accessToken })
+  if (response.error) {
+    return response
+  } else {
+    return normalizeGroup(response.response[0])
+  }
 }
 
 // Should standartize two API versions responses:
@@ -96,7 +94,7 @@ export function refreshGroups(accessToken) {
 }
 
 export function removeGroup(groupId) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     if (groupId) {
       getGroups().then((items) => {
         let groups = items

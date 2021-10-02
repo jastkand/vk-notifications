@@ -5,7 +5,11 @@ import NewGroupForm from './NewGroupForm'
 export default class GroupsContainer extends React.Component {
   render() {
     let groups = []
-    Object.keys(this.props.groups).forEach((key) => {
+    const groupKeys = Object.keys(this.props.groups)
+    if (groupKeys.length > 0) {
+      groups.push(<h3>Список подписок</h3>)
+    }
+    groupKeys.forEach((key) => {
       let groupParams = this.props.groups[key]
       let group = <Group { ...groupParams }
                          key={ groupParams['gid'] }
@@ -16,8 +20,6 @@ export default class GroupsContainer extends React.Component {
     return (
       <div>
         <NewGroupForm subscribe={ this.props.subscribe } />
-
-        <h3>Список подписок</h3>
         { groups }
       </div>
     )
