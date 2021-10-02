@@ -1,6 +1,8 @@
 import React from 'react'
 import HeaderButton from './HeaderButton'
-import { faCog, faCheck, faEraser } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faEraser } from '@fortawesome/free-solid-svg-icons/faEraser'
 import styles from './PopupHeader.css'
 
 export default (props) => {
