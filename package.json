@@ -1,6 +1,6 @@
 {
+  "private": true,
   "name": "vk-notifications",
-  "version": "1.2.0",
   "description": "Adds notifications about new post in groups.",
   "resolutions": {
     "lodash": "4.17.21"
