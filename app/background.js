@@ -37,11 +37,10 @@ async function refreshPostsCache ({ updateBadge = false } = {}) {
   console.groupEnd()
 }
 
-function resetTotalPostsCountCache () {
-  return resetTotalPostsCount().then((value) => {
-    chrome.browserAction.setBadgeText({ text: badgeText(value.total) })
-    return value
-  })
+async function resetTotalPostsCountCache () {
+  const value = resetTotalPostsCount()
+  chrome.browserAction.setBadgeText({ text: badgeText(value.total) })
+  return value
 }
 
 // Add onAlarm listener, that schedules tasks
@@ -56,7 +55,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 })
 
 const getPosts = async () => {
-  console.group('Background: get posts')
+  console.log('Background: get posts')
 
   const groups = await getGroups();
   console.log('groups', groups);
@@ -66,18 +65,17 @@ const getPosts = async () => {
   } else {
     if (groupPosts.length === 0) {
       console.log('No posts in cache. Loading...')
-      const { posts, newPostsCount } = await refreshPostsCache();
+      const { posts } = await refreshPostsCache();
       groupPosts = posts
-      return Promise.resolve({content: 'OK', data: posts, groups: groups})
+      return Promise.resolve({ content: 'OK', data: posts, groups: groups })
     } else {
       console.log('Giving posts from cache')
-      return Promise.resolve({content: 'OK', data: groupPosts, groups: groups})
+      return Promise.resolve({ content: 'OK', data: groupPosts, groups: groups })
     }
   }
-  console.groupEnd()
 }
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   const action = request.action;
 
   if (action == 'vk_notification_auth') {
