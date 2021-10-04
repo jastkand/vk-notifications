@@ -31,9 +31,9 @@ async function refreshPostsCache ({ updateBadge = false } = {}) {
     return { posts, newPostsCount }
   } catch (e) {
     console.log(e);
+  } finally {
+    console.groupEnd()
   }
-
-  console.groupEnd()
 }
 
 async function resetTotalPostsCountCache () {
