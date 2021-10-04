@@ -1,10 +1,10 @@
 export const defaultSettings = {
-  "disableSounds": false
+  enableSounds: true,
 }
 
 export function getSettings () {
   return new Promise((resolve) => {
-    chrome.storage.local.get({ "settings": defaultSettings }, (result) => {
+    chrome.storage.local.get({ settings: defaultSettings }, (result) => {
       resolve(result.settings)
     })
   })
@@ -12,6 +12,6 @@ export function getSettings () {
 
 export function saveSettings (settings) {
   return new Promise((resolve) => {
-    chrome.storage.local.set({ "settings": settings }, () => resolve(settings))
+    chrome.storage.local.set({ settings }, () => resolve(settings))
   })
 }

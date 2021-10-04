@@ -13,18 +13,18 @@ export function ToggleSoundHeaderButton () {
   }, []);
 
   const handleClick = async () => {
-    const newSettings = { ...settings, disableSounds: !settings.disableSounds }
+    const newSettings = { ...settings, enableSounds: !settings.enableSounds }
     const updated = await saveSettings(newSettings)
     setSettings(updated)
   }
 
   let icon, title
-  if (settings.disableSounds) {
-    icon = faBellSlash
-    title = "Включить звуковые оповещения"
-  } else {
+  if (settings.enableSounds) {
     icon = faBell
     title = "Выключить звуковые оповещения"
+  } else {
+    icon = faBellSlash
+    title = "Включить звуковые оповещения"
   }
 
   return (

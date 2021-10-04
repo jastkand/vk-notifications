@@ -19,8 +19,8 @@ async function refreshPostsCache ({ updateBadge = false } = {}) {
       chrome.browserAction.setBadgeText({ text: badgeText(newPostsCount.newUnreadPostsCount) })
 
       if (newPostsCount.hasNewUnreadPosts) {
-        const { disableSounds } = await getSettings()
-        if (!disableSounds) {
+        const { enableSounds } = await getSettings()
+        if (enableSounds) {
           playSound()
         }
       }
