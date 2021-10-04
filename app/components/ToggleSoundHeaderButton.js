@@ -1,39 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import HeaderButton from './HeaderButton'
 import { faBell } from '@fortawesome/free-solid-svg-icons/faBell'
 import { faBellSlash } from '@fortawesome/free-solid-svg-icons/faBellSlash'
 import { defaultSettings, getSettings, saveSettings } from '../storages/SettingsStorage'
 
-export default class ToggleSoundsHeaderButton extends React.Component {
-  constructor () {
-    super()
-    this.state = { settings: defaultSettings }
+export function ToggleSoundHeaderButton () {
+  const [settings, setSettings] = useState(defaultSettings)
+
+  useEffect(async () => {
+    const settings = await getSettings()
+    setSettings(settings)
+  }, []);
+
+  const handleClick = async () => {
+    const newSettings = { ...settings, disableSounds: !settings.disableSounds }
+    const updated = await saveSettings(newSettings)
+    setSettings(updated)
   }
 
-  handleClick () {
-    let settings = this.state.settings
-    settings.disableSounds = !settings.disableSounds
-    saveSettings(settings).then((settings) => {
-      this.setState({ settings })
-    })
+  let icon, title
+  if (settings.disableSounds) {
+    icon = faBellSlash
+    title = "Включить звуковые оповещения"
+  } else {
+    icon = faBell
+    title = "Выключить звуковые оповещения"
   }
 
-  componentDidMount () {
-    getSettings().then((settings) => {
-      this.setState({ settings })
-    })
-  }
-
-  render () {
-    let icon, title
-    if (this.state.settings.disableSounds) {
-      icon = faBellSlash
-      title = "Включить звуковые оповещения"
-    } else {
-      icon = faBell
-      title = "Выключить звуковые оповещения"
-    }
-    return <HeaderButton onClick={ () => this.handleClick() } icon={ icon } title={ title } />
-  }
+  return (
+    <HeaderButton onClick={ () => handleClick() } icon={ icon } title={ title } />
+  )
 }
-
