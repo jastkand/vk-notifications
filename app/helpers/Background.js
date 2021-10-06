@@ -15,63 +15,57 @@ export function badgeText(number) {
 }
 
 
-function updatePostsCount(posts) {
+async function updatePostsCount(posts) {
   log('updatePostsCount - posts', posts)
 
-  return getPostsCount().then((postsCount) => {
-    let totalNewPosts = postsCount.total || 0
-    let newPostsCount = {}
+  const postsCount = await getPostsCount()
+  const oldUnreadPostsCount = postsCount.total || 0
+  let newUnreadPostsCount = oldUnreadPostsCount
+  let newPostsCount = {}
 
-    posts.forEach((post) => {
-      let groupId = post.groupId
-      let totalPostsCount = post.totalPostsCount
+  posts.forEach((post) => {
+    let groupId = post.groupId
+    let totalPostsCount = post.totalPostsCount
 
-      // This is new group
-      if (isUndefined(postsCount[groupId])) {
-        if (totalPostsCount > 0) {
-          totalNewPosts += 10
-        }
-      } else {
-        let differenceBetweenValues = totalPostsCount - postsCount[groupId]
+    // This is new group
+    if (isUndefined(postsCount[groupId])) {
+      newUnreadPostsCount += Math.min(totalPostsCount, 10)
+    } else {
+      let differenceBetweenValues = totalPostsCount - postsCount[groupId]
 
-        if (differenceBetweenValues > 0) {
-          totalNewPosts += differenceBetweenValues
-        }
+      if (differenceBetweenValues > 0) {
+        newUnreadPostsCount += differenceBetweenValues
       }
+    }
 
-      newPostsCount[groupId] = totalPostsCount
-    })
-
-    newPostsCount['total'] = totalNewPosts
-
-    log('updatePostsCount - newPostsCount', newPostsCount)
-    savePostsCount(newPostsCount)
-
-    log('updatePostsCount - totalNewPosts', totalNewPosts)
-    return Promise.resolve(totalNewPosts)
+    newPostsCount[groupId] = totalPostsCount
   })
+
+  newPostsCount['total'] = newUnreadPostsCount
+
+  log('updatePostsCount - newPostsCount', newPostsCount)
+  await savePostsCount(newPostsCount)
+
+  log('updatePostsCount - newUnreadPostsCount', newUnreadPostsCount)
+  const hasNewUnreadPosts = newUnreadPostsCount > oldUnreadPostsCount
+  return { newUnreadPostsCount, hasNewUnreadPosts }
 }
 
 export function listPosts(posts) {
   console.group('listPosts')
   console.log('posts', posts)
 
-  let result = sortBy(flatten(map(posts, (post) => post.posts)), (post) => -post.date);
+  const result = sortBy(flatten(map(posts, (post) => post.posts)), (post) => -post.date);
   console.log('result', result)
   console.groupEnd()
 
   return result
 }
 
-export function updatePosts() {
-  return fetchAllPosts().then((posts) => {
-    return Promise.all([
-      Promise.resolve(listPosts(posts)),
-      updatePostsCount(posts)
-    ]).then(([posts, newPostsCount]) => {
-      log('updatePosts - posts', posts)
-      log('updatePosts - newPostsCount', newPostsCount)
-      return { posts, newPostsCount }
-    })
-  })
+export async function updatePosts () {
+  const allPosts = await fetchAllPosts()
+  const posts = listPosts(allPosts)
+  const newPostsCount = await updatePostsCount(allPosts)
+  log('updatePosts', { posts, newPostsCount })
+  return { posts, newPostsCount }
 }

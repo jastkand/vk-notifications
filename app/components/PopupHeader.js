@@ -3,6 +3,7 @@ import HeaderButton from './HeaderButton'
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faEraser } from '@fortawesome/free-solid-svg-icons/faEraser'
+import { ToggleSoundHeaderButton } from './ToggleSoundHeaderButton'
 import styles from './PopupHeader.css'
 
 export default (props) => {
@@ -33,6 +34,7 @@ export default (props) => {
           hidden={ !props.loggedIn }
           title="Прочитать всё"
         />
+        <ToggleSoundHeaderButton />
         <HeaderButton
           onClick={ handleSettingsClick }
           icon={ faCog }
