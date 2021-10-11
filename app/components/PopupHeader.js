@@ -6,17 +6,17 @@ import { faEraser } from '@fortawesome/free-solid-svg-icons/faEraser'
 import { ToggleSoundHeaderButton } from './ToggleSoundHeaderButton'
 import styles from './PopupHeader.css'
 
-export default (props) => {
+export default ({ loggedIn }) => {
   const handleClearClick = () => {
-    chrome.runtime.sendMessage({ action: "clean_up" })
+    chrome.runtime.sendMessage({ action: 'clean_up' })
   }
 
   const handleWatchPostsClick = () => {
-    chrome.runtime.sendMessage({ action: "watch_post", read: 'ALL' })
+    chrome.runtime.sendMessage({ action: 'watch_post', read: 'ALL' })
   }
 
   const handleSettingsClick = () => {
-    chrome.runtime.sendMessage({ action: "open_options_page" })
+    chrome.runtime.sendMessage({ action: 'open_options_page' })
   }
 
   return (
@@ -31,14 +31,14 @@ export default (props) => {
         <HeaderButton
           onClick={ handleWatchPostsClick }
           icon={ faCheck }
-          hidden={ !props.loggedIn }
-          title="Прочитать всё"
+          hidden={ !loggedIn }
+          title='Прочитать всё'
         />
         <ToggleSoundHeaderButton />
         <HeaderButton
           onClick={ handleSettingsClick }
           icon={ faCog }
-          title="Настройки"
+          title='Настройки'
         />
       </div>
     </header>
