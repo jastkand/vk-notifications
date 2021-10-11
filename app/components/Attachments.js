@@ -1,5 +1,5 @@
 import get from 'lodash/get'
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay'
 import styles from './Attachments.css'
@@ -48,74 +48,66 @@ const AttachmentPhoto = ({ photo }) => {
   )
 }
 
-class AttachmentDoc extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { hidden: false }
+const AttachmentDoc = ({ doc }) => {
+  const [hidden, setHidden] = useState(false)
+
+  const onError = () => {
+    setHidden(true)
   }
 
-  onError = () => {
-    this.setState({ hidden: true })
+  if (hidden) {
+    return null
   }
 
-  render() {
-    if (this.state.hidden) {
-      return null;
-    }
-
-    let video = get(this.props.doc, 'preview.video')
-
-    if (!video) {
-      return null
-    }
-
-    return (
-      <video
-        className={ styles['doc-preview'] }
-        width={ video.width }
-        height={ video.height }
-        autoPlay
-        loop
-        src={ video.src }
-        onError={ this.onError }
-      />
-    )
+  const video = get(doc, ['preview', 'video'])
+  if (!video) {
+    return null
   }
+
+  return (
+    <video
+      className={ styles['doc-preview'] }
+      width={ video.width }
+      height={ video.height }
+      autoPlay
+      loop
+      src={ video.src }
+      onError={ onError }
+    />
+  )
 }
 
-export default class Attachments extends React.Component {
-  render() {
-    if (!this.props.attachments) {
-      return null
-    }
-
-    let videos = []
-    let photos = []
-    let links = []
-    let docs = []
-
-    this.props.attachments.forEach((attachment, index) => {
-      if (attachment.type == "photo") {
-        photos.push(<AttachmentPhoto photo={ attachment.photo } key={ index } />)
-      }
-      if (attachment.type == "link") {
-        links.push(<AttachmentLink link={ attachment.link } key={ index } />)
-      }
-      if (attachment.type == "video") {
-        videos.push(<AttachmentVideo postLink={ this.props.postLink } video={ attachment.video } key={ index } />)
-      }
-      if (attachment.type == "doc") {
-        docs.push(<AttachmentDoc doc={ attachment.doc } key={ index } />)
-      }
-    })
-
-    return (
-      <div className={ styles.attachments }>
-        <div>{ videos }</div>
-        <div>{ docs }</div>
-        <div>{ photos }</div>
-        <div>{ links }</div>
-      </div>
-    )
+export const Attachments = ({ attachments, postLink }) => {
+  if (!attachments) {
+    return null
   }
+
+  let videos = []
+  let photos = []
+  let links = []
+  let docs = []
+
+  attachments.forEach((attachment, index) => {
+    if (attachment.type === 'photo') {
+      photos.push(<AttachmentPhoto photo={ attachment.photo } key={ index } />)
+    }
+    if (attachment.type === 'link') {
+      links.push(<AttachmentLink link={ attachment.link } key={ index } />)
+    }
+    if (attachment.type === 'video') {
+      videos.push(<AttachmentVideo postLink={ postLink } video={ attachment.video } key={ index } />)
+    }
+    if (attachment.type === 'doc') {
+      docs.push(<AttachmentDoc doc={ attachment.doc } key={ index } />)
+    }
+  })
+
+  return (
+    <div className={ styles.attachments }>
+      <div>{ videos }</div>
+      <div>{ docs }</div>
+      <div>{ photos }</div>
+      <div>{ links }</div>
+    </div>
+  )
 }

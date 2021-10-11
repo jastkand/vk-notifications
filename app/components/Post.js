@@ -2,7 +2,7 @@ import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import React from 'react'
 import { processText } from '../helpers/Text'
-import Attachments from './Attachments'
+import { Attachments } from './Attachments'
 import FormattedDate from './FormattedDate'
 import styles from './Post.css'
 
