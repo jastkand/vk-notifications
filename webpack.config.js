@@ -53,30 +53,6 @@ let config = {
         ]
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              digest: 'hex',
-              name: 'assets/[name].[ext]'
-            }
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              optipng: {
-                optimizationLevel: 7,
-              },
-              gifsicle: {
-                interlaced: false
-              },
-              bypassOnDebug: true,
-            }
-          }
-        ]
-      },
-      {
         test: /\.mp3$/,
         loader: 'file-loader',
         options: {
@@ -84,22 +60,6 @@ let config = {
           publicPath: 'app'
         }
       },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'application/font-woff',
-          name: 'assets/[name].[ext]'
-        }
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
-        options: {
-          name: 'assets/[name].[ext]'
-        }
-      }
     ]
   },
   resolve: {

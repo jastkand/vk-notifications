@@ -25,7 +25,6 @@
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "css-loader": "^6.3.0",
     "file-loader": "^6.2.0",
-    "image-webpack-loader": "^8.0.1",
     "jest": "^27.2.4",
     "mini-css-extract-plugin": "^2.3.0",
     "postcss": "^8.3.0",
