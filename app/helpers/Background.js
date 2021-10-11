@@ -52,14 +52,7 @@ async function updatePostsCount(posts) {
 }
 
 export function listPosts(posts) {
-  console.group('listPosts')
-  console.log('posts', posts)
-
-  const result = sortBy(flatten(map(posts, (post) => post.posts)), (post) => -post.date);
-  console.log('result', result)
-  console.groupEnd()
-
-  return result
+  return sortBy(flatten(map(posts, (post) => post.posts)), (post) => -post.date);
 }
 
 export async function updatePosts () {
