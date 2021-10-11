@@ -1,5 +1,5 @@
 import React from 'react'
-import Post from './Post'
+import { Post } from './Post'
 import styles from './Feed.css'
 
 export default class Feed extends React.Component {
