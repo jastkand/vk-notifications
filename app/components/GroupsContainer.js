@@ -1,27 +1,25 @@
 import React from 'react'
-import Group from './Group'
+import { Group } from './Group'
 import NewGroupForm from './NewGroupForm'
 
-export default class GroupsContainer extends React.Component {
-  render() {
-    let groups = []
-    const groupKeys = Object.keys(this.props.groups)
-    if (groupKeys.length > 0) {
-      groups.push(<h3>Список подписок</h3>)
-    }
-    groupKeys.forEach((key) => {
-      let groupParams = this.props.groups[key]
-      let group = <Group { ...groupParams }
-                         key={ groupParams['gid'] }
-                         unsubscribe={ this.props.unsubscribe } />
-      groups.push(group)
-    })
-
-    return (
-      <div>
-        <NewGroupForm subscribe={ this.props.subscribe } />
-        { groups }
-      </div>
-    )
+export const GroupsContainer = ({ groups, unsubscribe, subscribe }) => {
+  let groupsList = []
+  const groupKeys = Object.keys(groups)
+  if (groupKeys.length > 0) {
+    groupsList.push(<h3>Список подписок</h3>)
   }
+  groupKeys.forEach((key) => {
+    let groupParams = groups[key]
+    let group = <Group { ...groupParams }
+                       key={ groupParams['gid'] }
+                       unsubscribe={ unsubscribe } />
+    groupsList.push(group)
+  })
+
+  return (
+    <div>
+      <NewGroupForm subscribe={ subscribe } />
+      { groupsList }
+    </div>
+  )
 }

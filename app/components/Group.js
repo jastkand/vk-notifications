@@ -2,7 +2,7 @@ import React from 'react'
 import Button from './Button'
 import styles from './Group.css'
 
-export default (props) => {
+export const Group = (props) => {
   const groupId = props.gid
   const groupLink = `https://vk.com/${props.screen_name}`
 

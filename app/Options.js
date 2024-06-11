@@ -2,7 +2,7 @@ import './global'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import GroupsContainer from './components/GroupsContainer'
+import { GroupsContainer } from './components/GroupsContainer'
 import AuthPanel from './components/AuthPanel'
 import { OptionsHeader } from './components/OptionsHeader'
 import { getGroups, removeGroup, fetchGroupByUrl } from './storages/GroupStorage'
